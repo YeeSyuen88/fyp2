@@ -1,0 +1,20 @@
+{
+  "state": {
+    "rmse": 2087965.8260115616,
+    "mse": 4359601290592.142,
+    "mae": 408669.7306098946,
+    "mape_pct": 49.57886804375951,
+    "baseline_mae": 423163.3076274324,
+    "baseline_mape_pct": 50.74736854467537
+  },
+  "district": {
+    "rmse": 5802281.470755802,
+    "mse": 33666470265876.105,
+    "mae": 190506.8668545279,
+    "mape_pct": 19.524289271584955,
+    "baseline_mae": 133933.75646551547,
+    "baseline_mape_pct": 12.644443749023694
+  },
+  "dataset": "merged_high_quality_dataset",
+  "note": "Lower RMSE/MAE/MAPE = better. Model should beat baseline (last value)."
+}

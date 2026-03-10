@@ -1,0 +1,148 @@
+# Districts in Malaysia GeoJSON (website map)
+# Source: https://gist.githubusercontent.com/angch/4bbbaa72ba0a9c95bfda951ca82b748f/raw/malaysia.districts.geojson
+# Format: State|District (NAME_1|NAME_2 from GeoJSON)
+
+Johor|Batu Pahat
+Johor|Johor Baharu
+Johor|Keluang
+Johor|Kota Tinggi
+Johor|Kulaijaya
+Johor|Ledang
+Johor|Mersing
+Johor|Muar
+Johor|Pontian
+Johor|Segamat
+Kedah|Baling
+Kedah|Bandar Baharu
+Kedah|Kota Setar
+Kedah|Kuala Muda
+Kedah|Kubang Pasu
+Kedah|Kulim
+Kedah|Langkawi
+Kedah|Padang Terap
+Kedah|Pendang
+Kedah|Pokok Sena
+Kedah|Sik
+Kedah|Yan
+Kelantan|Bachok
+Kelantan|Gua Musang
+Kelantan|Jeli
+Kelantan|Kota Bharu
+Kelantan|Kuala Krai
+Kelantan|Machang
+Kelantan|Pasir Mas
+Kelantan|Pasir Putih
+Kelantan|Tanah Merah
+Kelantan|Tumpat
+Kuala Lumpur|Kuala Lumpur
+Labuan|Labuan
+Melaka|Alor Gajah
+Melaka|Jasin
+Melaka|Melaka Tengah
+Negeri Sembilan|Jelebu
+Negeri Sembilan|Jempol
+Negeri Sembilan|Kuala Pilah
+Negeri Sembilan|Port Dickson
+Negeri Sembilan|Rembau
+Negeri Sembilan|Seremban
+Negeri Sembilan|Tampin
+Pahang|Bentong
+Pahang|Bera
+Pahang|Cameron Highlands
+Pahang|Jerantut
+Pahang|Kuantan
+Pahang|Lipis
+Pahang|Maran
+Pahang|Pekan
+Pahang|Raub
+Pahang|Rompin
+Pahang|Temerloh
+Perak|Batang Padang
+Perak|Hilir Perak
+Perak|Hulu Perak
+Perak|Kampar
+Perak|Kerian
+Perak|Kinta
+Perak|Kuala Kangsar
+Perak|Larut and Matang
+Perak|Manjung
+Perak|Perak Tengah
+Perlis|Perlis
+Pulau Pinang|Barat Daya
+Pulau Pinang|Seberang Perai Selatan
+Pulau Pinang|Seberang Perai Tengah
+Pulau Pinang|Seberang Perai Utara
+Pulau Pinang|Timur Laut
+Putrajaya|Putrajaya
+Sabah|Beaufort
+Sabah|Beluran
+Sabah|Keningau
+Sabah|Kinabatangan
+Sabah|Kota Belud
+Sabah|Kota Kinabalu
+Sabah|Kota Marudu
+Sabah|Kuala Penyu
+Sabah|Kudat
+Sabah|Kunak
+Sabah|Lahad Datu
+Sabah|Nabawan
+Sabah|Papar
+Sabah|Penampang
+Sabah|Pitas
+Sabah|Putatan
+Sabah|Ranau
+Sabah|Sandakan
+Sabah|Semporna
+Sabah|Sipitang
+Sabah|Tambunan
+Sabah|Tawau
+Sabah|Tenom
+Sabah|Tongod
+Sabah|Tuaran
+Sarawak|Asajaya
+Sarawak|Bau
+Sarawak|Belaga
+Sarawak|Betong
+Sarawak|Bintulu
+Sarawak|Dalat
+Sarawak|Daro
+Sarawak|Julau
+Sarawak|Kanowit
+Sarawak|Kapit
+Sarawak|Kuching
+Sarawak|Lawas
+Sarawak|Limbang
+Sarawak|Lubok Antu
+Sarawak|Lundu
+Sarawak|Marudi
+Sarawak|Matu
+Sarawak|Meradong
+Sarawak|Miri
+Sarawak|Mukah
+Sarawak|Pakan
+Sarawak|Samarahan
+Sarawak|Saratok
+Sarawak|Sarikei
+Sarawak|Selangau
+Sarawak|Serian
+Sarawak|Sibu
+Sarawak|Simunjan
+Sarawak|Song
+Sarawak|Sri Aman
+Sarawak|Tatau
+Selangor|Gombak
+Selangor|Hulu Langat
+Selangor|Hulu Selangor
+Selangor|Klang
+Selangor|Kuala Langat
+Selangor|Kuala Selangor
+Selangor|Petaling
+Selangor|Sabak Bernam
+Selangor|Sepang
+Trengganu|Besut
+Trengganu|Dungun
+Trengganu|Hulu Terengganu
+Trengganu|Kemaman
+Trengganu|Kuala Terengganu
+Trengganu|Marang
+Trengganu|Setiu

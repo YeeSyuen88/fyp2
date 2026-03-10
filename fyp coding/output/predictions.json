@@ -1,0 +1,3549 @@
+{
+  "state": {
+    "Johor": {
+      "current_price": 598705.5578516554,
+      "predicted_price_1month": 585039.491265985,
+      "flood_risk": null
+    },
+    "Kedah": {
+      "current_price": 414855.53983885737,
+      "predicted_price_1month": 424673.62988607347,
+      "flood_risk": null
+    },
+    "Kelantan": {
+      "current_price": 443518.09523809527,
+      "predicted_price_1month": 464021.27022511396,
+      "flood_risk": null
+    },
+    "Kuala Lumpur": {
+      "current_price": 959491.3396120303,
+      "predicted_price_1month": 1176684.4447743562,
+      "flood_risk": null
+    },
+    "Labuan": {
+      "current_price": 732500.0,
+      "predicted_price_1month": 724240.9919180276,
+      "flood_risk": null
+    },
+    "Melaka": {
+      "current_price": 426058.43905318214,
+      "predicted_price_1month": 434236.6371694831,
+      "flood_risk": null
+    },
+    "Negeri Sembilan": {
+      "current_price": 976726.1024863373,
+      "predicted_price_1month": 1026985.6785126902,
+      "flood_risk": null
+    },
+    "Pahang": {
+      "current_price": 357816.880268854,
+      "predicted_price_1month": 350108.51815636747,
+      "flood_risk": null
+    },
+    "Penang": {
+      "current_price": 678217.9777173667,
+      "predicted_price_1month": 676152.5611530961,
+      "flood_risk": null
+    },
+    "Perak": {
+      "current_price": 379851.63287201326,
+      "predicted_price_1month": 413223.19165116694,
+      "flood_risk": null
+    },
+    "Perlis": {
+      "current_price": 342991.6666666667,
+      "predicted_price_1month": 347842.19278182305,
+      "flood_risk": null
+    },
+    "Putrajaya": {
+      "current_price": 1064248.0158730159,
+      "predicted_price_1month": 1098117.4384144973,
+      "flood_risk": null
+    },
+    "Sabah": {
+      "current_price": 856609.726952486,
+      "predicted_price_1month": 847680.5841497508,
+      "flood_risk": null
+    },
+    "Sarawak": {
+      "current_price": 990475.9565727699,
+      "predicted_price_1month": 989429.3454070386,
+      "flood_risk": null
+    },
+    "Selangor": {
+      "current_price": 676254.2050322361,
+      "predicted_price_1month": 678577.4888326303,
+      "flood_risk": null
+    },
+    "Terengganu": {
+      "current_price": 462091.4784798535,
+      "predicted_price_1month": 487696.0372112073,
+      "flood_risk": null
+    }
+  },
+  "district": {
+    "Johor|Ayer Hitam": {
+      "current_price": 437745.71428571426,
+      "predicted_price_1month": 404744.99484540406,
+      "flood_risk": null
+    },
+    "Johor|Bakri": {
+      "current_price": 720000.0,
+      "predicted_price_1month": 720213.5398445409,
+      "flood_risk": null
+    },
+    "Johor|Bandar Penggaram": {
+      "current_price": 468000.0,
+      "predicted_price_1month": 468215.3550906896,
+      "flood_risk": null
+    },
+    "Johor|Batu Anam": {
+      "current_price": 210000.0,
+      "predicted_price_1month": 210217.21355698537,
+      "flood_risk": null
+    },
+    "Johor|Batu Pahat": {
+      "current_price": 339457.85714285716,
+      "predicted_price_1month": 323834.8364986845,
+      "flood_risk": null
+    },
+    "Johor|Bukit Kangkar": {
+      "current_price": 560000.0,
+      "predicted_price_1month": 560214.6923817783,
+      "flood_risk": null
+    },
+    "Johor|Bukit Pasir": {
+      "current_price": 498000.0,
+      "predicted_price_1month": 498215.138989958,
+      "flood_risk": null
+    },
+    "Johor|Buloh Kasap": {
+      "current_price": 209714.2857142857,
+      "predicted_price_1month": 241722.56157186674,
+      "flood_risk": null
+    },
+    "Johor|Chaah": {
+      "current_price": 380000.0,
+      "predicted_price_1month": 380215.98898617015,
+      "flood_risk": null
+    },
+    "Johor|Endau": {
+      "current_price": 227102.0,
+      "predicted_price_1month": 227319.0903651612,
+      "flood_risk": null
+    },
+    "Johor|Gelang Patah": {
+      "current_price": 512454.08163265313,
+      "predicted_price_1month": 506562.94500157307,
+      "flood_risk": null
+    },
+    "Johor|Gerisek": {
+      "current_price": 997000.0,
+      "predicted_price_1month": 997211.5445144486,
+      "flood_risk": null
+    },
+    "Johor|Grisek": {
+      "current_price": 530000.0,
+      "predicted_price_1month": 530214.9084825101,
+      "flood_risk": null
+    },
+    "Johor|Horizon Hills": {
+      "current_price": 1209142.857142857,
+      "predicted_price_1month": 1214574.0346922122,
+      "flood_risk": null
+    },
+    "Johor|Iskandar Puteri": {
+      "current_price": 1818171.7687074828,
+      "predicted_price_1month": 1389566.5775279333,
+      "flood_risk": null
+    },
+    "Johor|Iskandar Puteri (Nusajaya)": {
+      "current_price": 1220762.9787234042,
+      "predicted_price_1month": 1220972.9113930694,
+      "flood_risk": null
+    },
+    "Johor|Iskandar Puteri Nusajaya": {
+      "current_price": 680000.0,
+      "predicted_price_1month": 680213.8279788501,
+      "flood_risk": null
+    },
+    "Johor|Jeram Batu": {
+      "current_price": 638000.0,
+      "predicted_price_1month": 638214.1305198749,
+      "flood_risk": null
+    },
+    "Johor|Johor Bahru": {
+      "current_price": 767045.9041789912,
+      "predicted_price_1month": 681375.4699839789,
+      "flood_risk": null
+    },
+    "Johor|Kesang": {
+      "current_price": 515000.0,
+      "predicted_price_1month": 515215.01653287606,
+      "flood_risk": null
+    },
+    "Johor|Kluang": {
+      "current_price": 355278.021978022,
+      "predicted_price_1month": 320344.7690674092,
+      "flood_risk": null
+    },
+    "Johor|Kota Tinggi": {
+      "current_price": 345326.53061224485,
+      "predicted_price_1month": 359785.9837474318,
+      "flood_risk": null
+    },
+    "Johor|Kukup": {
+      "current_price": 3200000.0,
+      "predicted_price_1month": 3200195.6755173607,
+      "flood_risk": null
+    },
+    "Johor|Kulai": {
+      "current_price": 490316.4835164835,
+      "predicted_price_1month": 404757.7001822428,
+      "flood_risk": null
+    },
+    "Johor|Labis": {
+      "current_price": 228857.14285714287,
+      "predicted_price_1month": 192391.69529164862,
+      "flood_risk": null
+    },
+    "Johor|Layang Layang": {
+      "current_price": 80000.0,
+      "predicted_price_1month": 80218.14999349043,
+      "flood_risk": null
+    },
+    "Johor|Masai": {
+      "current_price": 404640.0896358543,
+      "predicted_price_1month": 409134.26483585546,
+      "flood_risk": null
+    },
+    "Johor|Medini": {
+      "current_price": 275000.0,
+      "predicted_price_1month": 275216.74533873214,
+      "flood_risk": null
+    },
+    "Johor|Mersing": {
+      "current_price": 244285.7142857143,
+      "predicted_price_1month": 253978.18295879313,
+      "flood_risk": null
+    },
+    "Johor|Muar": {
+      "current_price": 392571.4285714286,
+      "predicted_price_1month": 450328.35065836273,
+      "flood_risk": null
+    },
+    "Johor|Others": {
+      "current_price": 502571.4285714286,
+      "predicted_price_1month": 438313.12898992025,
+      "flood_risk": null
+    },
+    "Johor|Pagoh": {
+      "current_price": 300000.0,
+      "predicted_price_1month": 300216.56525478885,
+      "flood_risk": null
+    },
+    "Johor|Pantai Timur": {
+      "current_price": 648000.0,
+      "predicted_price_1month": 648214.0584862975,
+      "flood_risk": null
+    },
+    "Johor|Parit Jawa": {
+      "current_price": 410121.4285714286,
+      "predicted_price_1month": 467474.22094882745,
+      "flood_risk": null
+    },
+    "Johor|Parit Raja": {
+      "current_price": 333857.14285714284,
+      "predicted_price_1month": 334555.0566381966,
+      "flood_risk": null
+    },
+    "Johor|Parit Sulong": {
+      "current_price": 500000.0,
+      "predicted_price_1month": 500215.1245832422,
+      "flood_risk": null
+    },
+    "Johor|Pasir Gudang": {
+      "current_price": 427911.0874046589,
+      "predicted_price_1month": 379759.16444410896,
+      "flood_risk": null
+    },
+    "Johor|Pekan Nanas": {
+      "current_price": 268000.0,
+      "predicted_price_1month": 268216.79576223646,
+      "flood_risk": null
+    },
+    "Johor|Pekan Nenas": {
+      "current_price": 875000.0,
+      "predicted_price_1month": 875212.4233240921,
+      "flood_risk": null
+    },
+    "Johor|Pengerang": {
+      "current_price": 532261.9047619047,
+      "predicted_price_1month": 421368.55475990917,
+      "flood_risk": null
+    },
+    "Johor|Perling": {
+      "current_price": 945333.3333333334,
+      "predicted_price_1month": 1180195.3989133514,
+      "flood_risk": null
+    },
+    "Johor|Permas Jaya": {
+      "current_price": 567887.7551020408,
+      "predicted_price_1month": 709291.4854929699,
+      "flood_risk": null
+    },
+    "Johor|Plentong": {
+      "current_price": 864285.7142857143,
+      "predicted_price_1month": 1348847.5950268842,
+      "flood_risk": null
+    },
+    "Johor|Pogoh": {
+      "current_price": 1380000.0,
+      "predicted_price_1month": 1380208.7856284364,
+      "flood_risk": null
+    },
+    "Johor|Pontian": {
+      "current_price": 549571.4285714285,
+      "predicted_price_1month": 556963.2118911026,
+      "flood_risk": null
+    },
+    "Johor|Pulai": {
+      "current_price": 457000.0,
+      "predicted_price_1month": 457215.43432762474,
+      "flood_risk": null
+    },
+    "Johor|Puteri Harbour": {
+      "current_price": 526428.5714285715,
+      "predicted_price_1month": 656931.6593522907,
+      "flood_risk": null
+    },
+    "Johor|Renggam": {
+      "current_price": 394000.0,
+      "predicted_price_1month": 394215.888139162,
+      "flood_risk": null
+    },
+    "Johor|Sedenak": {
+      "current_price": 450000.0,
+      "predicted_price_1month": 450215.4847511286,
+      "flood_risk": null
+    },
+    "Johor|Segamat": {
+      "current_price": 462261.9047619048,
+      "predicted_price_1month": 407465.5215766609,
+      "flood_risk": null
+    },
+    "Johor|Senai": {
+      "current_price": 453315.7509157509,
+      "predicted_price_1month": 405568.05091335764,
+      "flood_risk": null
+    },
+    "Johor|Senggarang": {
+      "current_price": 424000.0,
+      "predicted_price_1month": 424215.6720384301,
+      "flood_risk": null
+    },
+    "Johor|Senibong": {
+      "current_price": 2300000.0,
+      "predicted_price_1month": 2300202.1585393213,
+      "flood_risk": null
+    },
+    "Johor|Serom": {
+      "current_price": 350000.0,
+      "predicted_price_1month": 350216.2050869025,
+      "flood_risk": null
+    },
+    "Johor|Setia Indah": {
+      "current_price": 707428.5714285715,
+      "predicted_price_1month": 694883.0625990934,
+      "flood_risk": null
+    },
+    "Johor|Setia Tropika": {
+      "current_price": 684285.7142857143,
+      "predicted_price_1month": 766942.2845276208,
+      "flood_risk": null
+    },
+    "Johor|Simpang Rengam": {
+      "current_price": 369000.0,
+      "predicted_price_1month": 369216.0682231055,
+      "flood_risk": null
+    },
+    "Johor|Simpang Renggam": {
+      "current_price": 363333.3333333333,
+      "predicted_price_1month": 422930.224352591,
+      "flood_risk": null
+    },
+    "Johor|Skudai": {
+      "current_price": 579594.1718243442,
+      "predicted_price_1month": 660111.6756636016,
+      "flood_risk": null
+    },
+    "Johor|Sri Gading": {
+      "current_price": 498000.0,
+      "predicted_price_1month": 498215.138989958,
+      "flood_risk": null
+    },
+    "Johor|Sungai Mati": {
+      "current_price": 448000.0,
+      "predicted_price_1month": 448215.49915784434,
+      "flood_risk": null
+    },
+    "Johor|Tampoi": {
+      "current_price": 305404.76190476184,
+      "predicted_price_1month": 303524.00545320683,
+      "flood_risk": null
+    },
+    "Johor|Tangkak": {
+      "current_price": 298261.9047619048,
+      "predicted_price_1month": 262968.77647633175,
+      "flood_risk": null
+    },
+    "Johor|Tebrau": {
+      "current_price": 476095.23809523805,
+      "predicted_price_1month": 365912.6337107008,
+      "flood_risk": null
+    },
+    "Johor|Ulu Tiram": {
+      "current_price": 518828.5634920635,
+      "predicted_price_1month": 531118.5389317479,
+      "flood_risk": null
+    },
+    "Johor|Yong Peng": {
+      "current_price": 310000.0,
+      "predicted_price_1month": 310216.4932212117,
+      "flood_risk": null
+    },
+    "Kedah|Ah": {
+      "current_price": 160000.0,
+      "predicted_price_1month": 160217.57372487197,
+      "flood_risk": null
+    },
+    "Kedah|Alor Setar": {
+      "current_price": 495663.6585034014,
+      "predicted_price_1month": 444078.544046449,
+      "flood_risk": null
+    },
+    "Kedah|Anak Bukit": {
+      "current_price": 270000.0,
+      "predicted_price_1month": 270216.7813555212,
+      "flood_risk": null
+    },
+    "Kedah|Baling": {
+      "current_price": 325773.71428571426,
+      "predicted_price_1month": 362185.30767791066,
+      "flood_risk": null
+    },
+    "Kedah|Bandar Baharu": {
+      "current_price": 421892.85714285716,
+      "predicted_price_1month": 444119.34608587413,
+      "flood_risk": null
+    },
+    "Kedah|Bandar Darulaman": {
+      "current_price": 677000.0,
+      "predicted_price_1month": 677213.8495889234,
+      "flood_risk": null
+    },
+    "Kedah|Bedong": {
+      "current_price": 273238.0952380952,
+      "predicted_price_1month": 319323.553068473,
+      "flood_risk": null
+    },
+    "Kedah|Bukit Kayu Hitam": {
+      "current_price": 565000.0,
+      "predicted_price_1month": 565214.6563649895,
+      "flood_risk": null
+    },
+    "Kedah|Bukit Pinang": {
+      "current_price": 369000.0,
+      "predicted_price_1month": 369216.0682231055,
+      "flood_risk": null
+    },
+    "Kedah|Changlun": {
+      "current_price": 295714.2857142857,
+      "predicted_price_1month": 308778.626204669,
+      "flood_risk": null
+    },
+    "Kedah|Chenang": {
+      "current_price": 3000000.0,
+      "predicted_price_1month": 3000197.1161889075,
+      "flood_risk": null
+    },
+    "Kedah|Guar Chempedak": {
+      "current_price": 270000.0,
+      "predicted_price_1month": 270216.7813555212,
+      "flood_risk": null
+    },
+    "Kedah|Gurun": {
+      "current_price": 282285.71428571426,
+      "predicted_price_1month": 264528.53371482086,
+      "flood_risk": null
+    },
+    "Kedah|Jeniang": {
+      "current_price": 311226.0,
+      "predicted_price_1month": 311442.4843898951,
+      "flood_risk": null
+    },
+    "Kedah|Jitra": {
+      "current_price": 419683.28571428574,
+      "predicted_price_1month": 393019.0869332934,
+      "flood_risk": null
+    },
+    "Kedah|Karangan": {
+      "current_price": 297834.28571428574,
+      "predicted_price_1month": 342117.21544818394,
+      "flood_risk": null
+    },
+    "Kedah|Kedawang": {
+      "current_price": 495000.0,
+      "predicted_price_1month": 495215.1606000308,
+      "flood_risk": null
+    },
+    "Kedah|Kepala Batas": {
+      "current_price": 289285.71428571426,
+      "predicted_price_1month": 315559.98746232246,
+      "flood_risk": null
+    },
+    "Kedah|Kota Sarang Semut": {
+      "current_price": 257242.85714285713,
+      "predicted_price_1month": 261806.8833483162,
+      "flood_risk": null
+    },
+    "Kedah|Kuah": {
+      "current_price": 487200.0,
+      "predicted_price_1month": 487415.21678622137,
+      "flood_risk": null
+    },
+    "Kedah|Kuala Kedah": {
+      "current_price": 346971.4285714286,
+      "predicted_price_1month": 319505.3307207648,
+      "flood_risk": null
+    },
+    "Kedah|Kuala Ketil": {
+      "current_price": 242142.85714285713,
+      "predicted_price_1month": 291030.0435509244,
+      "flood_risk": null
+    },
+    "Kedah|Kuala Muda": {
+      "current_price": 170714.2857142857,
+      "predicted_price_1month": 273846.263275553,
+      "flood_risk": null
+    },
+    "Kedah|Kubang Pasu": {
+      "current_price": 275000.0,
+      "predicted_price_1month": 275216.74533873214,
+      "flood_risk": null
+    },
+    "Kedah|Kubang Rotan": {
+      "current_price": 333100.0,
+      "predicted_price_1month": 333316.32682364807,
+      "flood_risk": null
+    },
+    "Kedah|Kulim": {
+      "current_price": 550305.9365079365,
+      "predicted_price_1month": 577433.395037889,
+      "flood_risk": null
+    },
+    "Kedah|Kupang": {
+      "current_price": 206800.0,
+      "predicted_price_1month": 207017.2366077297,
+      "flood_risk": null
+    },
+    "Kedah|Langgar": {
+      "current_price": 415990.0,
+      "predicted_price_1month": 416205.7297373256,
+      "flood_risk": null
+    },
+    "Kedah|Langkawi": {
+      "current_price": 574000.0,
+      "predicted_price_1month": 475316.86179317813,
+      "flood_risk": null
+    },
+    "Kedah|Lunas": {
+      "current_price": 436026.4897959184,
+      "predicted_price_1month": 419321.62761514704,
+      "flood_risk": null
+    },
+    "Kedah|Merbok": {
+      "current_price": 236685.7142857143,
+      "predicted_price_1month": 235272.0434067063,
+      "flood_risk": null
+    },
+    "Kedah|Napoh": {
+      "current_price": 308000.0,
+      "predicted_price_1month": 308216.507627927,
+      "flood_risk": null
+    },
+    "Kedah|Others": {
+      "current_price": 600000.0,
+      "predicted_price_1month": 600214.4042474688,
+      "flood_risk": null
+    },
+    "Kedah|Padang Matsirat": {
+      "current_price": 2800000.0,
+      "predicted_price_1month": 2800198.5568604544,
+      "flood_risk": null
+    },
+    "Kedah|Padang Meha": {
+      "current_price": 230000.0,
+      "predicted_price_1month": 230217.06948983017,
+      "flood_risk": null
+    },
+    "Kedah|Padang Serai": {
+      "current_price": 410546.7346938775,
+      "predicted_price_1month": 753312.1371378319,
+      "flood_risk": null
+    },
+    "Kedah|Pendang": {
+      "current_price": 405293.0,
+      "predicted_price_1month": 381097.2538918054,
+      "flood_risk": null
+    },
+    "Kedah|Pinang Tunggal": {
+      "current_price": 398000.0,
+      "predicted_price_1month": 398215.8593257312,
+      "flood_risk": null
+    },
+    "Kedah|Pokok Sena": {
+      "current_price": 205000.0,
+      "predicted_price_1month": 205841.5360329654,
+      "flood_risk": null
+    },
+    "Kedah|Semeling": {
+      "current_price": 227714.2857142857,
+      "predicted_price_1month": 232716.04888037732,
+      "flood_risk": null
+    },
+    "Kedah|Serdang": {
+      "current_price": 471142.85714285716,
+      "predicted_price_1month": 444774.14206874976,
+      "flood_risk": null
+    },
+    "Kedah|Sik": {
+      "current_price": 355367.14285714284,
+      "predicted_price_1month": 366576.47095543914,
+      "flood_risk": null
+    },
+    "Kedah|Simpang Empat": {
+      "current_price": 200000.0,
+      "predicted_price_1month": 200217.2855905625,
+      "flood_risk": null
+    },
+    "Kedah|Sungai Baharu": {
+      "current_price": 341725.0,
+      "predicted_price_1month": 341941.26469468744,
+      "flood_risk": null
+    },
+    "Kedah|Sungai Lalang": {
+      "current_price": 265742.85714285716,
+      "predicted_price_1month": 381972.96649281704,
+      "flood_risk": null
+    },
+    "Kedah|Sungai Petani": {
+      "current_price": 392585.14367619954,
+      "predicted_price_1month": 418637.38573460537,
+      "flood_risk": null
+    },
+    "Kedah|Teloi Kiri": {
+      "current_price": 350000.0,
+      "predicted_price_1month": 350216.2050869025,
+      "flood_risk": null
+    },
+    "Kedah|Temin": {
+      "current_price": 333000.0,
+      "predicted_price_1month": 333216.3275439837,
+      "flood_risk": null
+    },
+    "Kedah|Tikam Batu": {
+      "current_price": 210000.0,
+      "predicted_price_1month": 219429.5072540003,
+      "flood_risk": null
+    },
+    "Kedah|Tunjang": {
+      "current_price": 220000.0,
+      "predicted_price_1month": 220217.14152340754,
+      "flood_risk": null
+    },
+    "Kedah|Yan": {
+      "current_price": 270000.0,
+      "predicted_price_1month": 270216.7813555212,
+      "flood_risk": null
+    },
+    "Kelantan|Bachok": {
+      "current_price": 180000.0,
+      "predicted_price_1month": 180217.42965771724,
+      "flood_risk": null
+    },
+    "Kelantan|Bendang Nior": {
+      "current_price": 550000.0,
+      "predicted_price_1month": 550214.7644153554,
+      "flood_risk": null
+    },
+    "Kelantan|Cherang Hangus": {
+      "current_price": 1900000.0,
+      "predicted_price_1month": 1900205.0398824147,
+      "flood_risk": null
+    },
+    "Kelantan|Cherang Ruku": {
+      "current_price": 190000.0,
+      "predicted_price_1month": 190217.35762413964,
+      "flood_risk": null
+    },
+    "Kelantan|Duson Rendah": {
+      "current_price": 3500000.0,
+      "predicted_price_1month": 3500193.5145100406,
+      "flood_risk": null
+    },
+    "Kelantan|Gua Musang": {
+      "current_price": 255000.0,
+      "predicted_price_1month": 255216.8894058871,
+      "flood_risk": null
+    },
+    "Kelantan|Jeli": {
+      "current_price": 485000.0,
+      "predicted_price_1month": 485215.2326336084,
+      "flood_risk": null
+    },
+    "Kelantan|Kenali": {
+      "current_price": 340000.0,
+      "predicted_price_1month": 340216.2771204796,
+      "flood_risk": null
+    },
+    "Kelantan|Ketereh": {
+      "current_price": 337142.85714285716,
+      "predicted_price_1month": 347991.7708697885,
+      "flood_risk": null
+    },
+    "Kelantan|Kok Lanas": {
+      "current_price": 320000.0,
+      "predicted_price_1month": 320216.42118763435,
+      "flood_risk": null
+    },
+    "Kelantan|Kota Bharu": {
+      "current_price": 409571.4285714286,
+      "predicted_price_1month": 423354.19158619805,
+      "flood_risk": null
+    },
+    "Kelantan|Kuala Kerai": {
+      "current_price": 135000.0,
+      "predicted_price_1month": 135217.75380881503,
+      "flood_risk": null
+    },
+    "Kelantan|Kubang Kerian": {
+      "current_price": 702785.7142857143,
+      "predicted_price_1month": 746598.0361529784,
+      "flood_risk": null
+    },
+    "Kelantan|Machang": {
+      "current_price": 388142.85714285716,
+      "predicted_price_1month": 326423.79912498547,
+      "flood_risk": null
+    },
+    "Kelantan|Melor": {
+      "current_price": 220000.0,
+      "predicted_price_1month": 220217.14152340754,
+      "flood_risk": null
+    },
+    "Kelantan|Padang Enggang": {
+      "current_price": 300000.0,
+      "predicted_price_1month": 300216.56525478885,
+      "flood_risk": null
+    },
+    "Kelantan|Pasir Mas": {
+      "current_price": 381857.14285714284,
+      "predicted_price_1month": 315619.2683067119,
+      "flood_risk": null
+    },
+    "Kelantan|Pasir Pekan": {
+      "current_price": 903333.3333333333,
+      "predicted_price_1month": 903545.5525622896,
+      "flood_risk": null
+    },
+    "Kelantan|Pasir Puteh": {
+      "current_price": 176857.14285714287,
+      "predicted_price_1month": 247877.65242533083,
+      "flood_risk": null
+    },
+    "Kelantan|Pengkalan Chepa": {
+      "current_price": 70000.0,
+      "predicted_price_1month": 70218.22202706803,
+      "flood_risk": null
+    },
+    "Kelantan|Pulai Chondong": {
+      "current_price": 20000.0,
+      "predicted_price_1month": 20218.582194954623,
+      "flood_risk": null
+    },
+    "Kelantan|Rantau Panjang": {
+      "current_price": 150000.0,
+      "predicted_price_1month": 150217.6457584491,
+      "flood_risk": null
+    },
+    "Kelantan|Selising": {
+      "current_price": 350000.0,
+      "predicted_price_1month": 350216.2050869025,
+      "flood_risk": null
+    },
+    "Kelantan|Tanah Merah": {
+      "current_price": 160000.0,
+      "predicted_price_1month": 160217.57372487197,
+      "flood_risk": null
+    },
+    "Kelantan|Telok": {
+      "current_price": 230000.0,
+      "predicted_price_1month": 230217.06948983017,
+      "flood_risk": null
+    },
+    "Kelantan|Telong": {
+      "current_price": 360000.0,
+      "predicted_price_1month": 360216.13305332465,
+      "flood_risk": null
+    },
+    "Kelantan|Tendong": {
+      "current_price": 279000.0,
+      "predicted_price_1month": 279216.7165253018,
+      "flood_risk": null
+    },
+    "Kelantan|Tumpat": {
+      "current_price": 221428.57142857142,
+      "predicted_price_1month": 201401.72227923293,
+      "flood_risk": null
+    },
+    "Kelantan|Wakaf Baru": {
+      "current_price": 279000.0,
+      "predicted_price_1month": 279216.7165253018,
+      "flood_risk": null
+    },
+    "Kelantan|Wakaf Bharu": {
+      "current_price": 1200000.0,
+      "predicted_price_1month": 1200210.0822328285,
+      "flood_risk": null
+    },
+    "Kelantan|Wakaf Stan": {
+      "current_price": 328050.0,
+      "predicted_price_1month": 328266.3632006042,
+      "flood_risk": null
+    },
+    "Kuala Lumpur|Ampang": {
+      "current_price": 452378.5714285714,
+      "predicted_price_1month": 440855.0446045601,
+      "flood_risk": null
+    },
+    "Kuala Lumpur|Ampang Hilir": {
+      "current_price": 1796857.142857143,
+      "predicted_price_1month": 1733971.3405127253,
+      "flood_risk": null
+    },
+    "Kuala Lumpur|Bandar Damai Perdana": {
+      "current_price": 460000.0,
+      "predicted_price_1month": 460215.4127175517,
+      "flood_risk": null
+    },
+    "Kuala Lumpur|Bandar Menjalara": {
+      "current_price": 520000.0,
+      "predicted_price_1month": 520214.98051608773,
+      "flood_risk": null
+    },
+    "Kuala Lumpur|Bandar Tasik Selatan": {
+      "current_price": 434285.71428571426,
+      "predicted_price_1month": 525543.0869502085,
+      "flood_risk": null
+    },
+    "Kuala Lumpur|Bangsar": {
+      "current_price": 1456380.9523809522,
+      "predicted_price_1month": 901547.2756363179,
+      "flood_risk": null
+    },
+    "Kuala Lumpur|Bangsar South": {
+      "current_price": 552328.4285714285,
+      "predicted_price_1month": 629487.9446945682,
+      "flood_risk": null
+    },
+    "Kuala Lumpur|Batu": {
+      "current_price": 645714.2857142857,
+      "predicted_price_1month": 764216.213948309,
+      "flood_risk": null
+    },
+    "Kuala Lumpur|Batu Caves": {
+      "current_price": 527200.0,
+      "predicted_price_1month": 527414.9286519119,
+      "flood_risk": null
+    },
+    "Kuala Lumpur|Brickfields": {
+      "current_price": 760000.0,
+      "predicted_price_1month": 760213.2517102314,
+      "flood_risk": null
+    },
+    "Kuala Lumpur|Bukit Bintang": {
+      "current_price": 864285.7142857143,
+      "predicted_price_1month": 969781.5713259575,
+      "flood_risk": null
+    },
+    "Kuala Lumpur|Bukit Jalil": {
+      "current_price": 525930.5714285715,
+      "predicted_price_1month": 570047.122422412,
+      "flood_risk": null
+    },
+    "Kuala Lumpur|Bukit Kiara": {
+      "current_price": 3240000.0,
+      "predicted_price_1month": 3240195.387383051,
+      "flood_risk": null
+    },
+    "Kuala Lumpur|Bukit Tunku": {
+      "current_price": 1050000.0,
+      "predicted_price_1month": 1050211.1627364885,
+      "flood_risk": null
+    },
+    "Kuala Lumpur|Bukit Tunku (Kenny Hills)": {
+      "current_price": 20606000.0,
+      "predicted_price_1month": 20606070.293872647,
+      "flood_risk": null
+    },
+    "Kuala Lumpur|Cheras": {
+      "current_price": 578192.2529761905,
+      "predicted_price_1month": 676945.2756492018,
+      "flood_risk": null
+    },
+    "Kuala Lumpur|City Centre": {
+      "current_price": 956857.1428571428,
+      "predicted_price_1month": 1055448.8043628265,
+      "flood_risk": null
+    },
+    "Kuala Lumpur|Damansara Heights": {
+      "current_price": 5993619.047619047,
+      "predicted_price_1month": 6066539.414339685,
+      "flood_risk": null
+    },
+    "Kuala Lumpur|Desa Pandan": {
+      "current_price": 433928.5714285714,
+      "predicted_price_1month": 513127.5951988753,
+      "flood_risk": null
+    },
+    "Kuala Lumpur|Desa ParkCity": {
+      "current_price": 10792857.142857144,
+      "predicted_price_1month": 13460157.593987647,
+      "flood_risk": null
+    },
+    "Kuala Lumpur|Desa Parkcity": {
+      "current_price": 2100000.0,
+      "predicted_price_1month": 2100203.5992108677,
+      "flood_risk": null
+    },
+    "Kuala Lumpur|Desa Petaling": {
+      "current_price": 318673.46938775515,
+      "predicted_price_1month": 294637.1269285176,
+      "flood_risk": null
+    },
+    "Kuala Lumpur|Dutamas": {
+      "current_price": 873333.3333333333,
+      "predicted_price_1month": 873545.7686630217,
+      "flood_risk": null
+    },
+    "Kuala Lumpur|Gombak": {
+      "current_price": 438285.71428571426,
+      "predicted_price_1month": 710948.3801737519,
+      "flood_risk": null
+    },
+    "Kuala Lumpur|Hulu Kelang": {
+      "current_price": 750000.0,
+      "predicted_price_1month": 750213.3237438088,
+      "flood_risk": null
+    },
+    "Kuala Lumpur|Jalan Ipoh": {
+      "current_price": 702517.8571428572,
+      "predicted_price_1month": 836640.2396460266,
+      "flood_risk": null
+    },
+    "Kuala Lumpur|Jalan Klang Lama (Old Klang Road)": {
+      "current_price": 1125600.0,
+      "predicted_price_1month": 1125810.6181626439,
+      "flood_risk": null
+    },
+    "Kuala Lumpur|Jalan Klang Lama Old Klang Road": {
+      "current_price": 940000.0,
+      "predicted_price_1month": 940211.9551058391,
+      "flood_risk": null
+    },
+    "Kuala Lumpur|Jalan Kuching": {
+      "current_price": 465523.8095238095,
+      "predicted_price_1month": 506832.5509783132,
+      "flood_risk": null
+    },
+    "Kuala Lumpur|Jalan Sultan Ismail": {
+      "current_price": 365000.0,
+      "predicted_price_1month": 365216.0970365363,
+      "flood_risk": null
+    },
+    "Kuala Lumpur|Jinjang": {
+      "current_price": 220571.42857142858,
+      "predicted_price_1month": 238199.4747202734,
+      "flood_risk": null
+    },
+    "Kuala Lumpur|KL City": {
+      "current_price": 799190.4761904763,
+      "predicted_price_1month": 782916.2072563092,
+      "flood_risk": null
+    },
+    "Kuala Lumpur|KL City Centre": {
+      "current_price": 86248600.67469881,
+      "predicted_price_1month": 86248198.12143618,
+      "flood_risk": null
+    },
+    "Kuala Lumpur|KL Eco City": {
+      "current_price": 790000.0,
+      "predicted_price_1month": 790213.0356094993,
+      "flood_risk": null
+    },
+    "Kuala Lumpur|KL Sentral": {
+      "current_price": 1073571.4285714286,
+      "predicted_price_1month": 1507286.6420568926,
+      "flood_risk": null
+    },
+    "Kuala Lumpur|KLCC": {
+      "current_price": 1098095.238095238,
+      "predicted_price_1month": 1140263.3588646485,
+      "flood_risk": null
+    },
+    "Kuala Lumpur|Kampung Baru": {
+      "current_price": 5564685.714285715,
+      "predicted_price_1month": 5624454.735926068,
+      "flood_risk": null
+    },
+    "Kuala Lumpur|Kampung Kerinchi (Bangsar South)": {
+      "current_price": 755850.0,
+      "predicted_price_1month": 756063.2816041659,
+      "flood_risk": null
+    },
+    "Kuala Lumpur|Kepong": {
+      "current_price": 591308.5142857142,
+      "predicted_price_1month": 1172054.1136142504,
+      "flood_risk": null
+    },
+    "Kuala Lumpur|Keramat": {
+      "current_price": 616532.4675324677,
+      "predicted_price_1month": 649195.7905596874,
+      "flood_risk": null
+    },
+    "Kuala Lumpur|Kl Sentral": {
+      "current_price": 956666.6666666667,
+      "predicted_price_1month": 956878.5017165439,
+      "flood_risk": null
+    },
+    "Kuala Lumpur|Kuala Lumpur": {
+      "current_price": 10366666.666666666,
+      "predicted_price_1month": 10366810.718120266,
+      "flood_risk": null
+    },
+    "Kuala Lumpur|Kuchai Lama": {
+      "current_price": 675290.4285714285,
+      "predicted_price_1month": 776097.1052391364,
+      "flood_risk": null
+    },
+    "Kuala Lumpur|Mid Valley City": {
+      "current_price": 630000.0,
+      "predicted_price_1month": 630214.1881467369,
+      "flood_risk": null
+    },
+    "Kuala Lumpur|Mont Kiara": {
+      "current_price": 2364392.8571428573,
+      "predicted_price_1month": 1899772.4927234882,
+      "flood_risk": null
+    },
+    "Kuala Lumpur|OUG": {
+      "current_price": 339714.28571428574,
+      "predicted_price_1month": 341390.97388351825,
+      "flood_risk": null
+    },
+    "Kuala Lumpur|Old Klang Road": {
+      "current_price": 388321.4285714286,
+      "predicted_price_1month": 400964.36618234776,
+      "flood_risk": null
+    },
+    "Kuala Lumpur|Others": {
+      "current_price": 850000.0,
+      "predicted_price_1month": 850212.6034080354,
+      "flood_risk": null
+    },
+    "Kuala Lumpur|Pandan Indah": {
+      "current_price": 407540.81632653065,
+      "predicted_price_1month": 345122.7828645501,
+      "flood_risk": null
+    },
+    "Kuala Lumpur|Pandan Jaya": {
+      "current_price": 305714.28571428574,
+      "predicted_price_1month": 414915.1240676872,
+      "flood_risk": null
+    },
+    "Kuala Lumpur|Pandan Perdana": {
+      "current_price": 340000.0,
+      "predicted_price_1month": 340216.2771204796,
+      "flood_risk": null
+    },
+    "Kuala Lumpur|Pantai": {
+      "current_price": 1783333.3333333335,
+      "predicted_price_1month": 1783539.2136074835,
+      "flood_risk": null
+    },
+    "Kuala Lumpur|Puchong": {
+      "current_price": 375500.0,
+      "predicted_price_1month": 375716.0214012801,
+      "flood_risk": null
+    },
+    "Kuala Lumpur|Pudu": {
+      "current_price": 545714.2857142857,
+      "predicted_price_1month": 495919.48664594814,
+      "flood_risk": null
+    },
+    "Kuala Lumpur|Salak Selatan": {
+      "current_price": 356933.3333333334,
+      "predicted_price_1month": 357149.48847695533,
+      "flood_risk": null
+    },
+    "Kuala Lumpur|Salak South": {
+      "current_price": 1333333.3333333333,
+      "predicted_price_1month": 1333542.4551184638,
+      "flood_risk": null
+    },
+    "Kuala Lumpur|Segambut": {
+      "current_price": 595357.0952380953,
+      "predicted_price_1month": 528714.9290625914,
+      "flood_risk": null
+    },
+    "Kuala Lumpur|Sentul": {
+      "current_price": 411557.14285714284,
+      "predicted_price_1month": 339660.11591736856,
+      "flood_risk": null
+    },
+    "Kuala Lumpur|Seputeh": {
+      "current_price": 598285.7142857143,
+      "predicted_price_1month": 751737.2725693171,
+      "flood_risk": null
+    },
+    "Kuala Lumpur|Setapak": {
+      "current_price": 480200.00000000006,
+      "predicted_price_1month": 339760.9350781967,
+      "flood_risk": null
+    },
+    "Kuala Lumpur|Setiawangsa": {
+      "current_price": 775892.8571428572,
+      "predicted_price_1month": 676087.9663606372,
+      "flood_risk": null
+    },
+    "Kuala Lumpur|Solaris Dutamas": {
+      "current_price": 481618.9047619048,
+      "predicted_price_1month": 541670.0711119317,
+      "flood_risk": null
+    },
+    "Kuala Lumpur|Sri Damansara": {
+      "current_price": 335000.0,
+      "predicted_price_1month": 335216.3131372684,
+      "flood_risk": null
+    },
+    "Kuala Lumpur|Sri Hartamas": {
+      "current_price": 2650035.714285714,
+      "predicted_price_1month": 1597381.5880703917,
+      "flood_risk": null
+    },
+    "Kuala Lumpur|Sri Petaling": {
+      "current_price": 376428.5714285714,
+      "predicted_price_1month": 488156.1729612951,
+      "flood_risk": null
+    },
+    "Kuala Lumpur|Sungai Besi": {
+      "current_price": 653459.1836734693,
+      "predicted_price_1month": 525718.3220324044,
+      "flood_risk": null
+    },
+    "Kuala Lumpur|Sungai Penchala": {
+      "current_price": 3780000.0,
+      "predicted_price_1month": 3780191.497569875,
+      "flood_risk": null
+    },
+    "Kuala Lumpur|Sunway Spk": {
+      "current_price": 3775000.0,
+      "predicted_price_1month": 3775191.5335866637,
+      "flood_risk": null
+    },
+    "Kuala Lumpur|Taman Desa": {
+      "current_price": 639536.4285714285,
+      "predicted_price_1month": -22717.919269267004,
+      "flood_risk": null
+    },
+    "Kuala Lumpur|Taman Melawati": {
+      "current_price": 2303714.285714286,
+      "predicted_price_1month": 1249904.828058358,
+      "flood_risk": null
+    },
+    "Kuala Lumpur|Taman Permata": {
+      "current_price": 461428.5714285714,
+      "predicted_price_1month": 472172.3095093437,
+      "flood_risk": null
+    },
+    "Kuala Lumpur|Taman Tun Dr Ismail": {
+      "current_price": 3436428.5714285714,
+      "predicted_price_1month": 3867339.0097526964,
+      "flood_risk": null
+    },
+    "Kuala Lumpur|Titiwangsa": {
+      "current_price": 1552000.0,
+      "predicted_price_1month": 2641100.66163812,
+      "flood_risk": null
+    },
+    "Kuala Lumpur|Ulu Kelang": {
+      "current_price": 2275000.0,
+      "predicted_price_1month": 2275202.3386232643,
+      "flood_risk": null
+    },
+    "Kuala Lumpur|Wangsa Maju": {
+      "current_price": 599398.4962406015,
+      "predicted_price_1month": 439948.2383534524,
+      "flood_risk": null
+    },
+    "Labuan|Labuan": {
+      "current_price": 300000.0,
+      "predicted_price_1month": 300216.56525478885,
+      "flood_risk": null
+    },
+    "Labuan|Sungai Keling": {
+      "current_price": 715000.0,
+      "predicted_price_1month": 715213.5758613294,
+      "flood_risk": null
+    },
+    "Melaka|Alai": {
+      "current_price": 298500.0,
+      "predicted_price_1month": 298716.5760598257,
+      "flood_risk": null
+    },
+    "Melaka|Alor Gajah": {
+      "current_price": 637471.4285714285,
+      "predicted_price_1month": 588817.5099128194,
+      "flood_risk": null
+    },
+    "Melaka|Asahan": {
+      "current_price": 170000.0,
+      "predicted_price_1month": 170217.50169129483,
+      "flood_risk": null
+    },
+    "Melaka|Ayer Keroh": {
+      "current_price": 435099.3506493507,
+      "predicted_price_1month": 262110.3644389552,
+      "flood_risk": null
+    },
+    "Melaka|Ayer Molek": {
+      "current_price": 325742.85714285716,
+      "predicted_price_1month": 260488.90378605248,
+      "flood_risk": null
+    },
+    "Melaka|Bachang": {
+      "current_price": 295428.5714285714,
+      "predicted_price_1month": 324595.5851986599,
+      "flood_risk": null
+    },
+    "Melaka|Balai Panjang": {
+      "current_price": 438800.0,
+      "predicted_price_1month": 439015.56542873546,
+      "flood_risk": null
+    },
+    "Melaka|Bandar Hilir": {
+      "current_price": 390571.4285714286,
+      "predicted_price_1month": 713744.5797397906,
+      "flood_risk": null
+    },
+    "Melaka|Batu Berendam": {
+      "current_price": 292193.8775510204,
+      "predicted_price_1month": 237140.61023159674,
+      "flood_risk": null
+    },
+    "Melaka|Bemban": {
+      "current_price": 794000.0,
+      "predicted_price_1month": 810290.9764372862,
+      "flood_risk": null
+    },
+    "Melaka|Bertam": {
+      "current_price": 469071.4285714286,
+      "predicted_price_1month": 314419.13410665886,
+      "flood_risk": null
+    },
+    "Melaka|Bertam Malim": {
+      "current_price": 1068380.9523809522,
+      "predicted_price_1month": 873642.3008579311,
+      "flood_risk": null
+    },
+    "Melaka|Bertam Ulu": {
+      "current_price": 351428.5714285714,
+      "predicted_price_1month": 309114.30212324276,
+      "flood_risk": null
+    },
+    "Melaka|Bukit Baru": {
+      "current_price": 531646.4285714285,
+      "predicted_price_1month": 513062.79668905376,
+      "flood_risk": null
+    },
+    "Melaka|Bukit Beruang": {
+      "current_price": 337714.28571428574,
+      "predicted_price_1month": 401431.7492990745,
+      "flood_risk": null
+    },
+    "Melaka|Bukit Katil": {
+      "current_price": 464948.21428571426,
+      "predicted_price_1month": 453063.8523821314,
+      "flood_risk": null
+    },
+    "Melaka|Bukit Lintang": {
+      "current_price": 590000.0,
+      "predicted_price_1month": 590214.4762810462,
+      "flood_risk": null
+    },
+    "Melaka|Bukit Rambai": {
+      "current_price": 341785.71428571426,
+      "predicted_price_1month": 405426.92247223575,
+      "flood_risk": null
+    },
+    "Melaka|Cheng": {
+      "current_price": 376547.619047619,
+      "predicted_price_1month": 395880.56197723164,
+      "flood_risk": null
+    },
+    "Melaka|Durian Tunggal": {
+      "current_price": 366755.78231292515,
+      "predicted_price_1month": 310630.99161879765,
+      "flood_risk": null
+    },
+    "Melaka|Duyong": {
+      "current_price": 396200.0,
+      "predicted_price_1month": 399512.30348838726,
+      "flood_risk": null
+    },
+    "Melaka|Jasin": {
+      "current_price": 268535.71428571426,
+      "predicted_price_1month": 135626.92951802444,
+      "flood_risk": null
+    },
+    "Melaka|Kesang": {
+      "current_price": 270000.0,
+      "predicted_price_1month": 270216.7813555212,
+      "flood_risk": null
+    },
+    "Melaka|Klebang": {
+      "current_price": 609666.6666666666,
+      "predicted_price_1month": 889157.6700371234,
+      "flood_risk": null
+    },
+    "Melaka|Krubong": {
+      "current_price": 389421.4285714286,
+      "predicted_price_1month": 455216.9537451989,
+      "flood_risk": null
+    },
+    "Melaka|Kuala Linggi": {
+      "current_price": 1200000.0,
+      "predicted_price_1month": 1200210.0822328285,
+      "flood_risk": null
+    },
+    "Melaka|Kuala Sungai Baru": {
+      "current_price": 376000.0,
+      "predicted_price_1month": 376216.0177996012,
+      "flood_risk": null
+    },
+    "Melaka|Lendu": {
+      "current_price": 299900.0,
+      "predicted_price_1month": 300116.56597512495,
+      "flood_risk": null
+    },
+    "Melaka|Lubok China": {
+      "current_price": 230000.0,
+      "predicted_price_1month": 230217.06948983017,
+      "flood_risk": null
+    },
+    "Melaka|Masjid Tanah": {
+      "current_price": 305228.5714285714,
+      "predicted_price_1month": 299856.9211955704,
+      "flood_risk": null
+    },
+    "Melaka|Melaka": {
+      "current_price": 298000.0,
+      "predicted_price_1month": 298216.5796615046,
+      "flood_risk": null
+    },
+    "Melaka|Melaka City": {
+      "current_price": 291668.45238095237,
+      "predicted_price_1month": 293229.99896175135,
+      "flood_risk": null
+    },
+    "Melaka|Melaka Raya": {
+      "current_price": 347142.85714285716,
+      "predicted_price_1month": 488241.2451477279,
+      "flood_risk": null
+    },
+    "Melaka|Melaka Tengah": {
+      "current_price": 352023.8095238096,
+      "predicted_price_1month": 437774.6980385841,
+      "flood_risk": null
+    },
+    "Melaka|Melekek": {
+      "current_price": 2000000.0,
+      "predicted_price_1month": 2000204.3195466413,
+      "flood_risk": null
+    },
+    "Melaka|Merlimau": {
+      "current_price": 445476.1904761905,
+      "predicted_price_1month": 343930.9508097586,
+      "flood_risk": null
+    },
+    "Melaka|Others": {
+      "current_price": 506000.0,
+      "predicted_price_1month": 506215.0813630959,
+      "flood_risk": null
+    },
+    "Melaka|Paya Rumput": {
+      "current_price": 658380.9523809523,
+      "predicted_price_1month": 715091.1460810849,
+      "flood_risk": null
+    },
+    "Melaka|Pegoh": {
+      "current_price": 728000.0,
+      "predicted_price_1month": 728213.482217679,
+      "flood_risk": null
+    },
+    "Melaka|Pokok Mangga": {
+      "current_price": 352571.4285714286,
+      "predicted_price_1month": 370176.22695810837,
+      "flood_risk": null
+    },
+    "Melaka|Pulau Gedong": {
+      "current_price": 348000.0,
+      "predicted_price_1month": 348216.21949361754,
+      "flood_risk": null
+    },
+    "Melaka|Rembia": {
+      "current_price": 295707.14285714284,
+      "predicted_price_1month": 300453.55544993584,
+      "flood_risk": null
+    },
+    "Melaka|Rim": {
+      "current_price": 420000.0,
+      "predicted_price_1month": 420215.7008518609,
+      "flood_risk": null
+    },
+    "Melaka|Semabok": {
+      "current_price": 735285.7142857143,
+      "predicted_price_1month": 707153.2559503883,
+      "flood_risk": null
+    },
+    "Melaka|Simpang Ampat": {
+      "current_price": 275714.28571428574,
+      "predicted_price_1month": 308832.0748256745,
+      "flood_risk": null
+    },
+    "Melaka|Sungai Rambai": {
+      "current_price": 366000.0,
+      "predicted_price_1month": 366216.0898331783,
+      "flood_risk": null
+    },
+    "Melaka|Sungai Udang": {
+      "current_price": 272857.14285714284,
+      "predicted_price_1month": 276843.66194202215,
+      "flood_risk": null
+    },
+    "Melaka|Sungei Baru Tengah": {
+      "current_price": 230000.0,
+      "predicted_price_1month": 230217.06948983017,
+      "flood_risk": null
+    },
+    "Melaka|Sungei Petai": {
+      "current_price": 109285.71428571429,
+      "predicted_price_1month": 113451.77919387724,
+      "flood_risk": null
+    },
+    "Melaka|Taman Malim Jaya": {
+      "current_price": 311714.28571428574,
+      "predicted_price_1month": 328359.1812404513,
+      "flood_risk": null
+    },
+    "Melaka|Tangga Batu": {
+      "current_price": 442800.0,
+      "predicted_price_1month": 443015.5366153044,
+      "flood_risk": null
+    },
+    "Melaka|Tanjong Kling": {
+      "current_price": 284285.71428571426,
+      "predicted_price_1month": 261548.61504131113,
+      "flood_risk": null
+    },
+    "Melaka|Tanjong Minyak": {
+      "current_price": 393020.4081632653,
+      "predicted_price_1month": 422282.28783885343,
+      "flood_risk": null
+    },
+    "Melaka|Telok Mas": {
+      "current_price": 340666.6666666666,
+      "predicted_price_1month": 328814.61296424316,
+      "flood_risk": null
+    },
+    "Melaka|Ujong Pasir": {
+      "current_price": 615471.4285714285,
+      "predicted_price_1month": 631065.5576401793,
+      "flood_risk": null
+    },
+    "Melaka|Umbai": {
+      "current_price": 493428.5714285714,
+      "predicted_price_1month": 477272.18140661134,
+      "flood_risk": null
+    },
+    "Negeri Sembilan|Ampangan": {
+      "current_price": 545714.2857142857,
+      "predicted_price_1month": 578830.1299190864,
+      "flood_risk": null
+    },
+    "Negeri Sembilan|Bahau": {
+      "current_price": 360000.0,
+      "predicted_price_1month": 360216.13305332465,
+      "flood_risk": null
+    },
+    "Negeri Sembilan|Bandar Baru Enstek": {
+      "current_price": 502846.4761904762,
+      "predicted_price_1month": 878381.1719043655,
+      "flood_risk": null
+    },
+    "Negeri Sembilan|Bandar Enstek": {
+      "current_price": 380000.0,
+      "predicted_price_1month": 380215.98898617015,
+      "flood_risk": null
+    },
+    "Negeri Sembilan|Bandar Sri Sendayan": {
+      "current_price": 566107.7291280149,
+      "predicted_price_1month": 692827.1097434175,
+      "flood_risk": null
+    },
+    "Negeri Sembilan|Batu Kikir": {
+      "current_price": 250000.0,
+      "predicted_price_1month": 250216.92542267544,
+      "flood_risk": null
+    },
+    "Negeri Sembilan|Bukit Kepayang": {
+      "current_price": 910000.0,
+      "predicted_price_1month": 910212.1712065714,
+      "flood_risk": null
+    },
+    "Negeri Sembilan|Chembong": {
+      "current_price": 389000.0,
+      "predicted_price_1month": 389215.924155951,
+      "flood_risk": null
+    },
+    "Negeri Sembilan|Gemas": {
+      "current_price": 382828.5714285714,
+      "predicted_price_1month": 209898.60982729937,
+      "flood_risk": null
+    },
+    "Negeri Sembilan|Gemencheh": {
+      "current_price": 253571.42857142858,
+      "predicted_price_1month": 250488.52841209993,
+      "flood_risk": null
+    },
+    "Negeri Sembilan|Jelebu": {
+      "current_price": 260000.0,
+      "predicted_price_1month": 260216.8533890983,
+      "flood_risk": null
+    },
+    "Negeri Sembilan|Jempol": {
+      "current_price": 460000.0,
+      "predicted_price_1month": 460215.4127175517,
+      "flood_risk": null
+    },
+    "Negeri Sembilan|Jimah": {
+      "current_price": 80000.0,
+      "predicted_price_1month": 80218.14999349043,
+      "flood_risk": null
+    },
+    "Negeri Sembilan|Johol": {
+      "current_price": 120000.0,
+      "predicted_price_1month": 120217.86185918096,
+      "flood_risk": null
+    },
+    "Negeri Sembilan|Juasseh": {
+      "current_price": 400000.0,
+      "predicted_price_1month": 400215.8449190159,
+      "flood_risk": null
+    },
+    "Negeri Sembilan|Kuala Klawang": {
+      "current_price": 400000.0,
+      "predicted_price_1month": 400215.8449190159,
+      "flood_risk": null
+    },
+    "Negeri Sembilan|Kuala Pilah": {
+      "current_price": 332857.14285714284,
+      "predicted_price_1month": 396869.1675827573,
+      "flood_risk": null
+    },
+    "Negeri Sembilan|Labu": {
+      "current_price": 302142.85714285716,
+      "predicted_price_1month": 326265.89194680983,
+      "flood_risk": null
+    },
+    "Negeri Sembilan|Lenggeng": {
+      "current_price": 452380.9523809524,
+      "predicted_price_1month": 433967.7827712805,
+      "flood_risk": null
+    },
+    "Negeri Sembilan|Linggi": {
+      "current_price": 190000.0,
+      "predicted_price_1month": 190217.35762413964,
+      "flood_risk": null
+    },
+    "Negeri Sembilan|Lukut": {
+      "current_price": 320642.85714285716,
+      "predicted_price_1month": 269794.20564059285,
+      "flood_risk": null
+    },
+    "Negeri Sembilan|Mantin": {
+      "current_price": 590857.1428571428,
+      "predicted_price_1month": 533144.8112468235,
+      "flood_risk": null
+    },
+    "Negeri Sembilan|Nilai": {
+      "current_price": 1763412.1882086168,
+      "predicted_price_1month": -793717.3639601269,
+      "flood_risk": null
+    },
+    "Negeri Sembilan|Pajam": {
+      "current_price": 420000.0,
+      "predicted_price_1month": 420215.7008518609,
+      "flood_risk": null
+    },
+    "Negeri Sembilan|Pantai": {
+      "current_price": 390000.0,
+      "predicted_price_1month": 390215.9169525928,
+      "flood_risk": null
+    },
+    "Negeri Sembilan|Paroi": {
+      "current_price": 290000.0,
+      "predicted_price_1month": 332864.41680824617,
+      "flood_risk": null
+    },
+    "Negeri Sembilan|Pasir Panjang": {
+      "current_price": 160714.2857142857,
+      "predicted_price_1month": 221469.78430286027,
+      "flood_risk": null
+    },
+    "Negeri Sembilan|Pedas": {
+      "current_price": 195000.0,
+      "predicted_price_1month": 195217.3216073513,
+      "flood_risk": null
+    },
+    "Negeri Sembilan|Port Dickson": {
+      "current_price": 272171.4285714286,
+      "predicted_price_1month": 310093.6621981815,
+      "flood_risk": null
+    },
+    "Negeri Sembilan|Rantau": {
+      "current_price": 241428.57142857142,
+      "predicted_price_1month": 244257.68509524688,
+      "flood_risk": null
+    },
+    "Negeri Sembilan|Rasah": {
+      "current_price": 421428.5714285714,
+      "predicted_price_1month": 378973.8087832418,
+      "flood_risk": null
+    },
+    "Negeri Sembilan|Rembau": {
+      "current_price": 320785.71428571426,
+      "predicted_price_1month": 332593.301423514,
+      "flood_risk": null
+    },
+    "Negeri Sembilan|Rompin": {
+      "current_price": 580000.0,
+      "predicted_price_1month": 580214.5483146235,
+      "flood_risk": null
+    },
+    "Negeri Sembilan|Rumbau": {
+      "current_price": 380000.0,
+      "predicted_price_1month": 380215.98898617015,
+      "flood_risk": null
+    },
+    "Negeri Sembilan|Senawang": {
+      "current_price": 493053.40136054426,
+      "predicted_price_1month": 379363.8335939823,
+      "flood_risk": null
+    },
+    "Negeri Sembilan|Seremban": {
+      "current_price": 554292.1039734075,
+      "predicted_price_1month": 411020.2356059479,
+      "flood_risk": null
+    },
+    "Negeri Sembilan|Seremban 2": {
+      "current_price": 541870.3367346938,
+      "predicted_price_1month": 501821.1687734742,
+      "flood_risk": null
+    },
+    "Negeri Sembilan|Seremban Jaya": {
+      "current_price": 250000.0,
+      "predicted_price_1month": 250216.92542267544,
+      "flood_risk": null
+    },
+    "Negeri Sembilan|Setul": {
+      "current_price": 700000.0,
+      "predicted_price_1month": 700213.6839116954,
+      "flood_risk": null
+    },
+    "Negeri Sembilan|Si Rusa": {
+      "current_price": 230000.0,
+      "predicted_price_1month": 230217.06948983017,
+      "flood_risk": null
+    },
+    "Negeri Sembilan|Sikamat": {
+      "current_price": 349523.8095238095,
+      "predicted_price_1month": 344632.56735899113,
+      "flood_risk": null
+    },
+    "Negeri Sembilan|Simpang Pertang": {
+      "current_price": 90000.0,
+      "predicted_price_1month": 90218.0779599133,
+      "flood_risk": null
+    },
+    "Negeri Sembilan|Sungai Gadut": {
+      "current_price": 330000.0,
+      "predicted_price_1month": 330216.34915405675,
+      "flood_risk": null
+    },
+    "Negeri Sembilan|Tampin": {
+      "current_price": 329761.9047619048,
+      "predicted_price_1month": 225873.2839143218,
+      "flood_risk": null
+    },
+    "Negeri Sembilan|Telok Kemang": {
+      "current_price": 1252142.857142857,
+      "predicted_price_1month": 1954548.2471181327,
+      "flood_risk": null
+    },
+    "Negeri Sembilan|Teluk Kemang": {
+      "current_price": 135000.0,
+      "predicted_price_1month": 135217.75380881503,
+      "flood_risk": null
+    },
+    "Negeri Sembilan|Titi": {
+      "current_price": 250000.0,
+      "predicted_price_1month": 250216.92542267544,
+      "flood_risk": null
+    },
+    "Pahang|Balok": {
+      "current_price": 327066.6666666666,
+      "predicted_price_1month": 331010.41487237345,
+      "flood_risk": null
+    },
+    "Pahang|Benta": {
+      "current_price": 130000.0,
+      "predicted_price_1month": 130217.78982560383,
+      "flood_risk": null
+    },
+    "Pahang|Bentong": {
+      "current_price": 770285.7142857143,
+      "predicted_price_1month": 803934.1111162163,
+      "flood_risk": null
+    },
+    "Pahang|Bera": {
+      "current_price": 210000.0,
+      "predicted_price_1month": 210217.21355698537,
+      "flood_risk": null
+    },
+    "Pahang|Beserah": {
+      "current_price": 411142.85714285716,
+      "predicted_price_1month": 411334.52121071797,
+      "flood_risk": null
+    },
+    "Pahang|Brinchang": {
+      "current_price": 300000.0,
+      "predicted_price_1month": 300216.56525478885,
+      "flood_risk": null
+    },
+    "Pahang|Cameron Highlands": {
+      "current_price": 901428.5714285715,
+      "predicted_price_1month": 764772.4408796954,
+      "flood_risk": null
+    },
+    "Pahang|Chenor": {
+      "current_price": 400000.0,
+      "predicted_price_1month": 400215.8449190159,
+      "flood_risk": null
+    },
+    "Pahang|Gambang": {
+      "current_price": 240000.0,
+      "predicted_price_1month": 240216.99745625327,
+      "flood_risk": null
+    },
+    "Pahang|Genting Highlands": {
+      "current_price": 440761.90476190473,
+      "predicted_price_1month": 535639.7258872811,
+      "flood_risk": null
+    },
+    "Pahang|Hulu Lepar": {
+      "current_price": 158000.0,
+      "predicted_price_1month": 158217.5881315875,
+      "flood_risk": null
+    },
+    "Pahang|Hulu Telom": {
+      "current_price": 566000.0,
+      "predicted_price_1month": 566214.6491616317,
+      "flood_risk": null
+    },
+    "Pahang|Jerantut": {
+      "current_price": 250000.0,
+      "predicted_price_1month": 250216.92542267544,
+      "flood_risk": null
+    },
+    "Pahang|Karak": {
+      "current_price": 471428.5714285714,
+      "predicted_price_1month": 638781.2303250271,
+      "flood_risk": null
+    },
+    "Pahang|Kuala Lipis": {
+      "current_price": 373800.0,
+      "predicted_price_1month": 374016.0336469882,
+      "flood_risk": null
+    },
+    "Pahang|Kuala Rompin": {
+      "current_price": 190714.2857142857,
+      "predicted_price_1month": 192269.3948914376,
+      "flood_risk": null
+    },
+    "Pahang|Kuantan": {
+      "current_price": 336418.8062321703,
+      "predicted_price_1month": 296391.70799258,
+      "flood_risk": null
+    },
+    "Pahang|Maran": {
+      "current_price": 320000.0,
+      "predicted_price_1month": 320216.42118763435,
+      "flood_risk": null
+    },
+    "Pahang|Mentakab": {
+      "current_price": 258428.57142857142,
+      "predicted_price_1month": 284834.6710758896,
+      "flood_risk": null
+    },
+    "Pahang|Muadzam Shah": {
+      "current_price": 356142.85714285716,
+      "predicted_price_1month": 409000.696249221,
+      "flood_risk": null
+    },
+    "Pahang|Pahang Tua": {
+      "current_price": 210000.0,
+      "predicted_price_1month": 210217.21355698537,
+      "flood_risk": null
+    },
+    "Pahang|Pekan": {
+      "current_price": 269160.0,
+      "predicted_price_1month": 274993.2421447262,
+      "flood_risk": null
+    },
+    "Pahang|Penor": {
+      "current_price": 204285.7142857143,
+      "predicted_price_1month": 217663.38857190846,
+      "flood_risk": null
+    },
+    "Pahang|Perak": {
+      "current_price": 190000.0,
+      "predicted_price_1month": 190217.35762413964,
+      "flood_risk": null
+    },
+    "Pahang|Raub": {
+      "current_price": 403571.4285714286,
+      "predicted_price_1month": 443926.5274440192,
+      "flood_risk": null
+    },
+    "Pahang|Rompin": {
+      "current_price": 348714.28571428574,
+      "predicted_price_1month": 315503.03436204954,
+      "flood_risk": null
+    },
+    "Pahang|Sabai": {
+      "current_price": 550000.0,
+      "predicted_price_1month": 550214.7644153554,
+      "flood_risk": null
+    },
+    "Pahang|Sungai Karang": {
+      "current_price": 318000.0,
+      "predicted_price_1month": 318216.43559434987,
+      "flood_risk": null
+    },
+    "Pahang|Tanah Rata": {
+      "current_price": 799000.0,
+      "predicted_price_1month": 799212.9707792797,
+      "flood_risk": null
+    },
+    "Pahang|Temerloh": {
+      "current_price": 4106571.4285714286,
+      "predicted_price_1month": 2347602.371992559,
+      "flood_risk": null
+    },
+    "Pahang|Teras": {
+      "current_price": 398000.0,
+      "predicted_price_1month": 398215.8593257312,
+      "flood_risk": null
+    },
+    "Pahang|Triang": {
+      "current_price": 498888.0,
+      "predicted_price_1month": 499103.1325933761,
+      "flood_risk": null
+    },
+    "Penang|Air Hitam": {
+      "current_price": 1495000.0,
+      "predicted_price_1month": 1495207.957242297,
+      "flood_risk": null
+    },
+    "Penang|Air Tawar": {
+      "current_price": 555571.4285714285,
+      "predicted_price_1month": 484487.71708323574,
+      "flood_risk": null
+    },
+    "Penang|Alma": {
+      "current_price": 693471.4285714285,
+      "predicted_price_1month": 754460.1088105841,
+      "flood_risk": null
+    },
+    "Penang|Ayer Itam": {
+      "current_price": 475719.48051948054,
+      "predicted_price_1month": 626977.0467727012,
+      "flood_risk": null
+    },
+    "Penang|Bagan Ajam": {
+      "current_price": 1100000.0,
+      "predicted_price_1month": 1100210.802568602,
+      "flood_risk": null
+    },
+    "Penang|Bagan Lalang": {
+      "current_price": 888000.0,
+      "predicted_price_1month": 888212.3296804416,
+      "flood_risk": null
+    },
+    "Penang|Balik Pulau": {
+      "current_price": 460785.71428571426,
+      "predicted_price_1month": 482447.77225687145,
+      "flood_risk": null
+    },
+    "Penang|Batu Feringghi": {
+      "current_price": 830400.0,
+      "predicted_price_1month": 830612.7445938468,
+      "flood_risk": null
+    },
+    "Penang|Batu Feringgi": {
+      "current_price": 1650000.0,
+      "predicted_price_1month": 1650206.8407218482,
+      "flood_risk": null
+    },
+    "Penang|Batu Ferringhi": {
+      "current_price": 671957.1428571428,
+      "predicted_price_1month": 839899.0875997941,
+      "flood_risk": null
+    },
+    "Penang|Batu Kawan": {
+      "current_price": 602234.0952380953,
+      "predicted_price_1month": 597879.9171470464,
+      "flood_risk": null
+    },
+    "Penang|Batu Maung": {
+      "current_price": 595357.1428571428,
+      "predicted_price_1month": 613872.0342253787,
+      "flood_risk": null
+    },
+    "Penang|Batu Uban": {
+      "current_price": 1600000.0,
+      "predicted_price_1month": 1600207.200889735,
+      "flood_risk": null
+    },
+    "Penang|Bayan Baru": {
+      "current_price": 674071.4285714285,
+      "predicted_price_1month": 978998.5661732298,
+      "flood_risk": null
+    },
+    "Penang|Bayan Lepas": {
+      "current_price": 844349.4783549784,
+      "predicted_price_1month": 592826.7120126949,
+      "flood_risk": null
+    },
+    "Penang|Bertam": {
+      "current_price": 544430.9523809523,
+      "predicted_price_1month": 499187.83512870106,
+      "flood_risk": null
+    },
+    "Penang|Bukit Dumbar": {
+      "current_price": 1000000.0,
+      "predicted_price_1month": 1000211.5229043756,
+      "flood_risk": null
+    },
+    "Penang|Bukit Jambul": {
+      "current_price": 449523.8095238096,
+      "predicted_price_1month": 579309.175337095,
+      "flood_risk": null
+    },
+    "Penang|Bukit Mertajam": {
+      "current_price": 485270.3296703297,
+      "predicted_price_1month": 392235.6163239302,
+      "flood_risk": null
+    },
+    "Penang|Bukit Minyak": {
+      "current_price": 401285.71428571426,
+      "predicted_price_1month": 494459.66995572974,
+      "flood_risk": null
+    },
+    "Penang|Bukit Tengah": {
+      "current_price": 542500.0,
+      "predicted_price_1month": 542714.8184405386,
+      "flood_risk": null
+    },
+    "Penang|Butterworth": {
+      "current_price": 413967.8571428571,
+      "predicted_price_1month": 458456.9517924632,
+      "flood_risk": null
+    },
+    "Penang|Gelugor": {
+      "current_price": 815597.619047619,
+      "predicted_price_1month": 723453.6412587394,
+      "flood_risk": null
+    },
+    "Penang|George Town": {
+      "current_price": 980000.0,
+      "predicted_price_1month": 980211.6669715298,
+      "flood_risk": null
+    },
+    "Penang|Georgetown": {
+      "current_price": 921687.3015873015,
+      "predicted_price_1month": 1570443.18023015,
+      "flood_risk": null
+    },
+    "Penang|Greenlane": {
+      "current_price": 1289214.2857142857,
+      "predicted_price_1month": 1449227.881789016,
+      "flood_risk": null
+    },
+    "Penang|Gurney Drive": {
+      "current_price": 2540909.0909090904,
+      "predicted_price_1month": 2541109.5140940486,
+      "flood_risk": null
+    },
+    "Penang|Jawi": {
+      "current_price": 404285.71428571426,
+      "predicted_price_1month": 373594.83816656494,
+      "flood_risk": null
+    },
+    "Penang|Jelutong": {
+      "current_price": 805713.2865646258,
+      "predicted_price_1month": 796179.1510995696,
+      "flood_risk": null
+    },
+    "Penang|Juru": {
+      "current_price": 327738.0952380952,
+      "predicted_price_1month": 431356.47716366756,
+      "flood_risk": null
+    },
+    "Penang|Kepala Batas": {
+      "current_price": 478333.3333333334,
+      "predicted_price_1month": 559682.064115891,
+      "flood_risk": null
+    },
+    "Penang|Kubang Semang": {
+      "current_price": 400904.4285714286,
+      "predicted_price_1month": 387893.00770084374,
+      "flood_risk": null
+    },
+    "Penang|Minden Heights": {
+      "current_price": 3367142.8571428573,
+      "predicted_price_1month": 3279459.834959193,
+      "flood_risk": null
+    },
+    "Penang|Nibong Tebal": {
+      "current_price": 602992.6095238095,
+      "predicted_price_1month": 1288190.9991300576,
+      "flood_risk": null
+    },
+    "Penang|Pauh Jaya": {
+      "current_price": 939500.0,
+      "predicted_price_1month": 939711.9587075182,
+      "flood_risk": null
+    },
+    "Penang|Paya Terubong": {
+      "current_price": 412428.5714285714,
+      "predicted_price_1month": 223009.08979437873,
+      "flood_risk": null
+    },
+    "Penang|Penaga": {
+      "current_price": 445714.28571428574,
+      "predicted_price_1month": 451193.9691638136,
+      "flood_risk": null
+    },
+    "Penang|Penanti": {
+      "current_price": 420000.0,
+      "predicted_price_1month": 420215.7008518609,
+      "flood_risk": null
+    },
+    "Penang|Perai": {
+      "current_price": 224095.2380952381,
+      "predicted_price_1month": 273673.0580300044,
+      "flood_risk": null
+    },
+    "Penang|Permatang Pauh": {
+      "current_price": 288564.28571428574,
+      "predicted_price_1month": 259830.6423807668,
+      "flood_risk": null
+    },
+    "Penang|Permatang Tinggi": {
+      "current_price": 309000.0,
+      "predicted_price_1month": 309216.5004245695,
+      "flood_risk": null
+    },
+    "Penang|Prai": {
+      "current_price": 235000.0,
+      "predicted_price_1month": 235217.03347304137,
+      "flood_risk": null
+    },
+    "Penang|Pulau Tikus": {
+      "current_price": 3481285.714285714,
+      "predicted_price_1month": 1135402.771501156,
+      "flood_risk": null
+    },
+    "Penang|Raja Uda": {
+      "current_price": 810642.8571428572,
+      "predicted_price_1month": 906480.5962276065,
+      "flood_risk": null
+    },
+    "Penang|Relau": {
+      "current_price": 386530.612244898,
+      "predicted_price_1month": 355619.51838396303,
+      "flood_risk": null
+    },
+    "Penang|Seberang Jaya": {
+      "current_price": 292107.14285714284,
+      "predicted_price_1month": 246736.45697574574,
+      "flood_risk": null
+    },
+    "Penang|Seberang Perai": {
+      "current_price": 303428.5714285714,
+      "predicted_price_1month": 294017.6511160559,
+      "flood_risk": null
+    },
+    "Penang|Simpang Ampat": {
+      "current_price": 634788.4615384616,
+      "predicted_price_1month": 575692.1457407486,
+      "flood_risk": null
+    },
+    "Penang|Sungai Ara": {
+      "current_price": 537534.9206349206,
+      "predicted_price_1month": 459947.49488796433,
+      "flood_risk": null
+    },
+    "Penang|Sungai Bakap": {
+      "current_price": 426857.14285714284,
+      "predicted_price_1month": 432555.2209850049,
+      "flood_risk": null
+    },
+    "Penang|Sungai Dua": {
+      "current_price": 423857.14285714284,
+      "predicted_price_1month": 424783.89729478536,
+      "flood_risk": null
+    },
+    "Penang|Sungai Jawi": {
+      "current_price": 378357.14285714284,
+      "predicted_price_1month": 394311.2058455257,
+      "flood_risk": null
+    },
+    "Penang|Sungai Nibong": {
+      "current_price": 1068500.0,
+      "predicted_price_1month": 951248.0681600268,
+      "flood_risk": null
+    },
+    "Penang|Sungai Pinang": {
+      "current_price": 310000.0,
+      "predicted_price_1month": 310216.4932212117,
+      "flood_risk": null
+    },
+    "Penang|Tanjong Tokong": {
+      "current_price": 950765.3061224491,
+      "predicted_price_1month": 978917.7653751206,
+      "flood_risk": null
+    },
+    "Penang|Tanjung Bungah": {
+      "current_price": 1442619.0476190478,
+      "predicted_price_1month": 1281539.6347367414,
+      "flood_risk": null
+    },
+    "Penang|Tanjung Tokong": {
+      "current_price": 1965699.8571428568,
+      "predicted_price_1month": 1965904.4237656977,
+      "flood_risk": null
+    },
+    "Penang|Tasek Gelugor": {
+      "current_price": 384283.3333333333,
+      "predicted_price_1month": 408298.57666898053,
+      "flood_risk": null
+    },
+    "Penang|Telok Kumbar": {
+      "current_price": 2500000.0,
+      "predicted_price_1month": 2500200.7178677744,
+      "flood_risk": null
+    },
+    "Penang|Teluk Kumbar": {
+      "current_price": 447857.14285714284,
+      "predicted_price_1month": 363032.4199214184,
+      "flood_risk": null
+    },
+    "Penang|Valdor": {
+      "current_price": 369000.0,
+      "predicted_price_1month": 369216.0682231055,
+      "flood_risk": null
+    },
+    "Perak|Asam Kumbang": {
+      "current_price": 498000.0,
+      "predicted_price_1month": 498215.138989958,
+      "flood_risk": null
+    },
+    "Perak|Ayer Tawar": {
+      "current_price": 224500.0,
+      "predicted_price_1month": 227776.1127583366,
+      "flood_risk": null
+    },
+    "Perak|Bagan Datoh": {
+      "current_price": 140657.14285714287,
+      "predicted_price_1month": 144827.48104001582,
+      "flood_risk": null
+    },
+    "Perak|Bagan Serai": {
+      "current_price": 313692.38095238095,
+      "predicted_price_1month": 313033.967406902,
+      "flood_risk": null
+    },
+    "Perak|Batang Padang": {
+      "current_price": 280000.0,
+      "predicted_price_1month": 280216.70932194404,
+      "flood_risk": null
+    },
+    "Perak|Batu Gajah": {
+      "current_price": 277900.0,
+      "predicted_price_1month": 287614.3536775927,
+      "flood_risk": null
+    },
+    "Perak|Batu Kurau": {
+      "current_price": 249000.0,
+      "predicted_price_1month": 249216.93262603343,
+      "flood_risk": null
+    },
+    "Perak|Bidor": {
+      "current_price": 307089.28571428574,
+      "predicted_price_1month": 329305.946039489,
+      "flood_risk": null
+    },
+    "Perak|Bota": {
+      "current_price": 328800.0,
+      "predicted_price_1month": 329016.3577980865,
+      "flood_risk": null
+    },
+    "Perak|Changkat Jering": {
+      "current_price": 185000.0,
+      "predicted_price_1month": 185217.39364092844,
+      "flood_risk": null
+    },
+    "Perak|Chemor": {
+      "current_price": 318557.14285714284,
+      "predicted_price_1month": 257904.44063094887,
+      "flood_risk": null
+    },
+    "Perak|Chenderiang": {
+      "current_price": 65000.0,
+      "predicted_price_1month": 65218.25804385636,
+      "flood_risk": null
+    },
+    "Perak|Gerik": {
+      "current_price": 239000.0,
+      "predicted_price_1month": 239217.0046596108,
+      "flood_risk": null
+    },
+    "Perak|Gopeng": {
+      "current_price": 300233.3333333333,
+      "predicted_price_1month": 300449.89690733864,
+      "flood_risk": null
+    },
+    "Perak|Hulu Bernam Timor": {
+      "current_price": 350000.0,
+      "predicted_price_1month": 350216.2050869025,
+      "flood_risk": null
+    },
+    "Perak|Hulu Kinta": {
+      "current_price": 348000.0,
+      "predicted_price_1month": 348216.21949361754,
+      "flood_risk": null
+    },
+    "Perak|Hutan Melintang": {
+      "current_price": 361142.85714285716,
+      "predicted_price_1month": 370865.9728994614,
+      "flood_risk": null
+    },
+    "Perak|Ipoh": {
+      "current_price": 415131.9176593521,
+      "predicted_price_1month": 465673.5758738641,
+      "flood_risk": null
+    },
+    "Perak|Jelapang": {
+      "current_price": 399000.0,
+      "predicted_price_1month": 399215.8521223732,
+      "flood_risk": null
+    },
+    "Perak|Jeram": {
+      "current_price": 521428.5714285714,
+      "predicted_price_1month": 683790.9360419544,
+      "flood_risk": null
+    },
+    "Perak|Kampar": {
+      "current_price": 215530.61224489796,
+      "predicted_price_1month": 216499.1366439024,
+      "flood_risk": null
+    },
+    "Perak|Kampong Gajah": {
+      "current_price": 236428.57142857142,
+      "predicted_price_1month": 207259.1714755993,
+      "flood_risk": null
+    },
+    "Perak|Kampung Kepayang": {
+      "current_price": 610000.0,
+      "predicted_price_1month": 610214.3322138912,
+      "flood_risk": null
+    },
+    "Perak|Kamunting": {
+      "current_price": 185000.0,
+      "predicted_price_1month": 185217.39364092844,
+      "flood_risk": null
+    },
+    "Perak|Kuala Kangsar": {
+      "current_price": 461428.5714285714,
+      "predicted_price_1month": 514646.04581317,
+      "flood_risk": null
+    },
+    "Perak|Kuala Kurau": {
+      "current_price": 520000.0,
+      "predicted_price_1month": 520214.98051608773,
+      "flood_risk": null
+    },
+    "Perak|Lahat": {
+      "current_price": 291800.0,
+      "predicted_price_1month": 328771.54483062983,
+      "flood_risk": null
+    },
+    "Perak|Langkap": {
+      "current_price": 332666.6666666667,
+      "predicted_price_1month": 332882.9966117698,
+      "flood_risk": null
+    },
+    "Perak|Lekir": {
+      "current_price": 280000.0,
+      "predicted_price_1month": 280216.70932194404,
+      "flood_risk": null
+    },
+    "Perak|Lenggong": {
+      "current_price": 75000.0,
+      "predicted_price_1month": 75218.18601027923,
+      "flood_risk": null
+    },
+    "Perak|Lumut": {
+      "current_price": 430000.0,
+      "predicted_price_1month": 240027.68700753106,
+      "flood_risk": null
+    },
+    "Perak|Malim Nawar": {
+      "current_price": 160000.0,
+      "predicted_price_1month": 160217.57372487197,
+      "flood_risk": null
+    },
+    "Perak|Manjung": {
+      "current_price": 250000.0,
+      "predicted_price_1month": 250216.92542267544,
+      "flood_risk": null
+    },
+    "Perak|Menglembu": {
+      "current_price": 130000.0,
+      "predicted_price_1month": 187897.45028074086,
+      "flood_risk": null
+    },
+    "Perak|Padang Rengas": {
+      "current_price": 325000.0,
+      "predicted_price_1month": 325216.3851708458,
+      "flood_risk": null
+    },
+    "Perak|Pantai Remis": {
+      "current_price": 357142.85714285716,
+      "predicted_price_1month": 358250.8485760491,
+      "flood_risk": null
+    },
+    "Perak|Parit Buntar": {
+      "current_price": 473300.4285714286,
+      "predicted_price_1month": 507440.99645095994,
+      "flood_risk": null
+    },
+    "Perak|Pengkalan Hulu": {
+      "current_price": 387428.5714285714,
+      "predicted_price_1month": 571363.9640617047,
+      "flood_risk": null
+    },
+    "Perak|Pusing": {
+      "current_price": 299000.0,
+      "predicted_price_1month": 299216.57245814684,
+      "flood_risk": null
+    },
+    "Perak|Selama": {
+      "current_price": 323059.0,
+      "predicted_price_1month": 323275.3991525632,
+      "flood_risk": null
+    },
+    "Perak|Semanggol": {
+      "current_price": 23000.0,
+      "predicted_price_1month": 23218.56058488181,
+      "flood_risk": null
+    },
+    "Perak|Seputeh": {
+      "current_price": 150000.0,
+      "predicted_price_1month": 150217.6457584491,
+      "flood_risk": null
+    },
+    "Perak|Seri Iskandar": {
+      "current_price": 142500.0,
+      "predicted_price_1month": 245050.19980778126,
+      "flood_risk": null
+    },
+    "Perak|Seri Manjong": {
+      "current_price": 298000.0,
+      "predicted_price_1month": 253684.82834793115,
+      "flood_risk": null
+    },
+    "Perak|Seri Manjung": {
+      "current_price": 380000.0,
+      "predicted_price_1month": 380215.98898617015,
+      "flood_risk": null
+    },
+    "Perak|Simpang": {
+      "current_price": 279900.0,
+      "predicted_price_1month": 280116.7100422797,
+      "flood_risk": null
+    },
+    "Perak|Simpang Pulai": {
+      "current_price": 415357.14285714284,
+      "predicted_price_1month": 379820.7057676567,
+      "flood_risk": null
+    },
+    "Perak|Sitiawan": {
+      "current_price": 329805.71428571426,
+      "predicted_price_1month": 333750.6028553271,
+      "flood_risk": null
+    },
+    "Perak|Sungai Siput": {
+      "current_price": 370000.0,
+      "predicted_price_1month": 470806.033447176,
+      "flood_risk": null
+    },
+    "Perak|Sungkai": {
+      "current_price": 308888.0,
+      "predicted_price_1month": 309104.50123134535,
+      "flood_risk": null
+    },
+    "Perak|Taiping": {
+      "current_price": 415395.23809523805,
+      "predicted_price_1month": 379443.85530696437,
+      "flood_risk": null
+    },
+    "Perak|Tambun": {
+      "current_price": 386555.55555555556,
+      "predicted_price_1month": 386771.4973197137,
+      "flood_risk": null
+    },
+    "Perak|Tanjong Malim": {
+      "current_price": 600000.0,
+      "predicted_price_1month": 600214.4042474688,
+      "flood_risk": null
+    },
+    "Perak|Tanjong Piandang": {
+      "current_price": 668800.0,
+      "predicted_price_1month": 669013.9086564567,
+      "flood_risk": null
+    },
+    "Perak|Tanjong Rambutan": {
+      "current_price": 198555.42857142858,
+      "predicted_price_1month": 84139.87519457238,
+      "flood_risk": null
+    },
+    "Perak|Tanjong Tualang": {
+      "current_price": 165000.0,
+      "predicted_price_1month": 165217.53770808317,
+      "flood_risk": null
+    },
+    "Perak|Tanjung Malim": {
+      "current_price": 480714.28571428574,
+      "predicted_price_1month": 607243.3353312868,
+      "flood_risk": null
+    },
+    "Perak|Tapah": {
+      "current_price": 165428.57142857142,
+      "predicted_price_1month": 172610.59341512434,
+      "flood_risk": null
+    },
+    "Perak|Tapah Road": {
+      "current_price": 240000.0,
+      "predicted_price_1month": 240216.99745625327,
+      "flood_risk": null
+    },
+    "Perak|Teluk Intan": {
+      "current_price": 460065.47619047615,
+      "predicted_price_1month": 471022.1684091869,
+      "flood_risk": null
+    },
+    "Perak|Terung": {
+      "current_price": 233800.0,
+      "predicted_price_1month": 234017.0421170711,
+      "flood_risk": null
+    },
+    "Perak|Trong": {
+      "current_price": 337250.0,
+      "predicted_price_1month": 337466.2969297138,
+      "flood_risk": null
+    },
+    "Perak|Tronoh": {
+      "current_price": 225000.0,
+      "predicted_price_1month": 225217.1055066192,
+      "flood_risk": null
+    },
+    "Perak|Ulu Bernam": {
+      "current_price": 240000.0,
+      "predicted_price_1month": 240216.99745625327,
+      "flood_risk": null
+    },
+    "Perak|Ulu Kinta": {
+      "current_price": 758285.7142857143,
+      "predicted_price_1month": 630649.940081822,
+      "flood_risk": null
+    },
+    "Perlis|Arau": {
+      "current_price": 254476.19047619047,
+      "predicted_price_1month": 209071.49743144005,
+      "flood_risk": null
+    },
+    "Perlis|Kangar": {
+      "current_price": 462595.23809523805,
+      "predicted_price_1month": 417960.545791449,
+      "flood_risk": null
+    },
+    "Perlis|Kuala Perlis": {
+      "current_price": 235000.0,
+      "predicted_price_1month": 235217.03347304137,
+      "flood_risk": null
+    },
+    "Perlis|Padang Besar": {
+      "current_price": 380000.0,
+      "predicted_price_1month": 380215.98898617015,
+      "flood_risk": null
+    },
+    "Perlis|Pauh": {
+      "current_price": 360000.0,
+      "predicted_price_1month": 360216.13305332465,
+      "flood_risk": null
+    },
+    "Perlis|Seriab": {
+      "current_price": 428000.0,
+      "predicted_price_1month": 428215.64322499884,
+      "flood_risk": null
+    },
+    "Perlis|Titi Tinggi": {
+      "current_price": 16855.0,
+      "predicted_price_1month": 17073.60484951455,
+      "flood_risk": null
+    },
+    "Putrajaya|Presint 11": {
+      "current_price": 1035000.0,
+      "predicted_price_1month": 1035211.2707868544,
+      "flood_risk": null
+    },
+    "Putrajaya|Presint 12": {
+      "current_price": 1199990.0,
+      "predicted_price_1month": 1200200.082304862,
+      "flood_risk": null
+    },
+    "Putrajaya|Presint 18": {
+      "current_price": 1150000.0,
+      "predicted_price_1month": 1150210.4424007153,
+      "flood_risk": null
+    },
+    "Putrajaya|Presint 8": {
+      "current_price": 3200000.0,
+      "predicted_price_1month": 3200195.6755173607,
+      "flood_risk": null
+    },
+    "Putrajaya|Putrajaya": {
+      "current_price": 1063218.820861678,
+      "predicted_price_1month": 1215388.0132766739,
+      "flood_risk": null
+    },
+    "Sabah|Beaufort": {
+      "current_price": 300000.0,
+      "predicted_price_1month": 300216.56525478885,
+      "flood_risk": null
+    },
+    "Sabah|Inanam": {
+      "current_price": 468333.3333333334,
+      "predicted_price_1month": 468548.68602290377,
+      "flood_risk": null
+    },
+    "Sabah|Keningau": {
+      "current_price": 392857.14285714284,
+      "predicted_price_1month": 345226.2671142791,
+      "flood_risk": null
+    },
+    "Sabah|Kota Kinabalu": {
+      "current_price": 946125.4638096609,
+      "predicted_price_1month": 868097.276670295,
+      "flood_risk": null
+    },
+    "Sabah|Kudat": {
+      "current_price": 200000.0,
+      "predicted_price_1month": 200217.2855905625,
+      "flood_risk": null
+    },
+    "Sabah|Lahad Datu": {
+      "current_price": 250000.0,
+      "predicted_price_1month": 250216.92542267544,
+      "flood_risk": null
+    },
+    "Sabah|Likas": {
+      "current_price": 1180000.0,
+      "predicted_price_1month": 1180210.2262999832,
+      "flood_risk": null
+    },
+    "Sabah|Luyang": {
+      "current_price": 1895238.0952380951,
+      "predicted_price_1month": 1613305.2464819094,
+      "flood_risk": null
+    },
+    "Sabah|Papar": {
+      "current_price": 335321.4285714286,
+      "predicted_price_1month": 345985.6209653574,
+      "flood_risk": null
+    },
+    "Sabah|Penampang": {
+      "current_price": 812329.5238095239,
+      "predicted_price_1month": 1185417.8707199437,
+      "flood_risk": null
+    },
+    "Sabah|Putatan": {
+      "current_price": 590500.0,
+      "predicted_price_1month": 748870.6119264527,
+      "flood_risk": null
+    },
+    "Sabah|Ranau": {
+      "current_price": 718285.7142857143,
+      "predicted_price_1month": 710793.7878968467,
+      "flood_risk": null
+    },
+    "Sabah|Sandakan": {
+      "current_price": 302912.5714285714,
+      "predicted_price_1month": 354563.6459479199,
+      "flood_risk": null
+    },
+    "Sabah|Semporna": {
+      "current_price": 300000.0,
+      "predicted_price_1month": 300216.56525478885,
+      "flood_risk": null
+    },
+    "Sabah|Tawau": {
+      "current_price": 343166.6666666666,
+      "predicted_price_1month": 299216.6850126262,
+      "flood_risk": null
+    },
+    "Sabah|Telipok": {
+      "current_price": 328500.0,
+      "predicted_price_1month": 294787.7988401165,
+      "flood_risk": null
+    },
+    "Sabah|Tuaran": {
+      "current_price": 329428.5714285714,
+      "predicted_price_1month": 311058.90182305896,
+      "flood_risk": null
+    },
+    "Sarawak|Bau": {
+      "current_price": 80000.0,
+      "predicted_price_1month": 80218.14999349043,
+      "flood_risk": null
+    },
+    "Sarawak|Belawai": {
+      "current_price": 150000.0,
+      "predicted_price_1month": 150217.6457584491,
+      "flood_risk": null
+    },
+    "Sarawak|Betong": {
+      "current_price": 426000.0,
+      "predicted_price_1month": 426215.6576317146,
+      "flood_risk": null
+    },
+    "Sarawak|Bintulu": {
+      "current_price": 850000.0,
+      "predicted_price_1month": 850212.6034080354,
+      "flood_risk": null
+    },
+    "Sarawak|Kanowit": {
+      "current_price": 120000.0,
+      "predicted_price_1month": 120217.86185918096,
+      "flood_risk": null
+    },
+    "Sarawak|Kapit": {
+      "current_price": 340000.0,
+      "predicted_price_1month": 340216.2771204796,
+      "flood_risk": null
+    },
+    "Sarawak|Kota Samarahan": {
+      "current_price": 667272.7272727273,
+      "predicted_price_1month": 715203.0531475621,
+      "flood_risk": null
+    },
+    "Sarawak|Kuching": {
+      "current_price": 949590.326185719,
+      "predicted_price_1month": 1220356.3995729662,
+      "flood_risk": null
+    },
+    "Sarawak|Lawas": {
+      "current_price": 460000.0,
+      "predicted_price_1month": 460215.4127175517,
+      "flood_risk": null
+    },
+    "Sarawak|Limbang": {
+      "current_price": 350000.0,
+      "predicted_price_1month": 350216.2050869025,
+      "flood_risk": null
+    },
+    "Sarawak|Lundu": {
+      "current_price": 10000.0,
+      "predicted_price_1month": 10218.654228531756,
+      "flood_risk": null
+    },
+    "Sarawak|Maradong": {
+      "current_price": 410000.0,
+      "predicted_price_1month": 410215.7728854383,
+      "flood_risk": null
+    },
+    "Sarawak|Marudi": {
+      "current_price": 240000.0,
+      "predicted_price_1month": 240216.99745625327,
+      "flood_risk": null
+    },
+    "Sarawak|Matu": {
+      "current_price": 48000.0,
+      "predicted_price_1month": 48218.38050093781,
+      "flood_risk": null
+    },
+    "Sarawak|Miri": {
+      "current_price": 746948.3809523808,
+      "predicted_price_1month": 679298.9409675032,
+      "flood_risk": null
+    },
+    "Sarawak|Mukah": {
+      "current_price": 280000.0,
+      "predicted_price_1month": 280216.70932194404,
+      "flood_risk": null
+    },
+    "Sarawak|Samarahan": {
+      "current_price": 656100.0,
+      "predicted_price_1month": 656314.0001391002,
+      "flood_risk": null
+    },
+    "Sarawak|Saratok": {
+      "current_price": 282857.14285714284,
+      "predicted_price_1month": 280933.42088083597,
+      "flood_risk": null
+    },
+    "Sarawak|Sarikei": {
+      "current_price": 338000.0,
+      "predicted_price_1month": 338216.29152719537,
+      "flood_risk": null
+    },
+    "Sarawak|Serian": {
+      "current_price": 343333.3333333333,
+      "predicted_price_1month": 343549.5864426205,
+      "flood_risk": null
+    },
+    "Sarawak|Sibu": {
+      "current_price": 445142.85714285716,
+      "predicted_price_1month": 496961.09834775236,
+      "flood_risk": null
+    },
+    "Sarawak|Sri Aman": {
+      "current_price": 47500.0,
+      "predicted_price_1month": 47718.38410261646,
+      "flood_risk": null
+    },
+    "Selangor|Alam Impian": {
+      "current_price": 1015285.7142857143,
+      "predicted_price_1month": 1024954.2509062192,
+      "flood_risk": null
+    },
+    "Selangor|Aman Perdana": {
+      "current_price": 1022500.0,
+      "predicted_price_1month": 1022711.3608288262,
+      "flood_risk": null
+    },
+    "Selangor|Ambang Botanic": {
+      "current_price": 2339738.095238095,
+      "predicted_price_1month": 1770787.8664624058,
+      "flood_risk": null
+    },
+    "Selangor|Ampang": {
+      "current_price": 606713.9669853955,
+      "predicted_price_1month": 483431.4188863463,
+      "flood_risk": null
+    },
+    "Selangor|Ara Damansara": {
+      "current_price": 777714.2857142857,
+      "predicted_price_1month": 1070646.624201823,
+      "flood_risk": null
+    },
+    "Selangor|Balakong": {
+      "current_price": 289714.28571428574,
+      "predicted_price_1month": 299130.3869068315,
+      "flood_risk": null
+    },
+    "Selangor|Bandar Baru Bangi": {
+      "current_price": 1799750.0,
+      "predicted_price_1month": 1799955.7620190275,
+      "flood_risk": null
+    },
+    "Selangor|Bandar Botanic": {
+      "current_price": 828765.8503401361,
+      "predicted_price_1month": 881180.9512806456,
+      "flood_risk": null
+    },
+    "Selangor|Bandar Bukit Raja": {
+      "current_price": 681916.3059163059,
+      "predicted_price_1month": 811215.1416460604,
+      "flood_risk": null
+    },
+    "Selangor|Bandar Bukit Tinggi": {
+      "current_price": 1144880.3452380954,
+      "predicted_price_1month": 1034261.1715694799,
+      "flood_risk": null
+    },
+    "Selangor|Bandar Kinrara": {
+      "current_price": 988452.3809523808,
+      "predicted_price_1month": 2861268.646193063,
+      "flood_risk": null
+    },
+    "Selangor|Bandar Mahkota Cheras": {
+      "current_price": 517142.85714285716,
+      "predicted_price_1month": 609063.6737233279,
+      "flood_risk": null
+    },
+    "Selangor|Bandar Puncak Alam": {
+      "current_price": 367000.0,
+      "predicted_price_1month": 367216.08262982056,
+      "flood_risk": null
+    },
+    "Selangor|Bandar Puteri Klang": {
+      "current_price": 569300.0,
+      "predicted_price_1month": 632835.3266780297,
+      "flood_risk": null
+    },
+    "Selangor|Bandar Puteri Puchong": {
+      "current_price": 307857.0,
+      "predicted_price_1month": 467314.4538165056,
+      "flood_risk": null
+    },
+    "Selangor|Bandar Saujana Putra": {
+      "current_price": 411379.3650793651,
+      "predicted_price_1month": 443592.9306341971,
+      "flood_risk": null
+    },
+    "Selangor|Bandar Sri Damansara": {
+      "current_price": 965142.8571428572,
+      "predicted_price_1month": 869103.186918248,
+      "flood_risk": null
+    },
+    "Selangor|Bandar Sungai Long": {
+      "current_price": 1462076.1904761905,
+      "predicted_price_1month": 1706127.7410050705,
+      "flood_risk": null
+    },
+    "Selangor|Bandar Sunway": {
+      "current_price": 797357.1071428572,
+      "predicted_price_1month": 773280.8836470614,
+      "flood_risk": null
+    },
+    "Selangor|Bandar Utama": {
+      "current_price": 1185357.1428571427,
+      "predicted_price_1month": 970611.0872617159,
+      "flood_risk": null
+    },
+    "Selangor|Bangi": {
+      "current_price": 766731.8425568426,
+      "predicted_price_1month": 861875.1995117867,
+      "flood_risk": null
+    },
+    "Selangor|Banting": {
+      "current_price": 428839.9047619048,
+      "predicted_price_1month": 447025.3238876099,
+      "flood_risk": null
+    },
+    "Selangor|Batang Berjuntai": {
+      "current_price": 150000.0,
+      "predicted_price_1month": 150217.6457584491,
+      "flood_risk": null
+    },
+    "Selangor|Batang Kali": {
+      "current_price": 609857.1428571428,
+      "predicted_price_1month": 769352.8121860207,
+      "flood_risk": null
+    },
+    "Selangor|Batu Arang": {
+      "current_price": 399000.0,
+      "predicted_price_1month": 399215.8521223732,
+      "flood_risk": null
+    },
+    "Selangor|Batu Caves": {
+      "current_price": 297422.4346938775,
+      "predicted_price_1month": 348272.71767107886,
+      "flood_risk": null
+    },
+    "Selangor|Beranang": {
+      "current_price": 335671.4285714286,
+      "predicted_price_1month": 353075.0343832879,
+      "flood_risk": null
+    },
+    "Selangor|Bestari Jaya": {
+      "current_price": 186300.0,
+      "predicted_price_1month": 186517.3842765633,
+      "flood_risk": null
+    },
+    "Selangor|Bukit Antarabangsa": {
+      "current_price": 1170785.7142857143,
+      "predicted_price_1month": 898196.0041912445,
+      "flood_risk": null
+    },
+    "Selangor|Bukit Beruntung": {
+      "current_price": 268628.5714285714,
+      "predicted_price_1month": 303280.588143643,
+      "flood_risk": null
+    },
+    "Selangor|Bukit Jelutong": {
+      "current_price": 1057759.5238095238,
+      "predicted_price_1month": 983007.511320737,
+      "flood_risk": null
+    },
+    "Selangor|Bukit Rahman Putra": {
+      "current_price": 1296857.142857143,
+      "predicted_price_1month": 1222997.8576139277,
+      "flood_risk": null
+    },
+    "Selangor|Bukit Raja": {
+      "current_price": 780000.0,
+      "predicted_price_1month": 780213.1076430767,
+      "flood_risk": null
+    },
+    "Selangor|Bukit Subang": {
+      "current_price": 560000.0,
+      "predicted_price_1month": 560214.6923817783,
+      "flood_risk": null
+    },
+    "Selangor|Cheras": {
+      "current_price": 610747.2973342447,
+      "predicted_price_1month": 577366.7222357437,
+      "flood_risk": null
+    },
+    "Selangor|Cyberjaya": {
+      "current_price": 887493.9431972789,
+      "predicted_price_1month": 484933.3165427686,
+      "flood_risk": null
+    },
+    "Selangor|Damansara Damai": {
+      "current_price": 275518.36734693876,
+      "predicted_price_1month": 263738.1413507846,
+      "flood_risk": null
+    },
+    "Selangor|Damansara Jaya": {
+      "current_price": 1871428.5714285714,
+      "predicted_price_1month": 1605818.416485459,
+      "flood_risk": null
+    },
+    "Selangor|Damansara Perdana": {
+      "current_price": 456047.619047619,
+      "predicted_price_1month": 515154.4457899004,
+      "flood_risk": null
+    },
+    "Selangor|Denai Alam": {
+      "current_price": 1018025.2525252525,
+      "predicted_price_1month": 913762.6410474374,
+      "flood_risk": null
+    },
+    "Selangor|Dengkil": {
+      "current_price": 395619.04761904763,
+      "predicted_price_1month": 469317.15939318086,
+      "flood_risk": null
+    },
+    "Selangor|Glenmarie": {
+      "current_price": 2334530.612244898,
+      "predicted_price_1month": 1561607.0577747575,
+      "flood_risk": null
+    },
+    "Selangor|Gombak": {
+      "current_price": 554821.4285714285,
+      "predicted_price_1month": 597225.5468380307,
+      "flood_risk": null
+    },
+    "Selangor|Hulu Langat": {
+      "current_price": 499000.0,
+      "predicted_price_1month": 499215.13178659976,
+      "flood_risk": null
+    },
+    "Selangor|Hulu Selangor": {
+      "current_price": 235000.0,
+      "predicted_price_1month": 235217.03347304137,
+      "flood_risk": null
+    },
+    "Selangor|I-City": {
+      "current_price": 475000.0,
+      "predicted_price_1month": 475215.3046671855,
+      "flood_risk": null
+    },
+    "Selangor|Ijok": {
+      "current_price": 479000.0,
+      "predicted_price_1month": 479215.2758537545,
+      "flood_risk": null
+    },
+    "Selangor|Jenjarom": {
+      "current_price": 443714.28571428574,
+      "predicted_price_1month": 443739.96040843823,
+      "flood_risk": null
+    },
+    "Selangor|Jeram": {
+      "current_price": 497000.0,
+      "predicted_price_1month": 493530.2287145094,
+      "flood_risk": null
+    },
+    "Selangor|Kajang": {
+      "current_price": 509104.0217921614,
+      "predicted_price_1month": 516997.3715064523,
+      "flood_risk": null
+    },
+    "Selangor|Kalumpang": {
+      "current_price": 222857.14285714287,
+      "predicted_price_1month": 231048.72581860097,
+      "flood_risk": null
+    },
+    "Selangor|Kapar": {
+      "current_price": 380529.64718614717,
+      "predicted_price_1month": 345794.9811016938,
+      "flood_risk": null
+    },
+    "Selangor|Kayu Ara": {
+      "current_price": 660000.0,
+      "predicted_price_1month": 660213.9720460048,
+      "flood_risk": null
+    },
+    "Selangor|Kelana Jaya": {
+      "current_price": 841428.5714285715,
+      "predicted_price_1month": 612833.6415389553,
+      "flood_risk": null
+    },
+    "Selangor|Kelanang": {
+      "current_price": 1450000.0,
+      "predicted_price_1month": 1450208.2813933948,
+      "flood_risk": null
+    },
+    "Selangor|Kepong": {
+      "current_price": 348714.28571428574,
+      "predicted_price_1month": 348930.500062648,
+      "flood_risk": null
+    },
+    "Selangor|Kerling": {
+      "current_price": 1950000.0,
+      "predicted_price_1month": 1950204.679714528,
+      "flood_risk": null
+    },
+    "Selangor|Klang": {
+      "current_price": 661539.0958990555,
+      "predicted_price_1month": 724527.9478180602,
+      "flood_risk": null
+    },
+    "Selangor|Kota Damansara": {
+      "current_price": 647503.9682539683,
+      "predicted_price_1month": 616086.2021314492,
+      "flood_risk": null
+    },
+    "Selangor|Kota Emerald": {
+      "current_price": 480000.0,
+      "predicted_price_1month": 480215.26865039696,
+      "flood_risk": null
+    },
+    "Selangor|Kota Kemuning": {
+      "current_price": 1131916.1224489796,
+      "predicted_price_1month": 999158.1080177755,
+      "flood_risk": null
+    },
+    "Selangor|Kuala Kubu Baharu": {
+      "current_price": 270000.0,
+      "predicted_price_1month": 270216.7813555212,
+      "flood_risk": null
+    },
+    "Selangor|Kuala Kubu Baru": {
+      "current_price": 221428.57142857142,
+      "predicted_price_1month": 246098.4380371361,
+      "flood_risk": null
+    },
+    "Selangor|Kuala Kubu Bharu": {
+      "current_price": 590000.0,
+      "predicted_price_1month": 590214.4762810462,
+      "flood_risk": null
+    },
+    "Selangor|Kuala Langat": {
+      "current_price": 312857.14285714284,
+      "predicted_price_1month": 361753.1795582271,
+      "flood_risk": null
+    },
+    "Selangor|Kuala Selangor": {
+      "current_price": 438142.85714285716,
+      "predicted_price_1month": 453985.43546935194,
+      "flood_risk": null
+    },
+    "Selangor|Kuang": {
+      "current_price": 800000.0,
+      "predicted_price_1month": 892335.9005460755,
+      "flood_risk": null
+    },
+    "Selangor|Kundang": {
+      "current_price": 454000.0,
+      "predicted_price_1month": 367788.3312413497,
+      "flood_risk": null
+    },
+    "Selangor|Labu": {
+      "current_price": 470000.0,
+      "predicted_price_1month": 470215.3406839743,
+      "flood_risk": null
+    },
+    "Selangor|Melawati": {
+      "current_price": 2400000.0,
+      "predicted_price_1month": 2400201.4382035476,
+      "flood_risk": null
+    },
+    "Selangor|Mutiara Damansara": {
+      "current_price": 953333.3333333333,
+      "predicted_price_1month": 953545.192394403,
+      "flood_risk": null
+    },
+    "Selangor|Nilai": {
+      "current_price": 519000.0,
+      "predicted_price_1month": 519214.98771944526,
+      "flood_risk": null
+    },
+    "Selangor|Pandamaran": {
+      "current_price": 514714.28571428574,
+      "predicted_price_1month": 486305.3129442057,
+      "flood_risk": null
+    },
+    "Selangor|Pandan Indah": {
+      "current_price": 315000.0,
+      "predicted_price_1month": 315216.4572044229,
+      "flood_risk": null
+    },
+    "Selangor|Pelabuhan Klang": {
+      "current_price": 350000.0,
+      "predicted_price_1month": 350216.2050869025,
+      "flood_risk": null
+    },
+    "Selangor|Petaling": {
+      "current_price": 807430.0,
+      "predicted_price_1month": 807642.910054974,
+      "flood_risk": null
+    },
+    "Selangor|Petaling Jaya": {
+      "current_price": 631277.0432900434,
+      "predicted_price_1month": 750390.1869734921,
+      "flood_risk": null
+    },
+    "Selangor|Port Klang": {
+      "current_price": 483660.71428571426,
+      "predicted_price_1month": 695839.2242038047,
+      "flood_risk": null
+    },
+    "Selangor|Port Klang (Pelabuhan Klang)": {
+      "current_price": 688000.0,
+      "predicted_price_1month": 688213.7703519883,
+      "flood_risk": null
+    },
+    "Selangor|Puchong": {
+      "current_price": 482665.9544159545,
+      "predicted_price_1month": 444868.65877816384,
+      "flood_risk": null
+    },
+    "Selangor|Puchong Perdana": {
+      "current_price": 1450000.0,
+      "predicted_price_1month": 1450208.2813933948,
+      "flood_risk": null
+    },
+    "Selangor|Puchong South": {
+      "current_price": 1150000.0,
+      "predicted_price_1month": 1150210.4424007153,
+      "flood_risk": null
+    },
+    "Selangor|Pulau Indah (Pulau Lumut)": {
+      "current_price": 242785.7142857143,
+      "predicted_price_1month": 308666.42921167007,
+      "flood_risk": null
+    },
+    "Selangor|Puncak Alam": {
+      "current_price": 522690.4761904762,
+      "predicted_price_1month": 513552.30706390156,
+      "flood_risk": null
+    },
+    "Selangor|Puncak Jalil": {
+      "current_price": 678809.5238095239,
+      "predicted_price_1month": 757064.979145328,
+      "flood_risk": null
+    },
+    "Selangor|Putra Heights": {
+      "current_price": 870571.4285714285,
+      "predicted_price_1month": 882730.5831736282,
+      "flood_risk": null
+    },
+    "Selangor|Rasa": {
+      "current_price": 888000.0,
+      "predicted_price_1month": 888212.3296804416,
+      "flood_risk": null
+    },
+    "Selangor|Rawang": {
+      "current_price": 469125.78347578354,
+      "predicted_price_1month": 447611.1765723999,
+      "flood_risk": null
+    },
+    "Selangor|Sabak Bernam": {
+      "current_price": 402857.14285714284,
+      "predicted_price_1month": 349065.3534385122,
+      "flood_risk": null
+    },
+    "Selangor|Salak Tinggi": {
+      "current_price": 382047.619047619,
+      "predicted_price_1month": 384012.2646303098,
+      "flood_risk": null
+    },
+    "Selangor|Saujana": {
+      "current_price": 350000.0,
+      "predicted_price_1month": 350216.2050869025,
+      "flood_risk": null
+    },
+    "Selangor|Saujana Utama": {
+      "current_price": 537142.8571428572,
+      "predicted_price_1month": 576002.8233152246,
+      "flood_risk": null
+    },
+    "Selangor|Selayang": {
+      "current_price": 479475.1082251082,
+      "predicted_price_1month": 465221.9210893125,
+      "flood_risk": null
+    },
+    "Selangor|Semenyih": {
+      "current_price": 474460.07050593523,
+      "predicted_price_1month": 445168.80783595727,
+      "flood_risk": null
+    },
+    "Selangor|Sentul": {
+      "current_price": 550000.0,
+      "predicted_price_1month": 550214.7644153554,
+      "flood_risk": null
+    },
+    "Selangor|Sepang": {
+      "current_price": 440465.6462585034,
+      "predicted_price_1month": 356382.15355222113,
+      "flood_risk": null
+    },
+    "Selangor|Serdang": {
+      "current_price": 604619.0476190477,
+      "predicted_price_1month": 553100.2298722954,
+      "flood_risk": null
+    },
+    "Selangor|Serendah": {
+      "current_price": 522457.14285714284,
+      "predicted_price_1month": 619161.5643617273,
+      "flood_risk": null
+    },
+    "Selangor|Seri Kembangan": {
+      "current_price": 580313.1571428572,
+      "predicted_price_1month": 539901.4197781573,
+      "flood_risk": null
+    },
+    "Selangor|Setia Alam": {
+      "current_price": 832489.9042747534,
+      "predicted_price_1month": 1049764.933180215,
+      "flood_risk": null
+    },
+    "Selangor|Setia Eco Park": {
+      "current_price": 5457115.646258503,
+      "predicted_price_1month": 4550403.422209454,
+      "flood_risk": null
+    },
+    "Selangor|Shah Alam": {
+      "current_price": 696293.3424112119,
+      "predicted_price_1month": 660562.6744090139,
+      "flood_risk": null
+    },
+    "Selangor|Subang": {
+      "current_price": 2500000.0,
+      "predicted_price_1month": 2500200.7178677744,
+      "flood_risk": null
+    },
+    "Selangor|Subang Bestari": {
+      "current_price": 702857.1428571428,
+      "predicted_price_1month": 1322540.102371411,
+      "flood_risk": null
+    },
+    "Selangor|Subang Jaya": {
+      "current_price": 531161.9047619047,
+      "predicted_price_1month": 505140.6277324518,
+      "flood_risk": null
+    },
+    "Selangor|Subang Perdana": {
+      "current_price": 337500.0,
+      "predicted_price_1month": 337716.2951288738,
+      "flood_risk": null
+    },
+    "Selangor|Sungai Besar": {
+      "current_price": 175000.0,
+      "predicted_price_1month": 175217.46567450557,
+      "flood_risk": null
+    },
+    "Selangor|Sungai Buloh": {
+      "current_price": 594039.6825396825,
+      "predicted_price_1month": 734409.9627131107,
+      "flood_risk": null
+    },
+    "Selangor|Sungai Gumut": {
+      "current_price": 205000.0,
+      "predicted_price_1month": 205217.2495737737,
+      "flood_risk": null
+    },
+    "Selangor|Sungai Pelek": {
+      "current_price": 405000.0,
+      "predicted_price_1month": 337044.8355443133,
+      "flood_risk": null
+    },
+    "Selangor|Sunway": {
+      "current_price": 913636.3636363635,
+      "predicted_price_1month": 913848.5086489068,
+      "flood_risk": null
+    },
+    "Selangor|Taman TTDI Jaya": {
+      "current_price": 570000.0,
+      "predicted_price_1month": 570214.6203482011,
+      "flood_risk": null
+    },
+    "Selangor|Tanjong Duabelas": {
+      "current_price": 886950.0,
+      "predicted_price_1month": 887162.3372439672,
+      "flood_risk": null
+    },
+    "Selangor|Tanjong Karang": {
+      "current_price": 284571.4285714286,
+      "predicted_price_1month": 285832.9555641103,
+      "flood_risk": null
+    },
+    "Selangor|Tanjong Sepat": {
+      "current_price": 210000.0,
+      "predicted_price_1month": 210217.21355698537,
+      "flood_risk": null
+    },
+    "Selangor|Tanjung Karang": {
+      "current_price": 298000.0,
+      "predicted_price_1month": 298216.5796615046,
+      "flood_risk": null
+    },
+    "Selangor|Telok Panglima Garang": {
+      "current_price": 699358.1562881563,
+      "predicted_price_1month": 509172.5426264517,
+      "flood_risk": null
+    },
+    "Selangor|Tropicana": {
+      "current_price": 4011571.4285714286,
+      "predicted_price_1month": 2122178.1859862236,
+      "flood_risk": null
+    },
+    "Selangor|USJ": {
+      "current_price": 680428.5714285715,
+      "predicted_price_1month": 670918.7408598028,
+      "flood_risk": null
+    },
+    "Selangor|Ulu Bernam": {
+      "current_price": 250000.0,
+      "predicted_price_1month": 250216.92542267544,
+      "flood_risk": null
+    },
+    "Selangor|Ulu Kelang": {
+      "current_price": 885000.0,
+      "predicted_price_1month": 885212.3512905147,
+      "flood_risk": null
+    },
+    "Selangor|Ulu Klang": {
+      "current_price": 4042142.8571428573,
+      "predicted_price_1month": 4791359.740546663,
+      "flood_risk": null
+    },
+    "Selangor|Ulu Langat": {
+      "current_price": 1250000.0,
+      "predicted_price_1month": 1250209.7220649417,
+      "flood_risk": null
+    },
+    "Selangor|Ulu Yam": {
+      "current_price": 351071.4285714286,
+      "predicted_price_1month": 367334.31282705953,
+      "flood_risk": null
+    },
+    "Terengganu|Alur Limbat": {
+      "current_price": 650000.0,
+      "predicted_price_1month": 650214.044079582,
+      "flood_risk": null
+    },
+    "Terengganu|Banggul": {
+      "current_price": 250000.0,
+      "predicted_price_1month": 250216.92542267544,
+      "flood_risk": null
+    },
+    "Terengganu|Batu Rakit": {
+      "current_price": 507500.0,
+      "predicted_price_1month": 507715.07055805903,
+      "flood_risk": null
+    },
+    "Terengganu|Besut": {
+      "current_price": 355000.0,
+      "predicted_price_1month": 452866.4822584763,
+      "flood_risk": null
+    },
+    "Terengganu|Bukit Kenak": {
+      "current_price": 235000.0,
+      "predicted_price_1month": 235217.03347304137,
+      "flood_risk": null
+    },
+    "Terengganu|Bukit Payung": {
+      "current_price": 355357.14285714284,
+      "predicted_price_1month": 375950.58883435256,
+      "flood_risk": null
+    },
+    "Terengganu|Cabang Tiga": {
+      "current_price": 750000.0,
+      "predicted_price_1month": 750213.3237438088,
+      "flood_risk": null
+    },
+    "Terengganu|Chukai": {
+      "current_price": 592500.0,
+      "predicted_price_1month": 592714.4582726515,
+      "flood_risk": null
+    },
+    "Terengganu|Cukai": {
+      "current_price": 480000.0,
+      "predicted_price_1month": 480215.26865039696,
+      "flood_risk": null
+    },
+    "Terengganu|Dungun": {
+      "current_price": 372452.380952381,
+      "predicted_price_1month": 366408.87058549956,
+      "flood_risk": null
+    },
+    "Terengganu|Hulu Terengganu": {
+      "current_price": 478428.5714285714,
+      "predicted_price_1month": 417041.91883021244,
+      "flood_risk": null
+    },
+    "Terengganu|Jertih": {
+      "current_price": 250000.0,
+      "predicted_price_1month": 250216.92542267544,
+      "flood_risk": null
+    },
+    "Terengganu|Kemaman": {
+      "current_price": 968790.476190476,
+      "predicted_price_1month": 1456293.988420723,
+      "flood_risk": null
+    },
+    "Terengganu|Kemasik": {
+      "current_price": 495000.0,
+      "predicted_price_1month": 495215.1606000308,
+      "flood_risk": null
+    },
+    "Terengganu|Kerteh": {
+      "current_price": 368928.5714285714,
+      "predicted_price_1month": 309018.7709624821,
+      "flood_risk": null
+    },
+    "Terengganu|Kertih": {
+      "current_price": 300000.0,
+      "predicted_price_1month": 300216.56525478885,
+      "flood_risk": null
+    },
+    "Terengganu|Kijal": {
+      "current_price": 310000.0,
+      "predicted_price_1month": 310216.4932212117,
+      "flood_risk": null
+    },
+    "Terengganu|Kuala Dungun": {
+      "current_price": 360000.0,
+      "predicted_price_1month": 360216.13305332465,
+      "flood_risk": null
+    },
+    "Terengganu|Kuala Ibai": {
+      "current_price": 400000.0,
+      "predicted_price_1month": 400215.8449190159,
+      "flood_risk": null
+    },
+    "Terengganu|Kuala Nerus": {
+      "current_price": 416071.4285714286,
+      "predicted_price_1month": 431650.19477240345,
+      "flood_risk": null
+    },
+    "Terengganu|Kuala Paka": {
+      "current_price": 415000.0,
+      "predicted_price_1month": 415215.7368686497,
+      "flood_risk": null
+    },
+    "Terengganu|Kuala Terengganu": {
+      "current_price": 332227.2597402598,
+      "predicted_price_1month": 376926.4605553448,
+      "flood_risk": null
+    },
+    "Terengganu|Kubang Parit": {
+      "current_price": 850000.0,
+      "predicted_price_1month": 850212.6034080354,
+      "flood_risk": null
+    },
+    "Terengganu|Marang": {
+      "current_price": 357000.0,
+      "predicted_price_1month": 357216.15466339816,
+      "flood_risk": null
+    },
+    "Terengganu|Paka": {
+      "current_price": 477857.14285714284,
+      "predicted_price_1month": 378755.958664638,
+      "flood_risk": null
+    },
+    "Terengganu|Pasir Semut": {
+      "current_price": 230000.0,
+      "predicted_price_1month": 230217.06948983017,
+      "flood_risk": null
+    },
+    "Terengganu|Setiu": {
+      "current_price": 309285.71428571426,
+      "predicted_price_1month": 311161.98568963143,
+      "flood_risk": null
+    },
+    "Terengganu|Tok Jamal": {
+      "current_price": 450000.0,
+      "predicted_price_1month": 450215.4847511286,
+      "flood_risk": null
+    }
+  },
+  "metrics": {
+    "state": {
+      "rmse": 2087965.8260115616,
+      "mse": 4359601290592.142,
+      "mae": 408669.7306098946,
+      "mape_pct": 49.57886804375951,
+      "baseline_mae": 423163.3076274324,
+      "baseline_mape_pct": 50.74736854467537
+    },
+    "district": {
+      "rmse": 5802281.470755802,
+      "mse": 33666470265876.105,
+      "mae": 190506.8668545279,
+      "mape_pct": 19.524289271584955,
+      "baseline_mae": 133933.75646551547,
+      "baseline_mape_pct": 12.644443749023694
+    }
+  }
+}
