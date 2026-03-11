@@ -16,6 +16,7 @@ ADMIN_ACCOUNTS = {
     "admin_ys": "yeesyuen02",
     "admin_ps": "pengseung03",
 }
+
 PREDICTIONS_PATH = os.path.join(BASE_DIR, "output", "predictions.json")
 AREA_SUMMARY_PATH = os.path.join(BASE_DIR, "output", "area_property_summary.json")
 CLEANED_CSV = os.path.join(BASE_DIR, "data", "cleaned.csv")

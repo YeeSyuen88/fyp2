@@ -351,7 +351,7 @@
         "<span class=\"sub\">" + escapeHtml(subTitle) + "</span>" +
       "</div>" +
       '<div class="panel-placeholder" style="padding:24px 0">' +
-        "<p>No price data for this area.</p>" +
+        "<p>" + (typeof t === "function" ? t("map.noPriceData") : "No price data for this area.") + "</p>" +
       "</div>";
   }
 
