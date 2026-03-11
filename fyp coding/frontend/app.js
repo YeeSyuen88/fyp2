@@ -21,7 +21,7 @@
 
   // Bounds to show whole Malaysia (Peninsular + Sabah & Sarawak)
   const MALAYSIA_BOUNDS = L.latLngBounds(L.latLng(0.5, 99), L.latLng(7.5, 120));
-  map.fitBounds(MALAYSIA_BOUNDS, { padding: [24, 24], maxZoom: 8 });
+  map.fitBounds(MALAYSIA_BOUNDS, { padding: [32, 32], maxZoom: 8 });
 
   // Light basemap — easier to see (previous design)
   L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
@@ -81,7 +81,7 @@
   let districtLayer = null;
   let currentView = "state";
   let stateNames = [];
-  let selectedStateLayer = null;
+  let selectedStateLayers = [];
   let selectedDistrictLayer = null;
   let lastAreaData = null;
 
@@ -177,11 +177,11 @@
     });
   }
 
-  function findStateLayerByKey(key) {
-    if (!stateLayer) return null;
-    return stateLayer.getLayers().find(function (l) {
+  function findStateLayersByKey(key) {
+    if (!stateLayer) return [];
+    return stateLayer.getLayers().filter(function (l) {
       return stateKey(l.feature.properties.NAME_1) === key;
-    }) || null;
+    });
   }
 
   function findDistrictLayerByKey(key) {
@@ -198,28 +198,38 @@
 
   function selectAreaFromSidebar(key) {
     if (currentView === "state") {
-      const layer = findStateLayerByKey(key);
+      const layers = findStateLayersByKey(key);
       const data = predictions.state[key];
-      if (!layer || !data) return;
-      if (selectedStateLayer && stateLayer) stateLayer.resetStyle(selectedStateLayer);
+      if (!layers.length || !data) return;
+      selectedStateLayers.forEach(function (l) {
+        if (stateLayer) stateLayer.resetStyle(l);
+      });
+      selectedStateLayers = [];
       if (selectedDistrictLayer && districtLayer) {
         districtLayer.resetStyle(selectedDistrictLayer);
         selectedDistrictLayer = null;
       }
-      selectedStateLayer = layer;
-      layer.setStyle(SELECTED_STYLE);
-      layer.bringToFront();
-      zoomToLayer(layer, 8);
+      selectedStateLayers = layers;
+      layers.forEach(function (l) {
+        l.setStyle(SELECTED_STYLE);
+        l.bringToFront();
+      });
+      if (layers.length === 1) {
+        zoomToLayer(layers[0], 8);
+      } else {
+        const group = L.featureGroup(layers);
+        map.fitBounds(group.getBounds(), { maxZoom: 8, padding: [24, 24] });
+      }
       showAreaData(key, "State", data, { state: key });
     } else {
       const layer = findDistrictLayerByKey(key);
       const data = predictions.district[key];
       if (!layer || !data) return;
       if (selectedDistrictLayer && districtLayer) districtLayer.resetStyle(selectedDistrictLayer);
-      if (selectedStateLayer && stateLayer) {
-        stateLayer.resetStyle(selectedStateLayer);
-        selectedStateLayer = null;
-      }
+      selectedStateLayers.forEach(function (l) {
+        if (stateLayer) stateLayer.resetStyle(l);
+      });
+      selectedStateLayers = [];
       selectedDistrictLayer = layer;
       layer.setStyle(SELECTED_STYLE);
       layer.bringToFront();
@@ -343,6 +353,7 @@
   }
 
   function showNoData(title, subTitle) {
+    var askLabel = typeof t === "function" ? t("map.askChatbot") : "Ask chatbot";
     panelPlaceholder.style.display = "none";
     areaDataEl.style.display = "block";
     areaDataEl.innerHTML =
@@ -351,8 +362,22 @@
         "<span class=\"sub\">" + escapeHtml(subTitle) + "</span>" +
       "</div>" +
       '<div class="panel-placeholder" style="padding:24px 0">' +
-        "<p>" + (typeof t === "function" ? t("map.noPriceData") : "No price data for this area.") + "</p>" +
+        "<p>" + (typeof t === "function" ? t("map.noPriceData") : "Sorry, no price data for this area.") + "</p>" +
+        '<p style="margin-top:12px"><button type="button" class="btn-ask-chatbot" data-area="' + escapeHtml(title) + '">' + escapeHtml(askLabel) + "</button></p>" +
       "</div>";
+    var btn = areaDataEl.querySelector(".btn-ask-chatbot");
+    if (btn) {
+      btn.addEventListener("click", function () {
+        var area = btn.getAttribute("data-area") || "";
+        var q = "What is the Current avg price, Predicted 1 month and Flood risk data for the " + (area ? area + "?" : "?");
+        if (typeof window.ensureChatbotReady === "function") window.ensureChatbotReady();
+        if (typeof window.askChatbot === "function") {
+          window.askChatbot(q);
+        } else {
+          document.dispatchEvent(new CustomEvent("estateview-ask-chatbot", { detail: { question: q } }));
+        }
+      });
+    }
   }
 
   const STATE_OUTLINE = "hsl(210, 45%, 55%)";
@@ -397,6 +422,8 @@
 
   function highlightFeature(e) {
     const layer = e.target;
+    if (currentView === "state" && selectedStateLayers.indexOf(layer) !== -1) return;
+    if (currentView === "district" && layer === selectedDistrictLayer) return;
     layer.setStyle({
       weight: 2.5,
       color: "#2563eb",
@@ -407,7 +434,7 @@
   }
 
   function resetHighlight(e) {
-    if (currentView === "state" && e.target === selectedStateLayer) return;
+    if (currentView === "state" && selectedStateLayers.indexOf(e.target) !== -1) return;
     if (currentView === "district" && e.target === selectedDistrictLayer) return;
     if (currentView === "state") {
       stateLayer.resetStyle(e.target);
@@ -417,15 +444,15 @@
   }
 
   function clearSelection() {
-    if (selectedStateLayer && stateLayer) {
-      stateLayer.resetStyle(selectedStateLayer);
-      selectedStateLayer = null;
-    }
+    selectedStateLayers.forEach(function (l) {
+      if (stateLayer) stateLayer.resetStyle(l);
+    });
+    selectedStateLayers = [];
     if (selectedDistrictLayer && districtLayer) {
       districtLayer.resetStyle(selectedDistrictLayer);
       selectedDistrictLayer = null;
     }
-    map.fitBounds(DEFAULT_VIEW.bounds, { padding: [24, 24], maxZoom: 8, animate: true });
+    map.fitBounds(DEFAULT_VIEW.bounds, { padding: [20, 20], maxZoom: 8, animate: true });
     showAllAreasView();
   }
 
@@ -440,7 +467,7 @@
     const key = stateKey(name);
     const data = predictions.state[key];
 
-    if (layer === selectedStateLayer) {
+    if (selectedStateLayers.indexOf(layer) !== -1) {
       clearSelection();
       return;
     }
@@ -450,14 +477,26 @@
       return;
     }
 
-    if (selectedStateLayer && stateLayer) stateLayer.resetStyle(selectedStateLayer);
-    selectedStateLayer = layer;
+    selectedStateLayers.forEach(function (l) {
+      if (stateLayer) stateLayer.resetStyle(l);
+    });
+    selectedStateLayers = [];
     selectedDistrictLayer = null;
     if (selectedDistrictLayer && districtLayer) districtLayer.resetStyle(selectedDistrictLayer);
 
-    layer.setStyle(SELECTED_STYLE);
-    layer.bringToFront();
-      showAreaData(stateDisplayName(key), t("map.stateLabel"), data, { state: key }, key, true);
+    var layersForState = findStateLayersByKey(key);
+    selectedStateLayers = layersForState;
+    layersForState.forEach(function (l) {
+      l.setStyle(SELECTED_STYLE);
+      l.bringToFront();
+    });
+    if (layersForState.length === 1) {
+      zoomToLayer(layersForState[0], 8);
+    } else {
+      var group = L.featureGroup(layersForState);
+      map.fitBounds(group.getBounds(), { maxZoom: 8, padding: [24, 24] });
+    }
+    showAreaData(stateDisplayName(key), t("map.stateLabel"), data, { state: key }, key, true);
   }
 
   function onDistrictClick(e) {
@@ -487,10 +526,10 @@
     }
 
     if (selectedDistrictLayer && districtLayer) districtLayer.resetStyle(selectedDistrictLayer);
-    if (selectedStateLayer && stateLayer) {
-      stateLayer.resetStyle(selectedStateLayer);
-      selectedStateLayer = null;
-    }
+    selectedStateLayers.forEach(function (l) {
+      if (stateLayer) stateLayer.resetStyle(l);
+    });
+    selectedStateLayers = [];
     selectedDistrictLayer = layer;
 
     layer.setStyle(SELECTED_STYLE);
@@ -529,7 +568,7 @@
   function applyView() {
     currentView = layerSelect.value;
     if (!window._geoJson) return;
-    if (selectedStateLayer || selectedDistrictLayer) {
+    if (selectedStateLayers.length || selectedDistrictLayer) {
       clearSelection();
     }
     if (currentView === "state") {

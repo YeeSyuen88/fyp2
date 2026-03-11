@@ -1,0 +1,13 @@
+# API keys (do not commit)
+fyp coding/backend/groq_api_key.txt
+**/groq_api_key.txt
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.env
+
+# Optional: local SQLite if you prefer not to commit DB
+# fyp coding/data/public_comments.db

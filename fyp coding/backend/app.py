@@ -5,10 +5,43 @@ Serves predictions from output/predictions.json and frontend static files.
 """
 import os
 import json
+import urllib.request
+import urllib.error
 import numpy as np
 from flask import Flask, jsonify, request, send_from_directory, session
 
+try:
+    from curl_cffi import requests as _curl_requests
+    _CURL_CFFI_AVAILABLE = True
+except ImportError:
+    _CURL_CFFI_AVAILABLE = False
+
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+BACKEND_DIR = os.path.dirname(os.path.abspath(__file__))
+
+
+def _load_groq_api_key():
+    key = os.environ.get("GROQ_API_KEY", "").strip()
+    if key:
+        return key
+    path = os.path.join(BACKEND_DIR, "groq_api_key.txt")
+    if os.path.isfile(path):
+        with open(path, "r", encoding="utf-8") as f:
+            return f.read().strip()
+    return ""
+
+
+GROQ_API_KEY = _load_groq_api_key()
+CHATBOT_SYSTEM_PROMPT = (
+    "You are the EstateView assistant for a property intelligence platform in Malaysia. "
+    "When users ask about current average price, predicted 1-month price, or flood risk for any area, "
+    "answer using your general knowledge. Never say that you or EstateView lack data; always answer from your knowledge. "
+    "IMPORTANT: Format your reply tidily. First line: 'For [area name]:' only (no dash or bullet after it). "
+    "Then one line per item, each starting with a bullet and space, e.g. '• Current avg price: RM ...' on a new line. "
+    "Use exactly: • Current avg price, • Predicted 1-month price (with % change), • Flood risk level. Keep under 60 words. "
+    "Do NOT write long paragraphs, repeated explanations, or extra detail. No closing line about map/filter/estimator unless the user asks. "
+    "Keep the whole reply under 60 words. Be brief."
+)
 
 # Admin accounts: (username, password)
 ADMIN_ACCOUNTS = {
@@ -767,6 +800,111 @@ def public_comment_delete(post_id, comment_id):
         return jsonify({"success": True})
     finally:
         conn.close()
+
+
+def _groq_reply(question, return_error=False):
+    """Call Groq chat completions API. Returns reply text or None on failure.
+    If return_error=True, returns (reply_or_None, error_message_or_None)."""
+    if not GROQ_API_KEY or not question:
+        out = (None, "No API key or empty question" if return_error else None)
+        return out if return_error else None
+    url = "https://api.groq.com/openai/v1/chat/completions"
+    payload = {
+        "model": "llama-3.1-8b-instant",
+        "messages": [
+            {"role": "system", "content": CHATBOT_SYSTEM_PROMPT},
+            {"role": "user", "content": question},
+        ],
+        "max_tokens": 220,
+        "temperature": 0.7,
+    }
+    try:
+        if _CURL_CFFI_AVAILABLE:
+            r = _curl_requests.post(
+                url,
+                json=payload,
+                headers={"Authorization": "Bearer " + GROQ_API_KEY},
+                impersonate="chrome120",
+                timeout=30,
+            )
+            if r.status_code != 200:
+                err = f"HTTP {r.status_code}: {(r.text or '')[:300]}"
+                print("[Groq API]", err)
+                return (None, err) if return_error else None
+            out = r.json()
+        else:
+            data = json.dumps(payload).encode("utf-8")
+            req = urllib.request.Request(
+                url,
+                data=data,
+                headers={
+                    "Content-Type": "application/json",
+                    "Accept": "application/json",
+                    "Authorization": "Bearer " + GROQ_API_KEY,
+                    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+                },
+                method="POST",
+            )
+            with urllib.request.urlopen(req, timeout=30) as resp:
+                out = json.loads(resp.read().decode("utf-8"))
+        choices = out.get("choices") or []
+        if not choices:
+            err = "Empty choices in response"
+            if return_error:
+                return None, err
+            return None
+        msg = choices[0].get("message") or {}
+        text = (msg.get("content") or "").strip()
+        return (text, None) if return_error else text
+    except urllib.error.HTTPError as e:
+        body = e.read().decode("utf-8", errors="replace") if e.fp else ""
+        err = f"HTTP {e.code}: {body[:300]}"
+        print("[Groq API] HTTPError", e.code, body[:400])
+        return (None, err) if return_error else None
+    except Exception as e:
+        err = f"{type(e).__name__}: {str(e)}"
+        print("[Groq API] Error:", err)
+        return (None, err) if return_error else None
+
+
+@app.route("/api/chat/status", methods=["GET"])
+def chat_status():
+    """Check if chatbot API (Groq) is configured and connection works."""
+    if not GROQ_API_KEY:
+        key_path = os.path.join(BACKEND_DIR, "groq_api_key.txt")
+        return jsonify({
+            "configured": False,
+            "connected": False,
+            "message": "GROQ_API_KEY is not set. Set it in your environment or add groq_api_key.txt in the backend folder.",
+            "key_file_path": key_path,
+            "key_file_exists": os.path.isfile(key_path),
+        })
+    test_reply, test_error = _groq_reply("Reply with exactly: OK", return_error=True)
+    if test_reply:
+        return jsonify({
+            "configured": True,
+            "connected": True,
+            "message": "Chatbot API is connected successfully.",
+        })
+    return jsonify({
+        "configured": True,
+        "connected": False,
+        "message": "API key is set but the connection failed. Check your key and network.",
+        "error": test_error,
+    })
+
+
+@app.route("/api/chat", methods=["POST"])
+def chat():
+    """Chatbot: body.message -> reply from Groq API."""
+    body = request.get_json(silent=True) or {}
+    q = (body.get("message") or "").strip()
+    if not q:
+        return jsonify({"reply": "Please type a question."})
+    reply = _groq_reply(q)
+    if reply:
+        return jsonify({"reply": reply})
+    return jsonify({"reply": "Sorry, the assistant could not get a response. Please try again."})
 
 
 @app.route("/")
