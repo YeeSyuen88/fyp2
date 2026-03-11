@@ -3,57 +3,544 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Malaysia Property Price &amp; Flood Risk Map</title>
+  <title>EstateView Map — Malaysia Property</title>
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700&display=swap" rel="stylesheet" />
   <style>
+    :root {
+      --bg-primary: #0a0e14;
+      --bg-secondary: #0d1117;
+      --bg-card: #161b22;
+      --bg-card-hover: #1c2128;
+      --border: #30363d;
+      --text-primary: #e6edf3;
+      --text-secondary: #8b949e;
+      --text-muted: #6e7681;
+      --accent: #58a6ff;
+      --accent-soft: rgba(56, 139, 253, 0.15);
+      --accent-glow: rgba(56, 139, 253, 0.25);
+      --success: #3fb950;
+      --success-soft: rgba(63, 185, 80, 0.12);
+      --warning: #d29922;
+      --radius: 12px;
+      --radius-sm: 8px;
+      --shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+    }
+
     * { box-sizing: border-box; }
-    body { margin: 0; font-family: system-ui, sans-serif; }
-    #map { width: 100vw; height: 100vh; }
-    .layer-toggle {
-      position: absolute;
-      top: 10px;
-      left: 50px;
-      z-index: 1000;
-      background: #fff;
-      padding: 8px 12px;
-      border-radius: 8px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    body {
+      margin: 0;
+      font-family: "DM Sans", system-ui, -apple-system, sans-serif;
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
     }
-    .layer-toggle label { margin-right: 8px; }
-    .layer-toggle select { padding: 4px 8px; }
-    .info-panel {
+
+    /* —— Global navigation —— */
+    .global-nav {
+      position: relative;
+      z-index: 1001;
+      flex-shrink: 0;
+      height: 56px;
+      background: var(--bg-secondary);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 24px 0 20px;
+    }
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+      font-size: 1.375rem;
+      font-weight: 700;
+      letter-spacing: -0.03em;
+    }
+    .nav-logo .logo-estate { color: var(--text-primary); }
+    .nav-logo .logo-view { color: var(--accent); }
+    .nav-logo:hover .logo-view { opacity: 0.9; }
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .nav-links a {
+      color: var(--text-secondary);
+      text-decoration: none;
+      font-size: 0.875rem;
+      font-weight: 500;
+      padding: 8px 14px;
+      position: relative;
+    }
+    .nav-links a::after {
+      content: "";
       position: absolute;
-      top: 10px;
-      right: 10px;
-      z-index: 1000;
-      background: #fff;
-      padding: 12px 16px;
-      border-radius: 8px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.15);
-      max-width: 380px;
+      left: 50%;
+      bottom: 6px;
+      width: 100%;
+      height: 2px;
+      background: var(--accent);
+      border-radius: 1px;
+      transform: translateX(-50%) scaleX(0);
+      transform-origin: center;
+      transition: transform 0.2s ease;
+    }
+    .nav-links a:hover {
+      color: var(--text-primary);
+    }
+    .nav-links a:hover::after {
+      transform: translateX(-50%) scaleX(1);
+    }
+    .nav-links a.active {
+      color: var(--accent);
+    }
+    .nav-links a.active::after {
+      transform: translateX(-50%) scaleX(1);
+    }
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .lang-switcher { position: relative; }
+    .lang-btn {
+      width: 36px; height: 36px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      background: var(--bg-card);
+      color: var(--text-muted);
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer;
+      font-size: 1.25rem;
+    }
+    .lang-btn:hover { border-color: var(--accent); color: var(--accent); }
+    .lang-dropdown {
       display: none;
+      position: absolute;
+      top: 100%; right: 0;
+      margin-top: 6px;
+      min-width: 160px;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+      z-index: 1002;
     }
-    .info-panel.visible { display: block; }
-    .info-panel h3 { margin: 0 0 8px 0; font-size: 1.1rem; }
-    .info-panel p { margin: 4px 0; }
-    .info-panel .price { font-weight: 600; color: #0a5; }
-    .info-panel .flood { color: #c00; }
-    .info-panel .chart-wrap { margin-top: 10px; height: 180px; position: relative; }
-    .info-panel .chart-wrap canvas { max-height: 180px; }
+    .lang-dropdown.open { display: block; }
+    .lang-opt {
+      display: block;
+      width: 100%;
+      padding: 10px 14px;
+      border: none;
+      background: none;
+      color: var(--text-primary);
+      font-size: 0.9375rem;
+      text-align: left;
+      cursor: pointer;
+    }
+    .lang-opt:hover { background: var(--bg-secondary); }
+    .lang-opt.active { color: var(--accent); font-weight: 600; }
+    .app-layout {
+      display: flex;
+      flex: 1;
+      min-height: 0;
+    }
+
+    /* —— Left panel —— */
+    .sidebar {
+      width: 400px;
+      min-width: 320px;
+      height: 100%;
+      background: var(--bg-secondary);
+      border-right: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      flex-shrink: 0;
+    }
+    .sidebar-header {
+      padding: 20px 24px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .sidebar-header h1 {
+      margin: 0;
+      font-size: 1.125rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+    .sidebar-header a {
+      font-size: 0.8125rem;
+      color: var(--accent);
+      text-decoration: none;
+      font-weight: 500;
+      transition: opacity 0.2s;
+    }
+    .sidebar-header a:hover { opacity: 0.85; }
+
+    .layer-control {
+      padding: 16px 24px;
+      border-bottom: 1px solid var(--border);
+      background: linear-gradient(180deg, rgba(22, 27, 34, 0.6) 0%, var(--bg-secondary) 100%);
+    }
+    .layer-control-inner {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 14px 18px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    }
+    .layer-control label {
+      display: block;
+      font-size: 0.6875rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--text-muted);
+      margin-bottom: 10px;
+    }
+    .layer-control .select-wrap {
+      position: relative;
+      display: block;
+    }
+    .layer-control select {
+      width: 100%;
+      appearance: none;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      color: var(--text-primary);
+      padding: 12px 40px 12px 14px;
+      border-radius: var(--radius-sm);
+      font-size: 0.9375rem;
+      font-weight: 500;
+      font-family: inherit;
+      cursor: pointer;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .layer-control select:hover {
+      border-color: var(--text-muted);
+    }
+    .layer-control select:focus {
+      outline: none;
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px var(--accent-soft);
+    }
+    .layer-control .select-wrap::after {
+      content: "";
+      position: absolute;
+      right: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 0;
+      height: 0;
+      border-left: 5px solid transparent;
+      border-right: 5px solid transparent;
+      border-top: 6px solid var(--text-secondary);
+      pointer-events: none;
+    }
+
+    .panel-content {
+      flex: 1;
+      overflow-y: auto;
+      padding: 24px;
+      scrollbar-width: thin;
+      scrollbar-color: var(--border) transparent;
+    }
+    .panel-content::-webkit-scrollbar { width: 6px; }
+    .panel-content::-webkit-scrollbar-track { background: transparent; }
+    .panel-content::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+
+    /* Default state: prompt or area list */
+    .panel-placeholder {
+      text-align: center;
+      padding: 48px 24px;
+      color: var(--text-secondary);
+    }
+    .panel-placeholder .icon {
+      width: 56px;
+      height: 56px;
+      margin: 0 auto 16px;
+      background: var(--accent-soft);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+    }
+    .panel-placeholder h2 {
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin: 0 0 8px;
+    }
+    .panel-placeholder p {
+      font-size: 0.875rem;
+      margin: 0;
+      line-height: 1.5;
+    }
+
+    /* All areas list (default when nothing selected) */
+    .all-areas-list {
+      padding: 0;
+    }
+    .all-areas-list .list-title {
+      font-size: 0.6875rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--text-muted);
+      margin-bottom: 12px;
+      padding: 0 2px;
+    }
+    .area-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 10px 14px;
+      margin-bottom: 6px;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      transition: border-color 0.2s, background 0.2s;
+      cursor: pointer;
+    }
+    .area-row:hover {
+      border-color: var(--accent);
+      background: var(--bg-card-hover);
+    }
+    .area-row .name {
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      flex: 1;
+      min-width: 0;
+    }
+    .area-row .prices {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      flex-shrink: 0;
+    }
+    .area-row .current { font-size: 0.8125rem; color: var(--accent); font-weight: 600; }
+    .area-row .predicted { font-size: 0.75rem; color: var(--text-secondary); }
+
+    /* Area data — compact when one area selected (fit without scroll) */
+    .area-data-view {
+      display: flex;
+      flex-direction: column;
+      min-height: 0;
+      padding: 0 4px;
+    }
+    .area-data-view.compact .area-data-header {
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+    .area-data-view.compact .area-data-header h2 {
+      font-size: 1rem;
+      font-weight: 700;
+      margin: 0;
+    }
+    .area-data-view.compact .area-data-header .sub {
+      font-size: 0.75rem;
+      width: 100%;
+    }
+    .area-data-view.compact .back-to-all {
+      font-size: 0.75rem;
+      color: var(--accent);
+      text-decoration: none;
+      font-weight: 500;
+      white-space: nowrap;
+    }
+    .area-data-view.compact .back-to-all:hover { text-decoration: underline; }
+    .area-data-view.compact .stat-card {
+      padding: 10px 14px;
+      margin-bottom: 8px;
+    }
+    .area-data-view.compact .stat-card .label {
+      font-size: 0.6875rem;
+      margin-bottom: 4px;
+    }
+    .area-data-view.compact .stat-card .value {
+      font-size: 1.2rem;
+    }
+    .area-data-view.compact .chart-section {
+      margin-top: 10px;
+      flex: 1;
+      min-height: 0;
+      display: flex;
+      flex-direction: column;
+    }
+    .area-data-view.compact .chart-section .label {
+      font-size: 0.6875rem;
+      margin-bottom: 8px;
+    }
+    .area-data-view.compact .chart-wrap {
+      height: 140px;
+      min-height: 140px;
+      padding: 10px;
+      flex: 1;
+    }
+    .area-data-view.compact .chart-wrap canvas { max-height: 120px; }
+
+    /* Area data cards (premium) — default sizes for non-compact */
+    .area-data-header {
+      margin-bottom: 20px;
+    }
+    .area-data-header h2 {
+      font-size: 1.25rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin: 0 0 4px;
+      color: var(--text-primary);
+    }
+    .area-data-header .sub {
+      font-size: 0.8125rem;
+      color: var(--text-secondary);
+    }
+
+    .stat-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 18px 20px;
+      margin-bottom: 12px;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .stat-card:hover {
+      border-color: var(--border);
+      box-shadow: var(--shadow);
+    }
+    .stat-card .label {
+      font-size: 0.75rem;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: var(--text-muted);
+      margin-bottom: 6px;
+    }
+    .stat-card .value {
+      font-size: 1.5rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+    .stat-card .value.highlight {
+      color: var(--accent);
+    }
+    .stat-card .value.success {
+      color: var(--success);
+    }
+    .stat-card .value.warning {
+      color: var(--warning);
+    }
+
+    .chart-section .label {
+      font-size: 0.75rem;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: var(--text-muted);
+      margin-bottom: 12px;
+    }
+    .chart-wrap {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 16px;
+      height: 220px;
+      position: relative;
+    }
+    .chart-wrap canvas { max-height: 188px; }
+
+    /* Map container — light map, easy to read */
+    .map-wrap {
+      flex: 1;
+      position: relative;
+      min-width: 0;
+    }
+    #map {
+      width: 100%;
+      height: 100%;
+      background: #e8ecf0;
+    }
+    .leaflet-control-attribution {
+      background: rgba(255, 255, 255, 0.9) !important;
+      color: #5a6575 !important;
+      font-size: 10px;
+      padding: 4px 8px;
+      border-radius: 6px;
+      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+    }
+    .leaflet-control-attribution a { color: #2563eb !important; }
   </style>
 </head>
 <body>
-  <div class="layer-toggle">
-    <a href="/estimator.html" style="margin-right:12px; color:#06c; text-decoration:none;">Price Estimator</a>
-    <label for="layer">View by:</label>
-    <select id="layer">
-      <option value="state">State</option>
-      <option value="district">District</option>
-    </select>
+  <header class="global-nav">
+    <a href="/" class="nav-logo"><span class="logo-estate">Estate</span><span class="logo-view">View</span></a>
+    <nav class="nav-links">
+      <a href="/" class="active" data-i18n="nav.map">Map</a>
+      <a href="/filter.html" data-i18n="nav.filter">Filter Property</a>
+      <a href="/estimator.html" data-i18n="nav.estimation">Get Estimation</a>
+      <a href="/comments.html" data-i18n="nav.community">Public Community</a>
+      <a href="/feedback.html" data-i18n="nav.feedback">Private Feedback</a>
+    </nav>
+    <div class="nav-right">
+      <div class="lang-switcher">
+        <button type="button" class="lang-btn" id="lang-btn" aria-label="Language" title="Language">🌐</button>
+        <div class="lang-dropdown" id="lang-dropdown">
+          <button type="button" class="lang-opt" data-lang="en">English</button>
+          <button type="button" class="lang-opt" data-lang="ms">Bahasa Melayu</button>
+          <button type="button" class="lang-opt" data-lang="zh">中文</button>
+        </div>
+      </div>
+    </div>
+  </header>
+  <div class="app-layout">
+  <aside class="sidebar">
+    <div class="sidebar-header">
+      <h1 data-i18n="map.sidebarTitle">Smart Property Intelligence</h1>
+    </div>
+    <div class="layer-control">
+      <div class="layer-control-inner">
+        <label for="layer" data-i18n="map.viewBy">View by</label>
+        <div class="select-wrap">
+          <select id="layer">
+            <option value="state" data-i18n="map.state">State</option>
+            <option value="district" data-i18n="map.district">District</option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <div class="panel-content" id="panel-content">
+      <div id="panel-inner">
+        <div class="panel-placeholder" id="panel-placeholder">
+          <div class="icon">⏳</div>
+          <h2 data-i18n="map.loading">Loading…</h2>
+          <p data-i18n="map.fetching">Fetching area data…</p>
+        </div>
+        <div id="all-areas-list" class="all-areas-list" style="display: none;"></div>
+        <div id="area-data" class="area-data-view compact" style="display: none;"></div>
+      </div>
+    </div>
+  </aside>
+  <div class="map-wrap">
+    <div id="map"></div>
   </div>
-  <div id="info" class="info-panel"></div>
-  <div id="map"></div>
+  </div>
 
+  <script src="lang.js"></script>
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
   <script src="app.js"></script>

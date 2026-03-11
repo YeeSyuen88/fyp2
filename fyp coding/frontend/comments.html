@@ -1,0 +1,899 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Public Comments — EstateView</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg-primary: #0a0e14;
+      --bg-secondary: #0d1117;
+      --bg-card: #161b22;
+      --border: #30363d;
+      --text-primary: #e6edf3;
+      --text-secondary: #8b949e;
+      --text-muted: #6e7681;
+      --accent: #58a6ff;
+      --radius: 12px;
+      --radius-sm: 8px;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "DM Sans", system-ui, -apple-system, sans-serif;
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .global-nav {
+      flex-shrink: 0;
+      height: 56px;
+      background: var(--bg-secondary);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 24px 0 20px;
+    }
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+      font-size: 1.375rem;
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      color: inherit;
+    }
+    .nav-logo .logo-estate { color: var(--text-primary); }
+    .nav-logo .logo-view { color: var(--accent); }
+    .nav-links { display: flex; align-items: center; gap: 8px; }
+    .nav-links a {
+      color: var(--text-secondary);
+      text-decoration: none;
+      font-size: 0.875rem;
+      font-weight: 500;
+      padding: 8px 14px;
+      position: relative;
+    }
+    .nav-links a::after {
+      content: "";
+      position: absolute;
+      left: 50%; bottom: 6px;
+      width: 100%; height: 2px;
+      background: var(--accent);
+      border-radius: 1px;
+      transform: translateX(-50%) scaleX(0);
+      transform-origin: center;
+      transition: transform 0.2s ease;
+    }
+    .nav-links a:hover { color: var(--text-primary); }
+    .nav-links a:hover::after { transform: translateX(-50%) scaleX(1); }
+    .nav-links a.active { color: var(--accent); }
+    .nav-links a.active::after { transform: translateX(-50%) scaleX(1); }
+    .nav-right { display: flex; align-items: center; gap: 12px; }
+    .lang-switcher { position: relative; }
+    .lang-btn { width: 36px; height: 36px; border: 1px solid var(--border); border-radius: var(--radius-sm); background: var(--bg-card); color: var(--text-muted); display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 1.25rem; }
+    .lang-btn:hover { border-color: var(--accent); color: var(--accent); }
+    .lang-dropdown { display: none; position: absolute; top: 100%; right: 0; margin-top: 6px; min-width: 160px; background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-sm); box-shadow: 0 8px 24px rgba(0,0,0,0.3); z-index: 100; }
+    .lang-dropdown.open { display: block; }
+    .lang-opt { display: block; width: 100%; padding: 10px 14px; border: none; background: none; color: var(--text-primary); font-size: 0.9375rem; text-align: left; cursor: pointer; }
+    .lang-opt:hover { background: var(--bg-secondary); }
+    .lang-opt.active { color: var(--accent); font-weight: 600; }
+
+    .comments-main {
+      flex: 1;
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 32px 24px 40px;
+      width: 100%;
+    }
+
+    .feed-header {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+    .feed-title-wrap h1 { font-size: 1.5rem; font-weight: 700; margin: 0 0 4px 0; color: var(--text-primary); }
+    .feed-title-wrap .tagline { font-size: 0.875rem; color: var(--text-muted); margin: 0; }
+    .btn-new-post {
+      padding: 10px 18px;
+      background: var(--accent);
+      color: #fff;
+      border: none;
+      border-radius: var(--radius-sm);
+      font-size: 0.9375rem;
+      font-weight: 600;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+    .btn-new-post:hover { opacity: 0.9; }
+
+    .search-wrap {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 16px;
+      width: 100%;
+    }
+    .search-wrap .filter-btn {
+      flex-shrink: 0;
+      width: 42px;
+      height: 42px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      background: var(--bg-card);
+      color: var(--text-muted);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.125rem;
+      position: relative;
+    }
+    .search-wrap .filter-btn:hover { border-color: var(--accent); color: var(--accent); }
+    .search-wrap .filter-btn.active { border-color: var(--accent); color: var(--accent); background: rgba(56, 139, 253, 0.1); }
+    .search-wrap .filter-dropdown {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      margin-top: 6px;
+      min-width: 180px;
+      max-height: 280px;
+      overflow-y: auto;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+      z-index: 50;
+    }
+    .search-wrap .filter-dropdown.open { display: block; }
+    .search-wrap .filter-dropdown .filter-opt {
+      display: block;
+      width: 100%;
+      padding: 10px 14px;
+      border: none;
+      background: none;
+      color: var(--text-primary);
+      font-size: 0.9375rem;
+      text-align: left;
+      cursor: pointer;
+    }
+    .search-wrap .filter-dropdown .filter-opt:hover { background: var(--bg-secondary); }
+    .search-wrap .filter-dropdown .filter-opt.active { color: var(--accent); font-weight: 600; }
+    .search-wrap input {
+      flex: 1;
+      min-width: 0;
+      padding: 10px 14px;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      color: var(--text-primary);
+      font-size: 0.9375rem;
+    }
+    .search-wrap input::placeholder { color: var(--text-muted); }
+    .search-wrap input:focus { outline: none; border-color: var(--accent); }
+
+    .category-chips {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 24px;
+    }
+    .chip {
+      padding: 8px 14px;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      font-size: 0.875rem;
+      color: var(--text-secondary);
+      cursor: pointer;
+      transition: border-color 0.2s, background 0.2s, color 0.2s;
+    }
+    .chip:hover { border-color: var(--text-muted); color: var(--text-primary); }
+    .chip.active {
+      border-color: var(--accent);
+      background: rgba(56, 139, 253, 0.15);
+      color: var(--accent);
+    }
+
+    .post-form-categories {
+      display: flex;
+      flex-wrap: nowrap;
+      gap: 8px;
+      margin-bottom: 16px;
+    }
+    .post-form-chip {
+      flex: 1;
+      min-width: 0;
+      padding: 8px 6px;
+      box-sizing: border-box;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      font-size: 0.8125rem;
+      color: var(--text-secondary);
+      cursor: pointer;
+      transition: border-color 0.2s, background 0.2s, color 0.2s;
+      white-space: nowrap;
+      text-align: center;
+    }
+    .post-form-chip:hover { border-color: var(--text-muted); color: var(--text-primary); }
+    .post-form-chip.active {
+      border-color: var(--accent);
+      background: rgba(56, 139, 253, 0.15);
+      color: var(--accent);
+    }
+
+    .feed-list { display: flex; flex-direction: column; gap: 20px; }
+    .post-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 20px;
+    }
+    .post-meta {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+    .post-avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: var(--accent);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+      font-weight: 600;
+      flex-shrink: 0;
+    }
+    .post-meta-text { flex: 1; min-width: 0; }
+    .post-meta-text .name { font-weight: 600; color: var(--text-primary); margin-right: 8px; }
+    .post-meta-text .role {
+      display: inline-block;
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      background: var(--bg-secondary);
+      padding: 2px 8px;
+      border-radius: 4px;
+      margin-right: 8px;
+    }
+    .post-meta-text .date { font-size: 0.8125rem; color: var(--text-muted); }
+    .post-area { font-size: 0.8125rem; color: var(--text-secondary); margin-top: 2px; }
+    .post-category-tag {
+      display: inline-block;
+      font-size: 0.75rem;
+      font-weight: 500;
+      padding: 4px 10px;
+      border-radius: 6px;
+      margin-bottom: 8px;
+    }
+    .post-category-tag.general { background: rgba(56, 139, 253, 0.2); color: var(--accent); }
+    .post-category-tag.maintenance { background: rgba(210, 153, 34, 0.2); color: #d29922; }
+    .post-category-tag.events { background: rgba(163, 113, 247, 0.2); color: #a371f7; }
+    .post-category-tag.safety { background: rgba(248, 81, 73, 0.2); color: #f85149; }
+    .post-category-tag.suggestions { background: rgba(63, 185, 80, 0.2); color: #3fb950; }
+    .post-card h3 { font-size: 1.125rem; font-weight: 700; margin: 0 0 8px 0; color: var(--text-primary); }
+    .post-card .post-content { font-size: 0.9375rem; color: var(--text-secondary); line-height: 1.5; margin-bottom: 12px; white-space: normal; word-wrap: break-word; }
+    .post-actions {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      font-size: 0.875rem;
+      color: var(--text-muted);
+    }
+    .post-actions .action-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 6px 0;
+      background: none;
+      border: none;
+      color: var(--text-muted);
+      cursor: pointer;
+      font-size: 0.875rem;
+      font-family: inherit;
+      transition: color 0.2s;
+    }
+    .post-actions .action-btn:hover { color: var(--accent); }
+    .post-actions .action-btn.liked { color: #f85149; }
+    .post-actions .action-btn.liked:hover { color: #f85149; opacity: 0.9; }
+
+    .feed-empty { text-align: center; padding: 48px 24px; color: var(--text-muted); }
+    .feed-empty .btn-clear-filters {
+      margin-top: 12px;
+      padding: 8px 16px;
+      background: var(--accent);
+      color: #fff;
+      border: none;
+      border-radius: var(--radius-sm);
+      font-size: 0.9375rem;
+      cursor: pointer;
+    }
+    .feed-empty .btn-clear-filters:hover { opacity: 0.9; }
+    .load-more-wrap { text-align: center; padding: 20px 0; }
+    .btn-load-more {
+      padding: 10px 24px;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      color: var(--text-primary);
+      font-size: 0.9375rem;
+      cursor: pointer;
+    }
+    .btn-load-more:hover { border-color: var(--accent); color: var(--accent); }
+    .toast-container {
+      position: fixed;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 9999;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      pointer-events: none;
+    }
+    .toast {
+      padding: 12px 20px;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      color: var(--text-primary);
+      font-size: 0.9375rem;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.3);
+      animation: toast-in 0.25s ease;
+    }
+    @keyframes toast-in {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .feed-loading { text-align: center; padding: 24px; color: var(--text-muted); }
+
+    /* Modal */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.6);
+      z-index: 100;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
+    .modal-overlay.open { display: flex; }
+    .modal {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 24px;
+      width: 100%;
+      max-width: 480px;
+      max-height: 90vh;
+      overflow-y: auto;
+    }
+    #modal-overlay .modal { max-width: min(560px, calc(100vw - 32px)); width: 100%; overflow-x: hidden; }
+    .modal-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 20px;
+    }
+    .modal-header h2 { font-size: 1.25rem; font-weight: 700; margin: 0; color: var(--text-primary); }
+    .modal-close {
+      width: 32px;
+      height: 32px;
+      border: none;
+      background: var(--bg-secondary);
+      color: var(--text-muted);
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      font-size: 1.25rem;
+      line-height: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .modal-close:hover { color: var(--text-primary); }
+    .field-label { display: block; font-size: 0.9375rem; font-weight: 500; color: var(--text-secondary); margin-bottom: 8px; }
+    .modal input[type="text"],
+    .modal input[type="password"],
+    .modal select,
+    .modal textarea {
+      width: 100%;
+      padding: 10px 14px;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      color: var(--text-primary);
+      opacity: 1;
+      font-size: 0.9375rem;
+      font-family: inherit;
+      margin-bottom: 16px;
+    }
+    .modal input[type="text"]:-webkit-autofill,
+    .modal input[type="password"]:-webkit-autofill {
+      -webkit-text-fill-color: var(--text-primary);
+    }
+    .modal input:focus,
+    .modal select:focus,
+    .modal textarea:focus { outline: none; border-color: var(--accent); }
+    /* Placeholder: faint / transparent hint text in the column */
+    .modal input::placeholder {
+      color: var(--text-muted);
+      opacity: 0.65;
+    }
+    .modal #admin-login-error { color: #f85149; font-size: 0.875rem; }
+    .admin-login-hint {
+      font-size: 0.875rem;
+      color: var(--text-muted);
+      margin: 0 0 16px 0;
+      line-height: 1.4;
+    }
+
+    /* Admin Login — design like reference, all elements use our color theme (no forgot password) */
+    .admin-login-theme.modal-overlay {
+      background: rgba(10, 14, 20, 0.65);
+      backdrop-filter: blur(4px);
+    }
+    .admin-login-theme .modal {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      background: linear-gradient(180deg, var(--bg-card) 0%, var(--bg-secondary) 100%);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      box-shadow: 0 12px 40px rgba(0,0,0,0.5);
+      padding: 50px 28px 28px 28px;
+      max-width: 340px;
+      overflow: visible;
+    }
+    .admin-login-theme .modal-header {
+      flex-shrink: 0;
+      margin-bottom: 0;
+      padding-right: 0;
+      min-height: 0;
+      justify-content: flex-end;
+    }
+    .admin-login-theme .modal-header h2 {
+      display: none;
+    }
+    .admin-login-theme .modal-close {
+      position: absolute;
+      top: 14px;
+      right: 14px;
+      background: var(--bg-secondary);
+      color: var(--text-muted);
+      border: 1px solid var(--border);
+    }
+    .admin-login-theme .modal-close:hover { color: var(--text-primary); background: var(--bg-card); border-color: var(--text-muted); }
+    /* User icon: on the box top edge center — half in, half out */
+    .admin-login-theme .admin-login-avatar-wrap {
+      display: flex;
+      justify-content: center;
+      margin-top: -105px;
+      margin-bottom: 12px;
+    }
+    .admin-login-theme .admin-login-avatar {
+      width: 116px;
+      height: 116px;
+      border-radius: 50%;
+      background: var(--accent);
+      border: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #e6edf3;
+    }
+    .admin-login-theme .admin-login-avatar .avatar-svg {
+      width: 72px;
+      height: 72px;
+      stroke: currentColor;
+      fill: none;
+      stroke-width: 1.5;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+    .admin-login-theme .admin-login-hint {
+      text-align: center;
+      margin-bottom: 20px;
+      font-size: 0.8125rem;
+      color: var(--text-muted);
+    }
+    /* Input: no box — icon + placeholder, thin bottom line only */
+    .admin-login-theme .login-input-wrap {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 0 10px;
+      border: none;
+      border-bottom: 1px solid var(--border);
+      border-radius: 0;
+      margin-bottom: 4px;
+      background: transparent;
+    }
+    .admin-login-theme .login-input-wrap:focus-within { border-bottom-color: var(--accent); }
+    .admin-login-theme .login-input-wrap .login-icon {
+      color: var(--text-secondary);
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .admin-login-theme .login-input-wrap .login-icon svg {
+      width: 20px;
+      height: 20px;
+      stroke: currentColor;
+      fill: none;
+      stroke-width: 1.8;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+    .admin-login-theme .login-input-wrap input,
+    .admin-login-theme .modal input[type="text"],
+    .admin-login-theme .modal input[type="password"] {
+      flex: 1;
+      min-width: 0;
+      background: transparent !important;
+      background-color: transparent !important;
+      border: none !important;
+      padding: 0 !important;
+      margin: 0 !important;
+      color: var(--text-primary) !important;
+      font-size: 0.9375rem;
+      border-radius: 0 !important;
+      box-shadow: none !important;
+    }
+    .admin-login-theme .login-input-wrap input::placeholder { color: var(--text-muted); opacity: 0.75; }
+    .admin-login-theme .login-input-wrap input:focus { outline: none; box-shadow: none !important; }
+    .admin-login-theme .login-toggle-pwd {
+      flex-shrink: 0;
+      width: 36px;
+      height: 36px;
+      padding: 0;
+      border: none;
+      background: transparent;
+      color: var(--text-muted);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: var(--radius-sm);
+    }
+    .admin-login-theme .login-toggle-pwd:hover { color: var(--text-secondary); }
+    .admin-login-theme .login-toggle-pwd svg {
+      width: 20px;
+      height: 20px;
+      stroke: currentColor;
+      fill: none;
+      stroke-width: 1.8;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+    /* Remove white box from browser autofill — use theme dark fill so no white shows */
+    .admin-login-theme .login-input-wrap input:-webkit-autofill,
+    .admin-login-theme .login-input-wrap input:-webkit-autofill:hover,
+    .admin-login-theme .login-input-wrap input:-webkit-autofill:focus,
+    .admin-login-theme .login-input-wrap input:-webkit-autofill:active {
+      -webkit-box-shadow: 0 0 0 100px var(--bg-card) inset !important;
+      box-shadow: 0 0 0 100px var(--bg-card) inset !important;
+      -webkit-text-fill-color: var(--text-primary) !important;
+      transition: background-color 5000s ease-in-out 0s;
+    }
+    .admin-login-theme .login-options { margin-bottom: 20px; }
+    .admin-login-theme .login-remember {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.875rem;
+      color: var(--text-secondary);
+      cursor: pointer;
+    }
+    .admin-login-theme .login-remember input {
+      width: 16px;
+      height: 16px;
+      margin: 0;
+      flex-shrink: 0;
+      accent-color: var(--accent);
+      cursor: pointer;
+    }
+    .admin-login-theme #admin-login-error {
+      font-size: 0.875rem;
+      margin-bottom: 16px;
+      text-align: center;
+      padding: 12px 14px;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border);
+      border-left: 3px solid #f85149;
+      background: var(--bg-card);
+      color: var(--text-secondary);
+      line-height: 1.4;
+    }
+    .admin-login-theme #admin-login-error:not(:empty) { color: #f85149; }
+    .admin-login-theme .login-btn-wrap { margin-top: 4px; }
+    .admin-login-theme .login-btn-wrap .btn-post {
+      width: 100%;
+      padding: 14px 20px;
+      border-radius: 10px;
+      font-size: 1rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      background: var(--accent);
+      border: none;
+      color: var(--text-primary);
+      box-shadow: none;
+    }
+    .admin-login-theme .login-btn-wrap .btn-post:hover { opacity: 0.9; }
+    .admin-login-theme .login-cancel-wrap .btn-cancel {
+      background: transparent;
+      border: none;
+      color: var(--text-muted);
+      font-size: 0.875rem;
+      margin-top: 12px;
+    }
+    .admin-login-theme .login-cancel-wrap .btn-cancel:hover { color: var(--text-secondary); }
+    .modal textarea { min-height: 120px; resize: vertical; }
+    .modal-actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 12px;
+      margin-top: 20px;
+    }
+    .btn-cancel {
+      padding: 10px 20px;
+      background: transparent;
+      color: var(--text-secondary);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      font-size: 0.9375rem;
+      cursor: pointer;
+    }
+    .btn-cancel:hover { border-color: var(--text-muted); color: var(--text-primary); }
+    .btn-post {
+      padding: 10px 20px;
+      background: var(--accent);
+      color: #fff;
+      border: none;
+      border-radius: var(--radius-sm);
+      font-size: 0.9375rem;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    .btn-post:hover { opacity: 0.9; }
+
+    /* Comments modal */
+    .comments-modal { display: none; }
+    .comments-modal.open { display: flex; }
+    .comments-modal .modal { max-width: 420px; }
+    .comments-modal .comments-list { max-height: 240px; overflow-y: auto; margin-bottom: 16px; }
+    .comments-modal .comment-item {
+      padding: 10px 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 0.9375rem;
+    }
+    .comments-modal .comment-item:last-child { border-bottom: none; }
+    .comments-modal .comment-meta { font-size: 0.8125rem; color: var(--text-muted); margin-bottom: 4px; }
+    .comments-modal .comment-meta .author { color: var(--text-secondary); font-weight: 500; }
+    .comments-modal .comment-content { color: var(--text-primary); line-height: 1.4; }
+    .comments-modal .add-comment-form { margin-top: 12px; }
+    .comments-modal .add-comment-form textarea {
+      width: 100%;
+      min-height: 72px;
+      padding: 10px 12px;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      color: var(--text-primary);
+      font-size: 0.9375rem;
+      font-family: inherit;
+      resize: vertical;
+      margin-bottom: 8px;
+    }
+    .comments-modal .add-comment-form textarea:focus { outline: none; border-color: var(--accent); }
+    .comments-modal .add-comment-form .btn-post { padding: 8px 16px; font-size: 0.875rem; }
+    .btn-admin-login, .btn-admin-logout {
+      padding: 6px 12px;
+      font-size: 0.8125rem;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      font-family: inherit;
+      font-weight: 500;
+    }
+    .btn-admin-login {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      color: var(--text-secondary);
+    }
+    .btn-admin-login:hover { border-color: var(--accent); color: var(--accent); }
+    .btn-admin-logout { background: transparent; border: 1px solid var(--border); color: var(--text-muted); }
+    .btn-admin-logout:hover { color: var(--text-primary); }
+    .nav-admin-label { font-size: 0.8125rem; color: var(--text-muted); margin-right: 8px; }
+    .post-actions .btn-delete-post, .comments-modal .btn-delete-comment {
+      margin-left: auto;
+      padding: 4px 8px;
+      font-size: 0.75rem;
+      background: transparent;
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    .post-actions .btn-delete-post:hover, .comments-modal .btn-delete-comment:hover { border-color: #f85149; color: #f85149; }
+  </style>
+</head>
+<body>
+  <header class="global-nav">
+    <a href="/" class="nav-logo"><span class="logo-estate">Estate</span><span class="logo-view">View</span></a>
+    <nav class="nav-links">
+      <a href="/" data-i18n="nav.map">Map</a>
+      <a href="/filter.html" data-i18n="nav.filter">Filter Property</a>
+      <a href="/estimator.html" data-i18n="nav.estimation">Get Estimation</a>
+      <a href="/comments.html" class="active" data-i18n="nav.community">Public Community</a>
+      <a href="/feedback.html" data-i18n="nav.feedback">Private Feedback</a>
+    </nav>
+    <div class="nav-right">
+      <span id="admin-logout-wrap" style="display:none;"><span class="nav-admin-label">Admin</span> <button type="button" class="btn-admin-logout" id="btn-admin-logout">Logout</button></span>
+      <button type="button" class="btn-admin-login" id="btn-admin-login" data-i18n="comments.adminLogin">Admin Login</button>
+      <div class="lang-switcher">
+        <button type="button" class="lang-btn" id="lang-btn" aria-label="Language" title="Language">🌐</button>
+        <div class="lang-dropdown" id="lang-dropdown">
+          <button type="button" class="lang-opt" data-lang="en">English</button>
+          <button type="button" class="lang-opt" data-lang="ms">Bahasa Melayu</button>
+          <button type="button" class="lang-opt" data-lang="zh">中文</button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="comments-main">
+    <div class="feed-header">
+      <div class="feed-title-wrap">
+        <h1 data-i18n="comments.communityFeed">Community Feed</h1>
+        <p class="tagline" data-i18n="comments.tagline">Connect with your neighbors</p>
+      </div>
+      <button type="button" class="btn-new-post" id="btn-new-post" data-i18n="comments.newPost">+ New Post</button>
+    </div>
+
+    <div class="search-wrap">
+      <input type="text" id="search-input" data-i18n-placeholder="comments.searchPlaceholder" placeholder="Search posts..." aria-label="Search posts" />
+      <div class="filter-wrap" style="position:relative;">
+        <button type="button" class="filter-btn" id="filter-by-state-btn" aria-label="Filter by state" title="Filter by state"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/></svg></button>
+        <div class="filter-dropdown" id="filter-state-dropdown" role="listbox">
+          <button type="button" class="filter-opt active" data-state="" data-i18n="comments.allStates">All states</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="category-chips" id="category-chips" role="group" aria-label="Filter by category">
+      <button type="button" class="chip active" data-category="All" data-i18n="comments.all">All</button>
+      <button type="button" class="chip" data-category="General" data-i18n="comments.general">General</button>
+      <button type="button" class="chip" data-category="Maintenance" data-i18n="comments.maintenance">Maintenance</button>
+      <button type="button" class="chip" data-category="Events" data-i18n="comments.events">Events</button>
+      <button type="button" class="chip" data-category="Safety" data-i18n="comments.safety">Safety</button>
+      <button type="button" class="chip" data-category="Suggestions" data-i18n="comments.suggestions">Suggestions</button>
+    </div>
+
+    <div id="feed-container">
+      <div class="feed-loading" id="feed-loading" data-i18n="comments.loadingPosts">Loading posts…</div>
+      <div class="feed-list" id="feed-list" style="display:none;"></div>
+      <div class="load-more-wrap" id="load-more-wrap" style="display:none;">
+        <button type="button" class="btn-load-more" id="btn-load-more" data-i18n="comments.loadMore">Load more</button>
+      </div>
+      <div class="feed-empty" id="feed-empty" style="display:none;" data-i18n="comments.noPostsYet">No posts yet. Be the first to share!</div>
+    </div>
+  </main>
+  <div id="toast-container" class="toast-container" aria-live="polite"></div>
+
+  <div class="modal-overlay comments-modal" id="comments-modal" role="dialog" aria-labelledby="comments-modal-title" aria-modal="true">
+    <div class="modal">
+      <div class="modal-header">
+        <h2 id="comments-modal-title" data-i18n="comments.comments">Comments</h2>
+        <button type="button" class="modal-close" id="comments-modal-close" aria-label="Close">×</button>
+      </div>
+      <div class="comments-list" id="comments-list"></div>
+      <form id="add-comment-form" class="add-comment-form">
+        <input type="hidden" id="comment-post-id" name="post_id" />
+        <textarea id="comment-content" name="content" data-i18n-placeholder="comments.writeComment" placeholder="Write a comment..." required></textarea>
+        <button type="submit" class="btn-post" data-i18n="comments.postComment">Post Comment</button>
+      </form>
+    </div>
+  </div>
+
+  <div class="modal-overlay admin-login-theme" id="admin-login-modal" role="dialog" aria-label="Admin login">
+    <div class="modal">
+      <div class="modal-header">
+        <h2 id="admin-login-title" class="sr-only">Admin Login</h2>
+        <button type="button" class="modal-close" id="admin-login-close" aria-label="Close">×</button>
+      </div>
+      <div class="admin-login-avatar-wrap">
+        <div class="admin-login-avatar" aria-hidden="true">
+          <svg class="avatar-svg" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        </div>
+      </div>
+      <p class="admin-login-hint" data-i18n="comments.adminLoginHint">Enter your admin username and password to manage posts and comments.</p>
+      <form id="admin-login-form">
+        <div class="login-input-wrap">
+          <span class="login-icon" aria-hidden="true"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></span>
+          <input type="text" id="admin-username" name="username" required autocomplete="username" data-i18n-placeholder="comments.username" placeholder="Username" />
+        </div>
+        <div class="login-input-wrap">
+          <span class="login-icon" aria-hidden="true"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></span>
+          <input type="password" id="admin-password" name="password" required autocomplete="current-password" data-i18n-placeholder="comments.password" placeholder="Password" />
+          <button type="button" class="login-toggle-pwd" id="admin-password-toggle" aria-label="Show password" title="Show password">
+            <svg class="icon-eye" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+            <svg class="icon-eye-off" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" style="display:none;"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/></svg>
+          </button>
+        </div>
+        <div class="login-options">
+          <label class="login-remember">
+            <input type="checkbox" id="admin-remember" name="remember" />
+            <span data-i18n="comments.rememberMe">Remember me</span>
+          </label>
+        </div>
+        <p id="admin-login-error" class="feed-empty" style="display:none;"></p>
+        <div class="login-btn-wrap">
+          <button type="submit" class="btn-post" data-i18n="comments.login">LOGIN</button>
+        </div>
+        <div class="login-cancel-wrap" style="text-align:center;">
+          <button type="button" class="btn-cancel" id="admin-login-cancel" data-i18n="comments.cancel">Cancel</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div class="modal-overlay" id="modal-overlay" role="dialog" aria-labelledby="modal-title" aria-modal="true">
+    <div class="modal">
+      <div class="modal-header">
+        <h2 id="modal-title" data-i18n="comments.createPost">Create New Post</h2>
+        <button type="button" class="modal-close" id="modal-close" aria-label="Close">×</button>
+      </div>
+      <form id="new-post-form">
+        <label class="field-label" for="post-title" data-i18n="comments.title">Title</label>
+        <input type="text" id="post-title" name="title" data-i18n-placeholder="comments.whatsOnMind" placeholder="What's on your mind?" required />
+        <label class="field-label" for="post-author" data-i18n="comments.yourName">Your name</label>
+        <input type="text" id="post-author" name="author_name" data-i18n-placeholder="comments.yourNameOptional" placeholder="Your name (optional)" />
+        <label class="field-label" for="post-state" data-i18n="comments.state">State</label>
+        <select id="post-state" name="state" required aria-required="true">
+          <option value="" data-i18n="comments.selectState">— Select state —</option>
+        </select>
+        <label class="field-label" for="post-district"><span data-i18n="comments.district">District</span> <span style="font-weight:400; color:var(--text-muted);" data-i18n="estimator.optional">(optional)</span></label>
+        <select id="post-district" name="district" aria-label="District optional">
+          <option value="" data-i18n="comments.districtOptional">— Any —</option>
+        </select>
+        <label class="field-label" data-i18n="comments.category">Category</label>
+        <input type="hidden" id="post-category" name="category" value="General" />
+        <div class="post-form-categories" id="post-form-categories" role="group" aria-label="Choose category">
+          <button type="button" class="post-form-chip active" data-category="General" data-i18n="comments.general">General</button>
+          <button type="button" class="post-form-chip" data-category="Maintenance" data-i18n="comments.maintenance">Maintenance</button>
+          <button type="button" class="post-form-chip" data-category="Events" data-i18n="comments.events">Events</button>
+          <button type="button" class="post-form-chip" data-category="Safety" data-i18n="comments.safety">Safety</button>
+          <button type="button" class="post-form-chip" data-category="Suggestions" data-i18n="comments.suggestions">Suggestions</button>
+        </div>
+        <label class="field-label" for="post-content" data-i18n="comments.content">Content</label>
+        <textarea id="post-content" name="content" data-i18n-placeholder="comments.shareThoughts" placeholder="Share your thoughts, experiences, or feedback..."></textarea>
+        <div class="modal-actions">
+          <button type="button" class="btn-cancel" id="modal-cancel" data-i18n="comments.cancel">Cancel</button>
+          <button type="submit" class="btn-post" data-i18n="comments.post">Post</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="lang.js"></script>
+  <script src="comments.js"></script>
+</body>
+</html>

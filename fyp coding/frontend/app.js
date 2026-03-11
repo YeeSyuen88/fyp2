@@ -1,14 +1,36 @@
 (function () {
+  function t(key) {
+    if (typeof window.getTranslation === "function" && typeof window.getLang === "function") {
+      var val = window.getTranslation(window.getLang(), key);
+      return val != null ? val : key;
+    }
+    return key;
+  }
+  function stateDisplayName(key) {
+    var sn = typeof window.getTranslation === "function" && window.getLang ? window.getTranslation(window.getLang(), "map.stateNames") : null;
+    if (sn && typeof sn === "object" && sn[key]) return sn[key];
+    return key;
+  }
+
   const API_BASE = "/api";
   const DISTRICTS_GEOJSON =
     "https://gist.githubusercontent.com/angch/4bbbaa72ba0a9c95bfda951ca82b748f/raw/malaysia.districts.geojson";
 
-  const map = L.map("map").setView([4.2, 101.98], 7);
+  const map = L.map("map", { zoomControl: false }).setView([4.2, 109], 6);
+  L.control.zoom({ position: "topleft" }).addTo(map);
+
+  // Bounds to show whole Malaysia (Peninsular + Sabah & Sarawak)
+  const MALAYSIA_BOUNDS = L.latLngBounds(L.latLng(0.5, 99), L.latLng(7.5, 120));
+  map.fitBounds(MALAYSIA_BOUNDS, { padding: [24, 24], maxZoom: 8 });
+
+  // Light basemap — easier to see (previous design)
   L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
     attribution: "&copy; OpenStreetMap",
   }).addTo(map);
 
-  const infoEl = document.getElementById("info");
+  const panelPlaceholder = document.getElementById("panel-placeholder");
+  const allAreasListEl = document.getElementById("all-areas-list");
+  const areaDataEl = document.getElementById("area-data");
   const layerSelect = document.getElementById("layer");
 
   const stateNameMap = {
@@ -22,7 +44,6 @@
     return stateNameMap[name] || name;
   }
 
-  // Map GeoJSON district name (map) -> our dataset district name. Add more here if you find mismatches.
   const districtNameMap = {
     Keluang: "Kluang",
     "Kota Bahru": "Kota Bharu",
@@ -30,18 +51,13 @@
     Tanjong: "Tanjung",
     Telok: "Teluk",
     "Pekan Nenas": "Pekan Nanas",
-    // Johor: GeoJSON vs dataset spelling / name variants
     "Johor Baharu": "Johor Bahru",
     Kulaijaya: "Kulai",
     Ledang: "Tangkak",
-    // Kedah
     "Kota Setar": "Alor Setar",
-    // Kelantan
     "Pasir Putih": "Pasir Puteh",
     "Kuala Krai": "Kuala Kerai",
-    // Pahang
     Lipis: "Kuala Lipis",
-    // Perak: GeoJSON uses district names, dataset uses towns
     "Larut and Matang": "Taiping",
     "Hilir Perak": "Teluk Intan",
     "Hulu Perak": "Gerik",
@@ -49,13 +65,11 @@
     Kinta: "Ipoh",
     Kerian: "Parit Buntar",
     "Batang Padang": "Tapah",
-    // Penang (Pulau Pinang): GeoJSON districts -> dataset area names
     "Barat Daya": "Bayan Lepas",
     "Timur Laut": "George Town",
     "Seberang Perai Selatan": "Nibong Tebal",
     "Seberang Perai Tengah": "Bukit Mertajam",
     "Seberang Perai Utara": "Butterworth",
-    // Sarawak
     Meradong: "Maradong",
   };
   function districtKeyForData(geoName) {
@@ -66,6 +80,18 @@
   let stateLayer = null;
   let districtLayer = null;
   let currentView = "state";
+  let stateNames = [];
+  let selectedStateLayer = null;
+  let selectedDistrictLayer = null;
+  let lastAreaData = null;
+
+  const DEFAULT_VIEW = { bounds: MALAYSIA_BOUNDS };
+  const SELECTED_STYLE = {
+    weight: 2.5,
+    color: "#2563eb",
+    fillColor: "#93c5fd",
+    fillOpacity: 0.55,
+  };
 
   function formatPrice(n) {
     if (n == null || isNaN(n)) return "—";
@@ -76,24 +102,153 @@
 
   let priceChartInstance = null;
 
-  function showInfo(html, priceHistoryParams) {
-    infoEl.innerHTML = html;
-    infoEl.classList.add("visible");
+  function showAreaData(title, subTitle, data, priceHistoryParams, areaKey, isState) {
+    lastAreaData = { title: title, subTitle: subTitle, data: data, priceHistoryParams: priceHistoryParams, key: areaKey != null ? areaKey : (lastAreaData && lastAreaData.key), isState: isState === true };
+    panelPlaceholder.style.display = "none";
+    allAreasListEl.style.display = "none";
+    areaDataEl.style.display = "flex";
+    areaDataEl.classList.add("compact");
+
+    const current = data.current_price;
+    const predicted = data.predicted_price_1month;
+    const flood = data.flood_risk || t("estimator.dataPending");
+
+    areaDataEl.innerHTML =
+      '<div class="area-data-header">' +
+        "<div><h2>" + escapeHtml(title) + "</h2><span class=\"sub\">" + escapeHtml(subTitle) + "</span></div>" +
+        '<a href="#" class="back-to-all">' + t("map.viewAllAreas") + "</a>" +
+      "</div>" +
+      '<div class="stat-card">' +
+        '<span class="label">' + t("map.currentAvgPrice") + "</span>" +
+        '<div class="value highlight">' + formatPrice(current) + "</div>" +
+      "</div>" +
+      '<div class="stat-card">' +
+        '<span class="label">' + t("map.predicted1Month") + "</span>" +
+        '<div class="value success">' + formatPrice(predicted) + "</div>" +
+      "</div>" +
+      '<div class="stat-card">' +
+        '<span class="label">' + t("map.floodRisk") + "</span>" +
+        '<div class="value warning">' + escapeHtml(flood) + "</div>" +
+      "</div>" +
+      '<div class="chart-section">' +
+        '<div class="label">' + t("map.priceTrend") + "</div>" +
+        '<div class="chart-wrap"><canvas id="priceChart"></canvas></div>' +
+      "</div>";
+
+    areaDataEl.querySelector(".back-to-all").addEventListener("click", function (e) {
+      e.preventDefault();
+      showAllAreasView();
+    });
+
+    if (priceHistoryParams && priceHistoryParams.state) {
+      loadPriceChart(priceHistoryParams.state, priceHistoryParams.district || null);
+    } else {
+      const wrap = areaDataEl.querySelector(".chart-wrap");
+      if (wrap) wrap.innerHTML = "<p style='font-size:11px;color:var(--text-muted);margin:0'>" + t("map.noHistoryData") + "</p>";
+    }
+  }
+
+  function renderAllAreasList() {
+    const list = currentView === "state"
+      ? Object.keys(predictions.state).sort()
+      : Object.keys(predictions.district).sort();
+    const titleKey = currentView === "state" ? "map.allStates" : "map.allDistricts";
+    const title = t(titleKey);
+    const clickHint = t("map.clickMapForDetail");
+    let html = '<div class="list-title">' + escapeHtml(title) + " — " + escapeHtml(clickHint) + "</div>";
+    list.forEach(function (key) {
+      const data = currentView === "state" ? predictions.state[key] : predictions.district[key];
+      if (!data) return;
+      const rawName = currentView === "district" ? key.replace("|", ", ") : key;
+      const name = currentView === "state" ? stateDisplayName(key) : rawName;
+      html +=
+        '<div class="area-row" data-key="' + escapeHtml(key) + '" role="button" tabindex="0">' +
+          '<span class="name">' + escapeHtml(name) + "</span>" +
+          '<div class="prices">' +
+            '<span class="current">' + formatPrice(data.current_price) + "</span>" +
+          "</div>" +
+        "</div>";
+    });
+    allAreasListEl.innerHTML = html;
+    allAreasListEl.querySelectorAll(".area-row").forEach(function (row) {
+      row.addEventListener("click", function () {
+        selectAreaFromSidebar(row.getAttribute("data-key"));
+      });
+    });
+  }
+
+  function findStateLayerByKey(key) {
+    if (!stateLayer) return null;
+    return stateLayer.getLayers().find(function (l) {
+      return stateKey(l.feature.properties.NAME_1) === key;
+    }) || null;
+  }
+
+  function findDistrictLayerByKey(key) {
+    if (!districtLayer) return null;
+    const parts = key.split("|");
+    const stateKeyVal = parts[0];
+    const districtKeyVal = parts[1];
+    return districtLayer.getLayers().find(function (l) {
+      const s = stateKey(l.feature.properties.NAME_1);
+      const d = districtKeyForData(l.feature.properties.NAME_2);
+      return s === stateKeyVal && (d === districtKeyVal || l.feature.properties.NAME_2 === districtKeyVal);
+    }) || null;
+  }
+
+  function selectAreaFromSidebar(key) {
+    if (currentView === "state") {
+      const layer = findStateLayerByKey(key);
+      const data = predictions.state[key];
+      if (!layer || !data) return;
+      if (selectedStateLayer && stateLayer) stateLayer.resetStyle(selectedStateLayer);
+      if (selectedDistrictLayer && districtLayer) {
+        districtLayer.resetStyle(selectedDistrictLayer);
+        selectedDistrictLayer = null;
+      }
+      selectedStateLayer = layer;
+      layer.setStyle(SELECTED_STYLE);
+      layer.bringToFront();
+      zoomToLayer(layer, 8);
+      showAreaData(key, "State", data, { state: key });
+    } else {
+      const layer = findDistrictLayerByKey(key);
+      const data = predictions.district[key];
+      if (!layer || !data) return;
+      if (selectedDistrictLayer && districtLayer) districtLayer.resetStyle(selectedDistrictLayer);
+      if (selectedStateLayer && stateLayer) {
+        stateLayer.resetStyle(selectedStateLayer);
+        selectedStateLayer = null;
+      }
+      selectedDistrictLayer = layer;
+      layer.setStyle(SELECTED_STYLE);
+      layer.bringToFront();
+      zoomToLayer(layer, 8);
+      const title = key.replace("|", ", ");
+      const stateKeyVal = key.split("|")[0];
+      const districtKeyVal = key.split("|")[1];
+      showAreaData(title, t("map.districtLabel"), data, { state: stateKeyVal, district: districtKeyVal }, key, false);
+    }
+  }
+
+  function showAllAreasView() {
+    areaDataEl.style.display = "none";
     if (priceChartInstance) {
       priceChartInstance.destroy();
       priceChartInstance = null;
     }
-    if (priceHistoryParams && priceHistoryParams.state) {
-      var wrap = document.createElement("div");
-      wrap.className = "chart-wrap";
-      wrap.innerHTML = "<canvas id=\"priceChart\"></canvas>";
-      infoEl.appendChild(wrap);
-      loadPriceChart(priceHistoryParams.state, priceHistoryParams.district || null);
-    }
+    renderAllAreasList();
+    allAreasListEl.style.display = "block";
   }
 
-  function loadPriceChart(stateKey, districtKey) {
-    var url = API_BASE + "/price-history?state=" + encodeURIComponent(stateKey);
+  function escapeHtml(s) {
+    const div = document.createElement("div");
+    div.textContent = s;
+    return div.innerHTML;
+  }
+
+  function loadPriceChart(stateKeyVal, districtKey) {
+    let url = API_BASE + "/price-history?state=" + encodeURIComponent(stateKeyVal);
     if (districtKey) url += "&district=" + encodeURIComponent(districtKey);
     fetch(url)
       .then(function (r) {
@@ -101,15 +256,18 @@
         return r.json();
       })
       .then(function (data) {
-        var canvas = document.getElementById("priceChart");
+        const canvas = document.getElementById("priceChart");
         if (!canvas || !data || !data.dates || !data.prices || data.prices.length === 0) {
-          if (canvas && canvas.parentNode) canvas.parentNode.innerHTML = "<p style='font-size:12px;color:#666'>No history data</p>";
+          const wrap = document.querySelector(".chart-wrap");
+          if (wrap) wrap.innerHTML = "<p style='font-size:12px;color:var(--text-muted);margin:0'>" + t("map.noHistoryData") + "</p>";
           return;
         }
         if (priceChartInstance) priceChartInstance.destroy();
-        var labels = data.dates.map(function (d) {
+        const labels = data.dates.map(function (d) {
           return d.length >= 10 ? d.slice(0, 10) : d;
         });
+        const gridColor = "rgba(110, 118, 129, 0.25)";
+        const textColor = "#8b949e";
         priceChartInstance = new Chart(canvas, {
           type: "line",
           data: {
@@ -117,10 +275,13 @@
             datasets: [{
               label: "Avg price (RM)",
               data: data.prices,
-              borderColor: "rgb(0, 120, 80)",
-              backgroundColor: "rgba(0, 120, 80, 0.1)",
+              borderColor: "#58a6ff",
+              backgroundColor: "rgba(56, 139, 253, 0.15)",
               fill: true,
-              tension: 0.2,
+              tension: 0.3,
+              pointRadius: 0,
+              pointHoverRadius: 6,
+              pointHoverBackgroundColor: "#58a6ff",
             }],
           },
           options: {
@@ -129,9 +290,14 @@
             plugins: {
               legend: { display: false },
               tooltip: {
+                backgroundColor: "#161b22",
+                titleColor: "#e6edf3",
+                bodyColor: "#8b949e",
+                borderColor: "#30363d",
+                borderWidth: 1,
                 callbacks: {
                   label: function (ctx) {
-                    var v = ctx.raw;
+                    const v = ctx.raw;
                     if (v >= 1e6) return "RM " + (v / 1e6).toFixed(2) + " M";
                     if (v >= 1e3) return "RM " + (v / 1e3).toFixed(0) + " K";
                     return "RM " + Math.round(v);
@@ -140,9 +306,16 @@
               },
             },
             scales: {
+              x: {
+                grid: { color: gridColor },
+                ticks: { color: textColor, maxTicksLimit: 8, font: { size: 10 } },
+              },
               y: {
                 beginAtZero: false,
+                grid: { color: gridColor },
                 ticks: {
+                  color: textColor,
+                  font: { size: 10 },
                   callback: function (v) {
                     if (v >= 1e6) return (v / 1e6).toFixed(1) + "M";
                     if (v >= 1e3) return (v / 1e3) + "K";
@@ -155,62 +328,143 @@
         });
       })
       .catch(function () {
-        var wrap = document.getElementById("priceChart");
-        if (wrap && wrap.parentNode) wrap.parentNode.innerHTML = "<p style='font-size:12px;color:#666'>Chart unavailable</p>";
+        const wrap = document.querySelector(".chart-wrap");
+        if (wrap) wrap.innerHTML = "<p style='font-size:12px;color:var(--text-muted);margin:0'>Chart unavailable</p>";
       });
   }
 
-  function hideInfo() {
-    infoEl.classList.remove("visible");
+  function showPlaceholder() {
+    panelPlaceholder.style.display = "block";
+    areaDataEl.style.display = "none";
     if (priceChartInstance) {
       priceChartInstance.destroy();
       priceChartInstance = null;
     }
   }
 
+  function showNoData(title, subTitle) {
+    panelPlaceholder.style.display = "none";
+    areaDataEl.style.display = "block";
+    areaDataEl.innerHTML =
+      '<div class="area-data-header">' +
+        "<h2>" + escapeHtml(title) + "</h2>" +
+        "<span class=\"sub\">" + escapeHtml(subTitle) + "</span>" +
+      "</div>" +
+      '<div class="panel-placeholder" style="padding:24px 0">' +
+        "<p>No price data for this area.</p>" +
+      "</div>";
+  }
+
+  const STATE_OUTLINE = "hsl(210, 45%, 55%)";
+
+  // Light map: soft fills; Sabah = orange, Sarawak = teal; outline same blue as others
   function styleByState(feature) {
     const name = feature.properties.NAME_1 || "";
+    if (name === "Sabah") {
+      return {
+        fillColor: "hsl(28, 65%, 90%)",
+        weight: 1.5,
+        color: STATE_OUTLINE,
+        fillOpacity: 0.8,
+      };
+    }
+    if (name === "Sarawak") {
+      return {
+        fillColor: "hsl(185, 45%, 85%)",
+        weight: 1.5,
+        color: STATE_OUTLINE,
+        fillOpacity: 0.8,
+      };
+    }
     const idx = [...new Set(stateNames)].sort().indexOf(name);
     const hue = (idx * 47) % 360;
     return {
-      fillColor: "hsl(" + hue + ", 70%, 85%)",
-      weight: 1,
-      color: "#333",
-      fillOpacity: 0.7,
+      fillColor: "hsl(" + hue + ", 55%, 88%)",
+      weight: 1.5,
+      color: STATE_OUTLINE,
+      fillOpacity: 0.75,
     };
   }
 
   function styleByDistrict(feature) {
     return {
-      fillColor: "#aad",
-      weight: 0.8,
-      color: "#558",
-      fillOpacity: 0.6,
+      fillColor: "#c8d4e6",
+      weight: 1,
+      color: "#5a7aa0",
+      fillOpacity: 0.65,
     };
   }
 
+  function highlightFeature(e) {
+    const layer = e.target;
+    layer.setStyle({
+      weight: 2.5,
+      color: "#2563eb",
+      fillColor: "#93c5fd",
+      fillOpacity: 0.5,
+    });
+    layer.bringToFront();
+  }
+
+  function resetHighlight(e) {
+    if (currentView === "state" && e.target === selectedStateLayer) return;
+    if (currentView === "district" && e.target === selectedDistrictLayer) return;
+    if (currentView === "state") {
+      stateLayer.resetStyle(e.target);
+    } else {
+      districtLayer.resetStyle(e.target);
+    }
+  }
+
+  function clearSelection() {
+    if (selectedStateLayer && stateLayer) {
+      stateLayer.resetStyle(selectedStateLayer);
+      selectedStateLayer = null;
+    }
+    if (selectedDistrictLayer && districtLayer) {
+      districtLayer.resetStyle(selectedDistrictLayer);
+      selectedDistrictLayer = null;
+    }
+    map.fitBounds(DEFAULT_VIEW.bounds, { padding: [24, 24], maxZoom: 8, animate: true });
+    showAllAreasView();
+  }
+
+  function zoomToLayer(layer, maxZoom) {
+    const bounds = layer.getBounds();
+    map.fitBounds(bounds, { maxZoom: maxZoom != null ? maxZoom : 8, padding: [24, 24] });
+  }
+
   function onStateClick(e) {
-    const name = e.target.feature.properties.NAME_1;
+    const layer = e.target;
+    const name = layer.feature.properties.NAME_1;
     const key = stateKey(name);
     const data = predictions.state[key];
-    if (!data) {
-      showInfo("<h3>" + name + "</h3><p>No price data for this state.</p>");
+
+    if (layer === selectedStateLayer) {
+      clearSelection();
       return;
     }
-    showInfo(
-      "<h3>" + name + " (State)</h3>" +
-      "<p><span class='price'>Current avg price: " + formatPrice(data.current_price) + "</span></p>" +
-      "<p><span class='price'>Predicted 1 month: " + formatPrice(data.predicted_price_1month) + "</span></p>" +
-      "<p class='flood'>Flood risk: " + (data.flood_risk || "Data pending") + "</p>" +
-      "<p style='font-size:12px;color:#666;margin-top:4px'>Price trend:</p>",
-      { state: key }
-    );
+
+    if (!data) {
+      showNoData(name, "State");
+      return;
+    }
+
+    if (selectedStateLayer && stateLayer) stateLayer.resetStyle(selectedStateLayer);
+    selectedStateLayer = layer;
+    selectedDistrictLayer = null;
+    if (selectedDistrictLayer && districtLayer) districtLayer.resetStyle(selectedDistrictLayer);
+
+    layer.setStyle(SELECTED_STYLE);
+    layer.bringToFront();
+      showAreaData(stateDisplayName(key), t("map.stateLabel"), data, { state: key }, key, true);
   }
 
   function onDistrictClick(e) {
     L.DomEvent.stopPropagation(e);
-    const stateName = e.target.feature.properties.NAME_1;
-    const districtName = e.target.feature.properties.NAME_2;
+    const layer = e.target;
+    const stateName = layer.feature.properties.NAME_1;
+    const districtName = layer.feature.properties.NAME_2;
     const stateKeyNorm = stateKey(stateName);
     const dataDistrictName = districtKeyForData(districtName);
     let key = stateKeyNorm + "|" + dataDistrictName;
@@ -218,27 +472,32 @@
     if (!data) data = predictions.district[stateKeyNorm + "|" + districtName];
     if (!data) data = predictions.district[stateName + "|" + districtName];
     if (!data) data = predictions.district[stateName + "|" + dataDistrictName];
-    // Perlis etc.: state has no districts, GeoJSON shows "Perlis, Perlis" -> use state-level data
     if (!data && (stateKeyNorm === dataDistrictName || stateName === districtName)) {
       data = predictions.state[stateKeyNorm];
     }
-    if (!data) {
-      showInfo(
-        "<h3>" + districtName + ", " + stateName + "</h3><p>No price data for this district.</p>"
-      );
+
+    if (layer === selectedDistrictLayer) {
+      clearSelection();
       return;
     }
-    showInfo(
-      "<h3>" + districtName + ", " + stateName + "</h3>" +
-      "<p><span class='price'>Current avg price: " + formatPrice(data.current_price) + "</span></p>" +
-      "<p><span class='price'>Predicted 1 month: " + formatPrice(data.predicted_price_1month) + "</span></p>" +
-      "<p class='flood'>Flood risk: " + (data.flood_risk || "Data pending") + "</p>" +
-      "<p style='font-size:12px;color:#666;margin-top:4px'>Price trend:</p>",
-      { state: stateKeyNorm, district: dataDistrictName }
-    );
-  }
 
-  let stateNames = [];
+    if (!data) {
+      showNoData(districtName + ", " + stateName, t("map.districtLabel"));
+      return;
+    }
+
+    if (selectedDistrictLayer && districtLayer) districtLayer.resetStyle(selectedDistrictLayer);
+    if (selectedStateLayer && stateLayer) {
+      stateLayer.resetStyle(selectedStateLayer);
+      selectedStateLayer = null;
+    }
+    selectedDistrictLayer = layer;
+
+    layer.setStyle(SELECTED_STYLE);
+    layer.bringToFront();
+    const title = districtName + ", " + stateName;
+    showAreaData(title, t("map.districtLabel"), data, { state: stateKeyNorm, district: dataDistrictName }, stateKeyNorm + "|" + dataDistrictName, false);
+  }
 
   function buildStateLayer(geojson) {
     if (stateLayer) map.removeLayer(stateLayer);
@@ -247,6 +506,8 @@
       style: styleByState,
       onEachFeature: function (feature, layer) {
         layer.on("click", onStateClick);
+        layer.on("mouseover", highlightFeature);
+        layer.on("mouseout", resetHighlight);
       },
     });
     return stateLayer;
@@ -258,6 +519,8 @@
       style: styleByDistrict,
       onEachFeature: function (feature, layer) {
         layer.on("click", onDistrictClick);
+        layer.on("mouseover", highlightFeature);
+        layer.on("mouseout", resetHighlight);
       },
     });
     return districtLayer;
@@ -266,12 +529,18 @@
   function applyView() {
     currentView = layerSelect.value;
     if (!window._geoJson) return;
+    if (selectedStateLayer || selectedDistrictLayer) {
+      clearSelection();
+    }
     if (currentView === "state") {
       if (districtLayer && map.hasLayer(districtLayer)) map.removeLayer(districtLayer);
       if (stateLayer && !map.hasLayer(stateLayer)) map.addLayer(stateLayer);
     } else {
       if (stateLayer && map.hasLayer(stateLayer)) map.removeLayer(stateLayer);
       if (districtLayer && !map.hasLayer(districtLayer)) map.addLayer(districtLayer);
+    }
+    if (allAreasListEl.style.display !== "none") {
+      renderAllAreasList();
     }
   }
 
@@ -287,11 +556,30 @@
       buildStateLayer(geojson);
       buildDistrictLayer(geojson);
       applyView();
+      panelPlaceholder.style.display = "none";
+      renderAllAreasList();
+      allAreasListEl.style.display = "block";
     })
     .catch(function (err) {
       console.error(err);
-      showInfo(
-        "<h3>Error</h3><p>Could not load data. Start the backend: <code>python backend/app.py</code> then open <a href='/'>this page</a>.</p>"
-      );
+      allAreasListEl.style.display = "none";
+      panelPlaceholder.style.display = "block";
+      panelPlaceholder.innerHTML =
+        '<div class="icon">⚠️</div>' +
+        "<h2>" + t("map.couldNotLoadData") + "</h2>" +
+        "<p>" + t("map.couldNotLoadHint") + "</p>";
     });
+
+  document.addEventListener("languagechange", function () {
+    if (allAreasListEl && allAreasListEl.style.display === "block") {
+      renderAllAreasList();
+    }
+    if (areaDataEl && areaDataEl.style.display === "flex" && lastAreaData && lastAreaData.key != null) {
+      var title = lastAreaData.isState ? stateDisplayName(lastAreaData.key) : lastAreaData.key.replace("|", ", ");
+      var subTitle = lastAreaData.isState ? t("map.stateLabel") : t("map.districtLabel");
+      showAreaData(title, subTitle, lastAreaData.data, lastAreaData.priceHistoryParams, lastAreaData.key, lastAreaData.isState);
+    } else if (areaDataEl && areaDataEl.style.display === "flex" && lastAreaData) {
+      showAreaData(lastAreaData.title, lastAreaData.subTitle, lastAreaData.data, lastAreaData.priceHistoryParams);
+    }
+  });
 })();

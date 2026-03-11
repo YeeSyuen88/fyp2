@@ -6,17 +6,26 @@ Serves predictions from output/predictions.json and frontend static files.
 import os
 import json
 import numpy as np
-from flask import Flask, jsonify, request, send_from_directory
+from flask import Flask, jsonify, request, send_from_directory, session
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+# Admin accounts: (username, password)
+ADMIN_ACCOUNTS = {
+    "admin_wk": "weikang01",
+    "admin_ys": "yeesyuen02",
+    "admin_ps": "pengseung03",
+}
 PREDICTIONS_PATH = os.path.join(BASE_DIR, "output", "predictions.json")
 AREA_SUMMARY_PATH = os.path.join(BASE_DIR, "output", "area_property_summary.json")
+CLEANED_CSV = os.path.join(BASE_DIR, "data", "cleaned.csv")
 FRONTEND_DIR = os.path.join(BASE_DIR, "frontend")
 ESTIMATOR_MODEL_PATH = os.path.join(BASE_DIR, "models", "estimator_price.joblib")
 
 app = Flask(__name__, static_folder=FRONTEND_DIR)
+app.secret_key = os.environ.get("FLASK_SECRET_KEY", "estateview-public-comments-secret-change-in-production")
 from flask_cors import CORS
-CORS(app)
+CORS(app, supports_credentials=True)
 
 _data = None
 _estimator_artifact = None
@@ -225,6 +234,10 @@ def estimate():
     if predicted_price_1month is None:
         predicted_price_1month = 0
 
+    confidence_score = None
+    if predicted_price_1month and predicted_price_1month > 0:
+        confidence_score = round(85.0 + (2.0 if district else 0), 1)
+
     # Ranges: from area summary by state+property or state+district+property
     by_state = summary.get("by_state_property", {})
     by_state_district = summary.get("by_state_district_property", {})
@@ -247,6 +260,7 @@ def estimate():
 
     return jsonify({
         "predicted_price_1month": round(float(predicted_price_1month), 2),
+        "confidence_score": confidence_score,
         "floor_area_range_sqft": floor_area_range_sqft,
         "rooms_range": rooms_range,
         "flood_risk": None,
@@ -293,6 +307,465 @@ def price_history():
                     rows.append({"date": row["date"], "avg_price": float(row["avg_price"])})
     rows.sort(key=lambda x: x["date"])
     return jsonify({"dates": [r["date"] for r in rows], "prices": [r["avg_price"] for r in rows]})
+
+
+@app.route("/api/filter-results")
+def filter_results():
+    """
+    Filter listings by price range and property type; return areas (state + district) with avg_price and count.
+    Query: min_price=0&max_price=5000000&property_type=Condominium,Terraced%20House
+    """
+    import csv
+    if not os.path.isfile(CLEANED_CSV):
+        return jsonify({"error": "Data not found. Run scripts/preprocess.py first."}), 503
+    try:
+        min_price = float(request.args.get("min_price", 0) or 0)
+    except ValueError:
+        min_price = 0
+    try:
+        max_price = float(request.args.get("max_price", 50000000) or 50000000)
+    except ValueError:
+        max_price = 50000000
+    if min_price > max_price:
+        min_price, max_price = max_price, min_price
+    types_param = (request.args.get("property_type") or "").strip()
+    property_types = [t.strip() for t in types_param.split(",") if t.strip()]
+    agg = {}
+    pt_col = "property_type"
+    with open(CLEANED_CSV, "r", encoding="utf-8") as f:
+        reader = csv.DictReader(f)
+        if reader.fieldnames and pt_col not in reader.fieldnames:
+            pt_col = "property_type_group" if "property_type_group" in (reader.fieldnames or []) else None
+        for row in reader:
+            try:
+                p = float(row.get("price") or 0)
+            except (ValueError, TypeError):
+                continue
+            if not (min_price <= p <= max_price):
+                continue
+            state = (row.get("state") or "").strip()
+            district = (row.get("district_text") or "").strip()
+            if not state:
+                continue
+            if not district:
+                district = state
+            pt = (row.get(pt_col) or "Other").strip() if pt_col else "Other"
+            if property_types and pt not in property_types:
+                continue
+            key = state + "|" + district
+            if key not in agg:
+                agg[key] = {"state": state, "district": district, "prices": []}
+            agg[key]["prices"].append(p)
+    out = []
+    for k, v in agg.items():
+        prices = v["prices"]
+        out.append({
+            "state": v["state"],
+            "district": v["district"],
+            "avg_price": round(sum(prices) / len(prices), 2),
+            "count": len(prices),
+        })
+    out.sort(key=lambda x: (x["state"], x["district"]))
+    return jsonify({"results": out})
+
+
+@app.route("/api/price-histogram")
+def price_histogram():
+    """
+    Return price distribution for histogram: buckets with min, max, count.
+    Optional: property_type=Type1,Type2 to filter by property type.
+    """
+    import csv
+    if not os.path.isfile(CLEANED_CSV):
+        return jsonify({"error": "Data not found. Run scripts/preprocess.py first."}), 503
+    types_param = (request.args.get("property_type") or "").strip()
+    property_types = [t.strip() for t in types_param.split(",") if t.strip()]
+    pt_col = "property_type"
+    prices = []
+    with open(CLEANED_CSV, "r", encoding="utf-8") as f:
+        reader = csv.DictReader(f)
+        if reader.fieldnames and pt_col not in (reader.fieldnames or []):
+            pt_col = "property_type_group" if "property_type_group" in (reader.fieldnames or []) else None
+        for row in reader:
+            try:
+                p = float(row.get("price") or 0)
+            except (ValueError, TypeError):
+                continue
+            if p <= 0:
+                continue
+            if property_types and pt_col:
+                pt = (row.get(pt_col) or "Other").strip()
+                if pt not in property_types:
+                    continue
+            prices.append(p)
+    if not prices:
+        return jsonify({"buckets": [], "priceMin": 0, "priceMax": 5000000})
+    try:
+        price_min = float(request.args.get("price_min", 0))
+        price_max = float(request.args.get("price_max", 5000000))
+        num_buckets = int(request.args.get("num_buckets", 50))
+    except (TypeError, ValueError):
+        price_min, price_max, num_buckets = 0, 5000000, 50
+    num_buckets = max(10, min(100, num_buckets))
+    if price_max <= price_min:
+        price_max = price_min + 1
+    step = (price_max - price_min) / num_buckets
+    buckets = []
+    for i in range(num_buckets):
+        lo = price_min + i * step
+        hi = price_min + (i + 1) * step
+        count = sum(1 for p in prices if lo <= p < hi) if i < num_buckets - 1 else sum(1 for p in prices if lo <= p <= hi)
+        buckets.append({"min": round(lo, 0), "max": round(hi, 0), "count": count})
+    return jsonify({"buckets": buckets, "priceMin": round(price_min, 0), "priceMax": round(price_max, 0)})
+
+
+FEEDBACK_TO_EMAIL = "yeesyuen647@gmail.com"
+
+
+def send_feedback_email(rating, comment):
+    """Send feedback to FEEDBACK_TO_EMAIL via SMTP. Uses env: MAIL_SERVER, MAIL_PORT, MAIL_USERNAME, MAIL_PASSWORD."""
+    import smtplib
+    from email.mime.text import MIMEText
+    from email.mime.multipart import MIMEMultipart
+
+    server = os.environ.get("MAIL_SERVER", "smtp.gmail.com")
+    port = int(os.environ.get("MAIL_PORT", "587"))
+    username = os.environ.get("MAIL_USERNAME", "").strip()
+    password = os.environ.get("MAIL_PASSWORD", "").strip()
+    if not username or not password:
+        return False, "Email not configured. Set MAIL_USERNAME and MAIL_PASSWORD (e.g. Gmail app password)."
+
+    rating_str = "No rating" if not rating else "{} / 5".format(rating)
+    body = "EstateView Private Feedback\n\n"
+    body += "Rating: {}\n\n".format(rating_str)
+    body += "Comment:\n{}".format(comment or "(none)")
+
+    msg = MIMEMultipart()
+    msg["Subject"] = "EstateView Private Feedback"
+    msg["From"] = username
+    msg["To"] = FEEDBACK_TO_EMAIL
+    msg.attach(MIMEText(body, "plain", "utf-8"))
+
+    try:
+        with smtplib.SMTP(server, port) as smtp:
+            smtp.starttls()
+            smtp.login(username, password)
+            smtp.sendmail(username, [FEEDBACK_TO_EMAIL], msg.as_string())
+        return True, None
+    except Exception as e:
+        err_msg = str(e)
+        print("[Feedback] Send failed: {}".format(err_msg), flush=True)
+        return False, err_msg
+
+
+@app.route("/api/feedback", methods=["POST"])
+def feedback():
+    """Accept private feedback (rating, comment) and send to FEEDBACK_TO_EMAIL."""
+    body = request.get_json() or {}
+    rating = body.get("rating")  # 0 or 1-5
+    comment = (body.get("comment") or "").strip()
+    if len(comment) < 10:
+        return jsonify({"error": "Comment must be at least 10 characters."}), 400
+    ok, err = send_feedback_email(rating, comment)
+    if not ok:
+        print("[Feedback] Error: {}".format(err), flush=True)
+        return jsonify({"error": err or "Failed to send email."}), 503
+    print("[Feedback] Sent to {}.".format(FEEDBACK_TO_EMAIL), flush=True)
+    return jsonify({"success": True, "message": "Feedback sent."})
+
+
+# ----- Public comments (community feed) - SQLite -----
+PUBLIC_DB_PATH = os.path.join(BASE_DIR, "data", "public_comments.db")
+
+
+def _get_db():
+    import sqlite3
+    os.makedirs(os.path.dirname(PUBLIC_DB_PATH), exist_ok=True)
+    conn = sqlite3.connect(PUBLIC_DB_PATH)
+    conn.row_factory = sqlite3.Row
+    return conn
+
+
+def _init_public_db():
+    conn = _get_db()
+    try:
+        conn.execute("""
+            CREATE TABLE IF NOT EXISTS posts (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                author_name TEXT NOT NULL,
+                area TEXT NOT NULL,
+                category TEXT NOT NULL,
+                title TEXT NOT NULL,
+                content TEXT NOT NULL,
+                created_at TEXT NOT NULL,
+                likes INTEGER NOT NULL DEFAULT 0
+            )
+        """)
+        conn.execute("""
+            CREATE TABLE IF NOT EXISTS post_likes (
+                post_id INTEGER NOT NULL,
+                user_fingerprint TEXT NOT NULL,
+                PRIMARY KEY (post_id, user_fingerprint),
+                FOREIGN KEY (post_id) REFERENCES posts(id) ON DELETE CASCADE
+            )
+        """)
+        conn.execute("""
+            CREATE TABLE IF NOT EXISTS comments (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                post_id INTEGER NOT NULL,
+                author_name TEXT NOT NULL,
+                content TEXT NOT NULL,
+                created_at TEXT NOT NULL,
+                FOREIGN KEY (post_id) REFERENCES posts(id) ON DELETE CASCADE
+            )
+        """)
+        conn.commit()
+    finally:
+        conn.close()
+
+
+@app.route("/api/public-posts", methods=["GET"])
+def public_posts_list():
+    """List posts. Query: category=..., search=..., state=..., fingerprint=..., limit=10, offset=0"""
+    _init_public_db()
+    category = (request.args.get("category") or "All").strip()
+    search = (request.args.get("search") or "").strip()
+    state = (request.args.get("state") or "").strip()
+    fingerprint = (request.args.get("fingerprint") or "").strip()
+    try:
+        limit = max(1, min(50, int(request.args.get("limit", 10))))
+    except (TypeError, ValueError):
+        limit = 10
+    try:
+        offset = max(0, int(request.args.get("offset", 0)))
+    except (TypeError, ValueError):
+        offset = 0
+    conn = _get_db()
+    try:
+        base_sql = """SELECT p.id, p.author_name, p.area, p.category, p.title, p.content, p.created_at, p.likes,
+            (SELECT COUNT(*) FROM post_likes WHERE post_id = p.id) AS like_count,
+            (SELECT COUNT(*) FROM comments WHERE post_id = p.id) AS comment_count
+            FROM posts p"""
+        params = []
+        where_parts = []
+        if category and category != "All":
+            where_parts.append("p.category = ?")
+            params.append(category)
+        if state:
+            where_parts.append("(p.area = ? OR p.area LIKE ?)")
+            params.extend([state, state + ",%"])
+        if search:
+            where_parts.append("(p.title LIKE ? OR p.content LIKE ? OR p.area LIKE ?)")
+            params.extend(["%{}%".format(search), "%{}%".format(search), "%{}%".format(search)])
+        where_clause = (" WHERE " + " AND ".join(where_parts)) if where_parts else ""
+        count_sql = "SELECT COUNT(*) AS total FROM posts p" + where_clause
+        cur = conn.execute(count_sql, params)
+        total = cur.fetchone()[0]
+        sql = base_sql + where_clause + " ORDER BY p.created_at DESC LIMIT ? OFFSET ?"
+        params_with_limit = params + [limit, offset]
+        cur = conn.execute(sql, params_with_limit)
+        rows = cur.fetchall()
+        out = []
+        for row in rows:
+            d = dict(zip(row.keys(), row))
+            like_count = d.pop("like_count", None)
+            if like_count is not None:
+                d["likes"] = like_count
+            d["comment_count"] = d.pop("comment_count", 0)
+            if fingerprint:
+                cur2 = conn.execute(
+                    "SELECT 1 FROM post_likes WHERE post_id = ? AND user_fingerprint = ?",
+                    (d["id"], fingerprint),
+                )
+                d["liked"] = cur2.fetchone() is not None
+            else:
+                d["liked"] = False
+            out.append(d)
+        return jsonify({
+            "posts": out,
+            "total": total,
+            "has_more": (offset + len(out)) < total,
+        })
+    finally:
+        conn.close()
+
+
+@app.route("/api/public-posts", methods=["POST"])
+def public_posts_create():
+    """Create a new post. Body: author_name, area, category, title, content."""
+    _init_public_db()
+    body = request.get_json() or {}
+    author_name = (body.get("author_name") or "").strip() or "Anonymous"
+    area = (body.get("area") or "").strip() or "General"
+    category = (body.get("category") or "General").strip() or "General"
+    title = (body.get("title") or "").strip()
+    content = (body.get("content") or "").strip()
+    if not title:
+        return jsonify({"error": "Title is required."}), 400
+    from datetime import datetime
+    created_at = datetime.utcnow().strftime("%Y-%m-%d %H:%M:%S")
+    conn = _get_db()
+    try:
+        cur = conn.execute(
+            "INSERT INTO posts (author_name, area, category, title, content, created_at, likes) VALUES (?, ?, ?, ?, ?, ?, 0)",
+            (author_name, area, category, title, content, created_at),
+        )
+        conn.commit()
+        post_id = cur.lastrowid
+        return jsonify({"id": post_id, "author_name": author_name, "area": area, "category": category, "title": title, "content": content, "created_at": created_at, "likes": 0})
+    finally:
+        conn.close()
+
+
+@app.route("/api/public-posts/<int:post_id>/like", methods=["POST"])
+def public_post_like(post_id):
+    """Toggle like. Body: { user_fingerprint }. Returns { likes, liked }."""
+    _init_public_db()
+    body = request.get_json() or {}
+    fingerprint = (body.get("user_fingerprint") or "").strip()
+    if not fingerprint:
+        return jsonify({"error": "user_fingerprint required."}), 400
+    conn = _get_db()
+    try:
+        cur = conn.execute("SELECT id FROM posts WHERE id = ?", (post_id,))
+        if cur.fetchone() is None:
+            return jsonify({"error": "Post not found."}), 404
+        cur = conn.execute(
+            "SELECT 1 FROM post_likes WHERE post_id = ? AND user_fingerprint = ?",
+            (post_id, fingerprint),
+        )
+        exists = cur.fetchone() is not None
+        if exists:
+            conn.execute(
+                "DELETE FROM post_likes WHERE post_id = ? AND user_fingerprint = ?",
+                (post_id, fingerprint),
+            )
+            conn.execute("UPDATE posts SET likes = MAX(0, likes - 1) WHERE id = ?", (post_id,))
+            liked = False
+        else:
+            conn.execute(
+                "INSERT INTO post_likes (post_id, user_fingerprint) VALUES (?, ?)",
+                (post_id, fingerprint),
+            )
+            conn.execute("UPDATE posts SET likes = likes + 1 WHERE id = ?", (post_id,))
+            liked = True
+        conn.commit()
+        cur = conn.execute("SELECT likes FROM posts WHERE id = ?", (post_id,))
+        row = cur.fetchone()
+        likes = row[0] if row else 0
+        return jsonify({"likes": likes, "liked": liked})
+    finally:
+        conn.close()
+
+
+@app.route("/api/public-posts/<int:post_id>/comments", methods=["GET"])
+def public_post_comments_list(post_id):
+    """List comments for a post."""
+    _init_public_db()
+    conn = _get_db()
+    try:
+        cur = conn.execute(
+            "SELECT id, post_id, author_name, content, created_at FROM comments WHERE post_id = ? ORDER BY created_at ASC",
+            (post_id,),
+        )
+        rows = cur.fetchall()
+        out = [dict(zip(row.keys(), row)) for row in rows]
+        return jsonify({"comments": out})
+    finally:
+        conn.close()
+
+
+@app.route("/api/public-posts/<int:post_id>/comments", methods=["POST"])
+def public_post_comment_create(post_id):
+    """Add a comment. Body: author_name, content."""
+    _init_public_db()
+    body = request.get_json() or {}
+    author_name = (body.get("author_name") or "").strip() or "Anonymous"
+    content = (body.get("content") or "").strip()
+    if not content:
+        return jsonify({"error": "Content is required."}), 400
+    conn = _get_db()
+    try:
+        cur = conn.execute("SELECT id FROM posts WHERE id = ?", (post_id,))
+        if cur.fetchone() is None:
+            return jsonify({"error": "Post not found."}), 404
+        from datetime import datetime
+        created_at = datetime.utcnow().strftime("%Y-%m-%d %H:%M:%S")
+        cur = conn.execute(
+            "INSERT INTO comments (post_id, author_name, content, created_at) VALUES (?, ?, ?, ?)",
+            (post_id, author_name, content, created_at),
+        )
+        conn.commit()
+        cid = cur.lastrowid
+        return jsonify({"id": cid, "post_id": post_id, "author_name": author_name, "content": content, "created_at": created_at})
+    finally:
+        conn.close()
+
+
+def _require_admin():
+    if not session.get("admin"):
+        return jsonify({"error": "Unauthorized. Admin login required."}), 401
+    return None
+
+
+@app.route("/api/admin/login", methods=["POST"])
+def admin_login():
+    """Login with username and password. Body: username, password."""
+    body = request.get_json(silent=True) or {}
+    username = (body.get("username") or "").strip()
+    password = (body.get("password") or "").strip()
+    if username and password and ADMIN_ACCOUNTS.get(username) == password:
+        session["admin"] = True
+        return jsonify({"success": True, "message": "Logged in."})
+    return jsonify({"error": "Invalid username or password."}), 401
+
+
+@app.route("/api/admin/logout", methods=["POST"])
+def admin_logout():
+    session.pop("admin", None)
+    return jsonify({"success": True})
+
+
+@app.route("/api/admin/me")
+def admin_me():
+    return jsonify({"admin": session.get("admin", False)})
+
+
+@app.route("/api/public-posts/<int:post_id>", methods=["DELETE"])
+def public_post_delete(post_id):
+    err = _require_admin()
+    if err:
+        return err
+    _init_public_db()
+    conn = _get_db()
+    try:
+        cur = conn.execute("DELETE FROM posts WHERE id = ?", (post_id,))
+        conn.commit()
+        if cur.rowcount == 0:
+            return jsonify({"error": "Post not found."}), 404
+        return jsonify({"success": True})
+    finally:
+        conn.close()
+
+
+@app.route("/api/public-posts/<int:post_id>/comments/<int:comment_id>", methods=["DELETE"])
+def public_comment_delete(post_id, comment_id):
+    err = _require_admin()
+    if err:
+        return err
+    _init_public_db()
+    conn = _get_db()
+    try:
+        cur = conn.execute(
+            "DELETE FROM comments WHERE id = ? AND post_id = ?",
+            (comment_id, post_id),
+        )
+        conn.commit()
+        if cur.rowcount == 0:
+            return jsonify({"error": "Comment not found."}), 404
+        return jsonify({"success": True})
+    finally:
+        conn.close()
 
 
 @app.route("/")

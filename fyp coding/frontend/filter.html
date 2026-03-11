@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Filter &amp; Overlay — EstateView</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg-primary: #0a0e14;
+      --bg-secondary: #0d1117;
+      --bg-card: #161b22;
+      --bg-card-hover: #1c2128;
+      --border: #30363d;
+      --text-primary: #e6edf3;
+      --text-secondary: #8b949e;
+      --text-muted: #6e7681;
+      --accent: #58a6ff;
+      --accent-soft: rgba(56, 139, 253, 0.15);
+      --radius: 12px;
+      --radius-sm: 8px;
+      --shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "DM Sans", system-ui, -apple-system, sans-serif;
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    .global-nav {
+      position: relative;
+      z-index: 1001;
+      flex-shrink: 0;
+      height: 56px;
+      background: var(--bg-secondary);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 24px 0 20px;
+    }
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+      font-size: 1.375rem;
+      font-weight: 700;
+      letter-spacing: -0.03em;
+    }
+    .nav-logo .logo-estate { color: var(--text-primary); }
+    .nav-logo .logo-view { color: var(--accent); }
+    .nav-logo:hover .logo-view { opacity: 0.9; }
+    .nav-links { display: flex; align-items: center; gap: 8px; }
+    .nav-links a {
+      color: var(--text-secondary);
+      text-decoration: none;
+      font-size: 0.875rem;
+      font-weight: 500;
+      padding: 8px 14px;
+      position: relative;
+    }
+    .nav-links a::after {
+      content: "";
+      position: absolute;
+      left: 50%;
+      bottom: 6px;
+      width: 100%;
+      height: 2px;
+      background: var(--accent);
+      border-radius: 1px;
+      transform: translateX(-50%) scaleX(0);
+      transform-origin: center;
+      transition: transform 0.2s ease;
+    }
+    .nav-links a:hover { color: var(--text-primary); }
+    .nav-links a:hover::after { transform: translateX(-50%) scaleX(1); }
+    .nav-links a.active { color: var(--accent); }
+    .nav-links a.active::after { transform: translateX(-50%) scaleX(1); }
+    .nav-right { display: flex; align-items: center; gap: 12px; }
+    .lang-switcher { position: relative; }
+    .lang-btn { width: 36px; height: 36px; border: 1px solid var(--border); border-radius: var(--radius-sm); background: var(--bg-card); color: var(--text-muted); display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 1.25rem; }
+    .lang-btn:hover { border-color: var(--accent); color: var(--accent); }
+    .lang-dropdown { display: none; position: absolute; top: 100%; right: 0; margin-top: 6px; min-width: 160px; background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-sm); box-shadow: 0 8px 24px rgba(0,0,0,0.3); z-index: 1002; }
+    .lang-dropdown.open { display: block; }
+    .lang-opt { display: block; width: 100%; padding: 10px 14px; border: none; background: none; color: var(--text-primary); font-size: 0.9375rem; text-align: left; cursor: pointer; }
+    .lang-opt:hover { background: var(--bg-secondary); }
+    .lang-opt.active { color: var(--accent); font-weight: 600; }
+    .app-layout {
+      display: flex;
+      flex: 1;
+      min-height: 0;
+      position: relative;
+    }
+
+    .filter-panel {
+      position: absolute;
+      top: 16px;
+      left: 16px;
+      z-index: 1000;
+      width: 360px;
+      max-width: calc(100vw - 40px);
+      max-height: calc(100vh - 80px);
+      overflow-x: hidden;
+      overflow-y: auto;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 22px 20px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+    }
+    .filter-panel .panel-header {
+      margin-bottom: 6px;
+      text-align: center;
+    }
+    .filter-panel h2 {
+      font-size: 1.4rem;
+      font-weight: 700;
+      margin: 0;
+      color: var(--text-primary);
+    }
+    .filter-panel .sub {
+      font-size: 0.875rem;
+      color: var(--text-secondary);
+      margin: 0 0 20px;
+      text-align: center;
+    }
+    .filter-section {
+      margin-bottom: 18px;
+    }
+    .filter-section .label {
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--text-secondary);
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .filter-section .label .ico { color: var(--text-muted); font-size: 0.9rem; }
+    .price-inputs {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .price-inputs input {
+      flex: 1;
+      min-width: 0;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      color: var(--text-primary);
+      padding: 10px 12px;
+      border-radius: var(--radius-sm);
+      font-size: 0.875rem;
+      font-family: inherit;
+    }
+    .price-inputs input:focus {
+      outline: none;
+      border-color: var(--accent);
+    }
+    .price-min-wrap {
+      flex: 1;
+      min-width: 0;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 10px 12px;
+    }
+    .price-min-wrap .rm-prefix {
+      color: var(--text-muted);
+      font-size: 0.875rem;
+      flex-shrink: 0;
+    }
+    .price-min-wrap input {
+      flex: 1;
+      min-width: 0;
+      background: none;
+      border: none;
+      padding: 0;
+      font-size: 0.875rem;
+      color: var(--text-primary);
+    }
+    .price-min-wrap input:focus { outline: none; }
+    .price-range-slider {
+      margin-bottom: 14px;
+    }
+    .price-histogram {
+      display: flex;
+      align-items: flex-end;
+      height: 56px;
+      margin-bottom: 8px;
+      gap: 1px;
+      padding: 0 2px;
+    }
+    .price-histogram .histogram-bar {
+      flex: 1;
+      min-width: 2px;
+      background: var(--border);
+      border-radius: 2px 2px 0 0;
+      transition: background 0.15s ease, opacity 0.15s ease;
+      opacity: 0.4;
+    }
+    .price-histogram .histogram-bar.has-count {
+      background: var(--accent);
+    }
+    .price-histogram .histogram-bar.has-count.in-range {
+      opacity: 1;
+    }
+    .price-range-slider .slider-track-wrap {
+      position: relative;
+      height: 28px;
+      display: flex;
+      align-items: center;
+    }
+    .price-range-slider .slider-track {
+      position: absolute;
+      left: 0;
+      right: 0;
+      height: 6px;
+      background: var(--border);
+      border-radius: 3px;
+      pointer-events: none;
+      opacity: 0.4;
+    }
+    .price-range-slider .slider-fill {
+      position: absolute;
+      height: 6px;
+      border-radius: 3px;
+      background: var(--accent);
+      opacity: 1;
+      pointer-events: none;
+    }
+    .price-range-slider input[type="range"] {
+      position: absolute;
+      left: 0;
+      right: 0;
+      width: 100%;
+      height: 28px;
+      margin: 0;
+      background: none;
+      pointer-events: none;
+      -webkit-appearance: none;
+      appearance: none;
+    }
+    .price-range-slider input[type="range"]::-webkit-slider-thumb {
+      pointer-events: auto;
+      -webkit-appearance: none;
+      appearance: none;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: var(--accent);
+      border: 2px solid rgba(255, 255, 255, 0.9);
+      cursor: pointer;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.3);
+    }
+    .price-range-slider input[type="range"]::-moz-range-thumb {
+      pointer-events: auto;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: var(--accent);
+      border: 2px solid rgba(255, 255, 255, 0.9);
+      cursor: pointer;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.3);
+    }
+    .price-range-slider .range-min {
+      z-index: 2;
+    }
+    .price-range-slider .range-max {
+      z-index: 3;
+    }
+    .price-range-slider .range-max::-webkit-slider-thumb { margin-left: 0; }
+    .price-inputs .dash { color: var(--text-muted); font-weight: 500; }
+    .property-types {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+    .property-types label {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 44px;
+      padding: 10px 12px;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      font-size: 0.8125rem;
+      color: var(--text-secondary);
+      cursor: pointer;
+      transition: border-color 0.2s, background 0.2s;
+      text-align: center;
+    }
+    .property-types label:hover { border-color: var(--text-muted); color: var(--text-primary); }
+    .property-types label:has(input:checked) {
+      border-color: var(--accent);
+      background: var(--accent-soft);
+      color: var(--accent);
+    }
+    .property-types input { display: none; }
+    .property-types-more {
+      margin-top: 10px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+    .property-types-more.hidden { display: none; }
+    .property-types-more label {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 44px;
+      padding: 10px 12px;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      font-size: 0.8125rem;
+      color: var(--text-secondary);
+      cursor: pointer;
+      transition: border-color 0.2s, background 0.2s;
+      text-align: center;
+    }
+    .property-types-more label:hover { border-color: var(--text-muted); color: var(--text-primary); }
+    .property-types-more label:has(input:checked) {
+      border-color: var(--accent);
+      background: var(--accent-soft);
+      color: var(--accent);
+    }
+    .property-types-more input { display: none; }
+    .btn-show-more {
+      width: 100%;
+      padding: 8px;
+      background: none;
+      border: none;
+      color: var(--accent);
+      font-size: 0.8125rem;
+      font-weight: 600;
+      cursor: pointer;
+      font-family: inherit;
+      margin-top: 4px;
+    }
+    .btn-show-more:hover { text-decoration: underline; }
+    .btn-apply {
+      width: 100%;
+      margin-top: 6px;
+      padding: 14px 16px;
+      background: var(--accent);
+      color: #fff;
+      border: none;
+      border-radius: 12px;
+      font-size: 0.9375rem;
+      font-weight: 600;
+      font-family: inherit;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: opacity 0.2s;
+    }
+    .btn-apply:hover { opacity: 0.9; }
+    .btn-apply:disabled { opacity: 0.5; cursor: not-allowed; }
+
+    .map-container {
+      flex: 1;
+      min-width: 0;
+      position: relative;
+      margin: 0;
+    }
+    #map {
+      width: 100%;
+      height: 100%;
+      background: #e8ecf0;
+    }
+    .leaflet-control-attribution {
+      background: rgba(255,255,255,0.9) !important;
+      color: #5a6575 !important;
+      font-size: 10px;
+      padding: 4px 8px;
+      border-radius: 6px;
+    }
+    .leaflet-control-attribution a { color: #2563eb !important; }
+    .marker-pin-wrap { background: none !important; border: none !important; }
+    .marker-pin {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+    .marker-pin .pin-icon { font-size: 28px; line-height: 1; }
+    .marker-pin .pin-price {
+      font-size: 0.6rem;
+      font-weight: 700;
+      color: #fff;
+      background: #dc2626;
+      padding: 2px 6px;
+      border-radius: 4px;
+      margin-top: -4px;
+      white-space: nowrap;
+      box-shadow: 0 2px 6px rgba(220, 38, 38, 0.4);
+    }
+  </style>
+</head>
+<body>
+  <header class="global-nav">
+    <a href="/" class="nav-logo"><span class="logo-estate">Estate</span><span class="logo-view">View</span></a>
+    <nav class="nav-links">
+      <a href="/" data-i18n="nav.map">Map</a>
+      <a href="/filter.html" class="active" data-i18n="nav.filter">Filter Property</a>
+      <a href="/estimator.html" data-i18n="nav.estimation">Get Estimation</a>
+      <a href="/comments.html" data-i18n="nav.community">Public Community</a>
+      <a href="/feedback.html" data-i18n="nav.feedback">Private Feedback</a>
+    </nav>
+    <div class="nav-right">
+      <div class="lang-switcher">
+        <button type="button" class="lang-btn" id="lang-btn" aria-label="Language" title="Language">🌐</button>
+        <div class="lang-dropdown" id="lang-dropdown">
+          <button type="button" class="lang-opt" data-lang="en">English</button>
+          <button type="button" class="lang-opt" data-lang="ms">Bahasa Melayu</button>
+          <button type="button" class="lang-opt" data-lang="zh">中文</button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="app-layout">
+    <aside class="filter-panel" id="filter-panel">
+      <div class="panel-header">
+        <h2 data-i18n="filter.findProperties">Find Properties</h2>
+      </div>
+      <p class="sub" data-i18n="filter.filterByPriceType">Filter by price & type</p>
+
+      <div class="filter-section">
+        <div class="label"><span class="ico">💰</span> <span data-i18n="filter.priceRange">Price Range</span></div>
+        <div class="price-range-slider">
+          <div class="price-histogram" id="price-histogram" aria-hidden="true"></div>
+          <div class="slider-track-wrap">
+            <div class="slider-track"></div>
+            <div class="slider-fill" id="slider-fill"></div>
+            <input type="range" class="range-min" id="range-min" min="0" max="5000000" step="50000" value="0" />
+            <input type="range" class="range-max" id="range-max" min="0" max="5000000" step="50000" value="5000000" />
+          </div>
+        </div>
+        <div class="price-inputs">
+          <div class="price-min-wrap">
+            <span class="rm-prefix">RM</span>
+            <input type="number" id="min-price" min="0" step="10000" placeholder="0" value="0" />
+          </div>
+          <span class="dash">–</span>
+          <input type="number" id="max-price" min="0" step="10000" placeholder="5000000" value="5000000" />
+        </div>
+      </div>
+
+      <div class="filter-section">
+        <div class="label"><span class="ico">🏠</span> <span data-i18n="filter.propertyType">Property Type</span></div>
+        <div class="property-types" id="property-types"></div>
+        <div class="property-types-more hidden" id="property-types-more"></div>
+        <button type="button" class="btn-show-more" id="btn-show-more" style="display: none;" data-i18n="filter.showMore">Show More</button>
+      </div>
+
+      <button type="button" class="btn-apply" id="btn-apply" data-i18n="filter.applyFilters">
+        Apply Filters
+      </button>
+    </aside>
+
+    <div class="map-container">
+      <div id="map"></div>
+    </div>
+  </div>
+
+  <script src="lang.js"></script>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="filter.js"></script>
+</body>
+</html>

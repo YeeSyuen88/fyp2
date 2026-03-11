@@ -3,88 +3,333 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Property Price Estimator | Malaysia FYP</title>
+  <title>Estimation — EstateView</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700&display=swap" rel="stylesheet" />
   <style>
+    :root {
+      --bg-primary: #0a0e14;
+      --bg-secondary: #0d1117;
+      --bg-card: #161b22;
+      --border: #30363d;
+      --text-primary: #e6edf3;
+      --text-secondary: #8b949e;
+      --text-muted: #6e7681;
+      --accent: #58a6ff;
+      --radius: 12px;
+      --radius-sm: 8px;
+    }
     * { box-sizing: border-box; }
-    body { margin: 0; font-family: system-ui, sans-serif; background: #f5f5f5; }
-    .container { max-width: 560px; margin: 0 auto; padding: 24px; }
-    h1 { font-size: 1.5rem; margin-bottom: 8px; }
-    .nav { margin-bottom: 20px; }
-    .nav a { color: #06c; text-decoration: none; }
-    .nav a:hover { text-decoration: underline; }
+    body {
+      margin: 0;
+      font-family: "DM Sans", system-ui, -apple-system, sans-serif;
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .global-nav {
+      flex-shrink: 0;
+      height: 56px;
+      background: var(--bg-secondary);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 24px 0 20px;
+    }
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+      font-size: 1.375rem;
+      font-weight: 700;
+      letter-spacing: -0.03em;
+    }
+    .nav-logo .logo-estate { color: var(--text-primary); }
+    .nav-logo .logo-view { color: var(--accent); }
+    .nav-logo:hover .logo-view { opacity: 0.9; }
+    .nav-links { display: flex; align-items: center; gap: 8px; }
+    .nav-links a {
+      color: var(--text-secondary);
+      text-decoration: none;
+      font-size: 0.875rem;
+      font-weight: 500;
+      padding: 8px 14px;
+      position: relative;
+    }
+    .nav-links a::after {
+      content: "";
+      position: absolute;
+      left: 50%; bottom: 6px;
+      width: 100%; height: 2px;
+      background: var(--accent);
+      border-radius: 1px;
+      transform: translateX(-50%) scaleX(0);
+      transform-origin: center;
+      transition: transform 0.2s ease;
+    }
+    .nav-links a:hover { color: var(--text-primary); }
+    .nav-links a:hover::after { transform: translateX(-50%) scaleX(1); }
+    .nav-links a.active { color: var(--accent); }
+    .nav-links a.active::after { transform: translateX(-50%) scaleX(1); }
+    .nav-right { display: flex; align-items: center; gap: 12px; }
+    .lang-switcher { position: relative; }
+    .lang-btn { width: 36px; height: 36px; border: 1px solid var(--border); border-radius: var(--radius-sm); background: var(--bg-card); color: var(--text-muted); display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 1.25rem; }
+    .lang-btn:hover { border-color: var(--accent); color: var(--accent); }
+    .lang-dropdown { display: none; position: absolute; top: 100%; right: 0; margin-top: 6px; min-width: 160px; background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-sm); box-shadow: 0 8px 24px rgba(0,0,0,0.3); z-index: 100; }
+    .lang-dropdown.open { display: block; }
+    .lang-opt { display: block; width: 100%; padding: 10px 14px; border: none; background: none; color: var(--text-primary); font-size: 0.9375rem; text-align: left; cursor: pointer; }
+    .lang-opt:hover { background: var(--bg-secondary); }
+    .lang-opt.active { color: var(--accent); font-weight: 600; }
+    .page-header {
+      text-align: center;
+      padding: 40px 24px 32px;
+    }
+    .page-header .logo-title {
+      font-size: 2.5rem;
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      margin: 0 0 8px 0;
+      line-height: 1.2;
+    }
+    .page-header .logo-title .logo-estate { color: var(--text-primary); }
+    .page-header .logo-title .logo-view { color: var(--accent); }
+    .page-header .tagline {
+      font-size: 1rem;
+      font-weight: 400;
+      color: var(--text-muted);
+      margin: 0;
+    }
+
+    .estimator-main {
+      flex: 1;
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      gap: 32px;
+      padding: 0 40px 40px;
+      max-width: 1000px;
+      margin: 0 auto;
+      width: 100%;
+    }
+    .panel-left {
+      flex: 1;
+      min-width: 280px;
+      max-width: 420px;
+    }
+    .panel-right {
+      flex: 1;
+      min-width: 280px;
+      max-width: 420px;
+    }
     .card {
-      background: #fff;
-      border-radius: 12px;
-      box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
       padding: 24px;
-      margin-bottom: 20px;
+    }
+    .card h2 {
+      font-size: 1.65rem;
+      font-weight: 600;
+      margin: 0 0 20px 0;
+      color: var(--text-primary);
     }
     .form-group { margin-bottom: 16px; }
-    .form-group label { display: block; font-weight: 600; margin-bottom: 6px; color: #333; }
-    .form-group select, .form-group input { width: 100%; padding: 10px 12px; border: 1px solid #ccc; border-radius: 8px; font-size: 1rem; }
-    .form-group input:focus, .form-group select:focus { outline: none; border-color: #06c; }
-    button[type="submit"] {
+    .form-group label {
+      display: block;
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: var(--text-secondary);
+      margin-bottom: 6px;
+    }
+    .form-group select {
+      width: 100%;
+      padding: 10px 12px;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      color: var(--text-primary);
+      font-size: 0.9375rem;
+      font-family: inherit;
+    }
+    .form-group select:focus {
+      outline: none;
+      border-color: var(--accent);
+    }
+    .btn-submit {
       width: 100%;
       padding: 12px;
-      background: #0a5;
+      background: var(--accent);
       color: #fff;
       border: none;
-      border-radius: 8px;
+      border-radius: var(--radius-sm);
       font-size: 1rem;
       font-weight: 600;
+      font-family: inherit;
       cursor: pointer;
+      margin-top: 8px;
+      transition: opacity 0.2s;
     }
-    button[type="submit"]:hover { background: #084; }
-    button[type="submit"]:disabled { background: #999; cursor: not-allowed; }
-    .result { display: none; margin-top: 20px; padding-top: 20px; border-top: 1px solid #eee; }
-    .result.visible { display: block; }
-    .result h3 { margin: 0 0 12px 0; font-size: 1.1rem; }
-    .result .row { display: flex; justify-content: space-between; margin: 8px 0; }
-    .result .label { color: #666; }
-    .result .value { font-weight: 600; color: #0a5; }
-    .result .flood { color: #c00; }
-    .error { color: #c00; margin-top: 12px; }
-    .loading { color: #666; }
+    .btn-submit:hover { opacity: 0.9; }
+    .btn-submit:disabled { opacity: 0.6; cursor: not-allowed; }
+    .btn-reset {
+      width: 100%;
+      padding: 10px;
+      margin-top: 8px;
+      background: transparent;
+      color: var(--text-secondary);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      font-size: 0.9375rem;
+      font-family: inherit;
+      cursor: pointer;
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .btn-reset:hover { border-color: var(--text-muted); color: var(--text-primary); }
+    .form-desc {
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      margin: 0 0 16px 0;
+      line-height: 0.3;
+    }
+    .error { color: #f85149; font-size: 0.875rem; margin-top: 12px; }
+
+    .result-card .result-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin: 12px 0;
+      padding: 8px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .result-card .result-row:last-child { border-bottom: none; }
+    .result-card .result-label { color: var(--text-muted); font-size: 0.875rem; }
+    .result-card .result-value { font-weight: 600; color: var(--accent); font-size: 0.9375rem; }
+    .result-card .result-value.flood { color: #f85149; }
+    .result-card h3 { margin: 0 0 8px 0; font-size: 1.1rem; color: var(--text-primary); }
+    .result-loading {
+      padding: 24px;
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 0.9375rem;
+    }
+    .help-icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 16px;
+      height: 16px;
+      margin-left: 4px;
+      border-radius: 50%;
+      background: var(--border);
+      color: var(--text-muted);
+      font-size: 0.7rem;
+      font-style: normal;
+      cursor: help;
+      vertical-align: middle;
+    }
+    .help-icon:hover { background: var(--accent); color: #fff; }
+    .btn-copy {
+      width: 100%;
+      padding: 10px;
+      margin-top: 16px;
+      background: var(--bg-secondary);
+      color: var(--accent);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      font-size: 0.875rem;
+      font-family: inherit;
+      cursor: pointer;
+      transition: border-color 0.2s, background 0.2s;
+    }
+    .btn-copy:hover { border-color: var(--accent); background: rgba(56, 139, 253, 0.1); }
+    .btn-copy.copied { color: var(--success, #3fb950); }
   </style>
 </head>
 <body>
-  <div class="container">
-    <div class="nav"><a href="/">← Back to Map</a></div>
-    <h1>Property Price &amp; Area Info</h1>
-    <p style="color:#666; margin-bottom:20px;">Select state, district (optional) and property type to see predicted future 1-month price, floor area range, number of rooms range and flood risk.</p>
-
-    <div class="card">
-      <form id="estimator-form">
-        <div class="form-group">
-          <label for="state">State</label>
-          <select id="state" required>
-            <option value="">-- Select state --</option>
-          </select>
+  <header class="global-nav">
+    <a href="/" class="nav-logo"><span class="logo-estate">Estate</span><span class="logo-view">View</span></a>
+    <nav class="nav-links">
+      <a href="/" data-i18n="nav.map">Map</a>
+      <a href="/filter.html" data-i18n="nav.filter">Filter Property</a>
+      <a href="/estimator.html" class="active" data-i18n="nav.estimation">Get Estimation</a>
+      <a href="/comments.html" data-i18n="nav.community">Public Community</a>
+      <a href="/feedback.html" data-i18n="nav.feedback">Private Feedback</a>
+    </nav>
+    <div class="nav-right">
+      <div class="lang-switcher">
+        <button type="button" class="lang-btn" id="lang-btn" aria-label="Language" title="Language">🌐</button>
+        <div class="lang-dropdown" id="lang-dropdown">
+          <button type="button" class="lang-opt" data-lang="en">English</button>
+          <button type="button" class="lang-opt" data-lang="ms">Bahasa Melayu</button>
+          <button type="button" class="lang-opt" data-lang="zh">中文</button>
         </div>
-        <div class="form-group">
-          <label for="district">District <span style="font-weight:400; color:#666;">(optional)</span></label>
-          <select id="district">
-            <option value="">-- Any --</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label for="property_type">Property Type</label>
-          <select id="property_type" required>
-            <option value="">-- Select type --</option>
-          </select>
-        </div>
-        <button type="submit" id="btn-submit">Show Result</button>
-      </form>
-      <div id="error" class="error"></div>
-      <div id="result" class="result">
-        <h3>Result</h3>
-        <div class="row"><span class="label">Predicted price (1 month)</span><span class="value" id="out-predicted">—</span></div>
-        <div class="row"><span class="label">Floor area range (sq ft)</span><span class="value" id="out-floor-range">—</span></div>
-        <div class="row"><span class="label">Number of rooms range</span><span class="value" id="out-rooms-range">—</span></div>
-        <div class="row"><span class="label">Flood risk</span><span class="value flood" id="out-flood">—</span></div>
       </div>
     </div>
+  </header>
+
+  <div class="page-header">
+    <h1 class="logo-title"><span class="logo-estate">Estate</span><span class="logo-view">View</span></h1>
+    <p class="tagline" data-i18n="estimator.tagline">Intelligent Real Estate Price Prediction System</p>
   </div>
+
+  <main class="estimator-main">
+    <div class="panel-left">
+      <div class="card">
+        <h2 data-i18n="estimator.propertyDetails">Property Details</h2>
+        <p class="form-desc" data-i18n="estimator.formDesc">Select state, district (optional) and property type.</p>
+        <form id="estimator-form">
+          <div class="form-group">
+            <label for="state" data-i18n="estimator.state">State</label>
+            <select id="state" required>
+              <option value="" data-i18n="estimator.selectState">-- Select state --</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="district">District <span style="font-weight:400; color:var(--text-muted);" data-i18n="estimator.optional">(optional)</span></label>
+            <select id="district">
+              <option value="" data-i18n="estimator.any">-- Any --</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="property_type" data-i18n="estimator.propertyType">Property Type</label>
+            <select id="property_type" required>
+              <option value="" data-i18n="estimator.selectType">-- Select type --</option>
+            </select>
+          </div>
+          <button type="submit" class="btn-submit" id="btn-submit" data-i18n="estimator.showResult">Show Result</button>
+          <button type="button" class="btn-reset" id="btn-reset" data-i18n="estimator.clear">Clear</button>
+        </form>
+        <div id="error" class="error"></div>
+      </div>
+    </div>
+
+    <div class="panel-right">
+      <div class="card result-card">
+        <h3 data-i18n="estimator.estimatedValue">Estimated Value</h3>
+        <div id="result-loading" class="result-loading" style="display:none;" data-i18n="estimator.loading">Loading…</div>
+        <div id="result-content">
+          <div class="result-row">
+            <span class="result-label">
+              <span data-i18n="estimator.predictedPrice">Predicted price (1 month)</span>
+              <span class="help-icon" id="help-predicted" data-i18n-title="estimator.predictedHelp" title="Average predicted price for the next month in this area and property type.">ⓘ</span>
+            </span>
+            <span class="result-value" id="out-predicted">—</span>
+          </div>
+          <div class="result-row"><span class="result-label" data-i18n="estimator.floorAreaRange">Floor area range (sq ft)</span><span class="result-value" id="out-floor-range">—</span></div>
+          <div class="result-row"><span class="result-label" data-i18n="estimator.numberOfRoomsRange">Number of rooms range</span><span class="result-value" id="out-rooms-range">—</span></div>
+          <div class="result-row"><span class="result-label" data-i18n="estimator.floodRisk">Flood risk</span><span class="result-value flood" id="out-flood">—</span></div>
+        </div>
+        <button type="button" class="btn-copy" id="btn-copy" style="display:none;" data-i18n="estimator.copyAllDetails">Copy all details</button>
+      </div>
+    </div>
+  </main>
+
+  <script src="lang.js"></script>
   <script src="estimator.js"></script>
 </body>
 </html>
