@@ -1,0 +1,1202 @@
+{
+  "Johor": [
+    {
+      "name": "Sg. Segamat di Segamat Kecil",
+      "district": "Segamat",
+      "status": "alert"
+    },
+    {
+      "name": "Sg. Labis di Kg. Gatom",
+      "district": "Segamat",
+      "status": "alert"
+    },
+    {
+      "name": "Sg. Terap di Kg. Parit Wahid",
+      "district": "Muar",
+      "status": "alert"
+    },
+    {
+      "name": "Sg. Sarang Buaya di Kg. Parit Tengah",
+      "district": "Muar",
+      "status": "alert"
+    },
+    {
+      "name": "Sg. Belemang Besar di Simpang 5 Darat",
+      "district": "Tangkak",
+      "status": "alert"
+    },
+    {
+      "name": "Sg. Lenik di Ladang Chaah",
+      "district": "Batu Pahat",
+      "status": "alert"
+    },
+    {
+      "name": "Empangan Bekok",
+      "district": "Batu Pahat",
+      "status": "alert"
+    },
+    {
+      "name": "Sg. Sembrong di Bt. 2 Sembrong",
+      "district": "Batu Pahat",
+      "status": "alert"
+    },
+    {
+      "name": "Sg. Simpang Kanan di Parit Besar",
+      "district": "Batu Pahat",
+      "status": "alert"
+    },
+    {
+      "name": "Sg. Simpang Kiri di Parit Sulong",
+      "district": "Batu Pahat",
+      "status": "alert"
+    },
+    {
+      "name": "Sg. Paloh di Pekan Paloh",
+      "district": "Kluang",
+      "status": "alert"
+    },
+    {
+      "name": "Sg. Kahang di Kg. Contoh",
+      "district": "Kluang",
+      "status": "alert"
+    },
+    {
+      "name": "Sg. Siku di Kg. Murni Jaya",
+      "district": "Kulai",
+      "status": "alert"
+    },
+    {
+      "name": "Kolam Air di Bt. 21 Kulai",
+      "district": "Kulai",
+      "status": "alert"
+    },
+    {
+      "name": "Kolam Air di Taman Aman",
+      "district": "Kulai",
+      "status": "alert"
+    },
+    {
+      "name": "Sg. Pontian Besar di Kg. Sri Paya",
+      "district": "Kulai",
+      "status": "alert"
+    },
+    {
+      "name": "Pintu Air Parit Salleh",
+      "district": "Pontian",
+      "status": "alert"
+    },
+    {
+      "name": "Sg. Pulai di Kg. Ulu Pulai",
+      "district": "Pontian",
+      "status": "alert"
+    },
+    {
+      "name": "Sg. Tebrau di Taman Sri Pandan",
+      "district": "Johor Bahru",
+      "status": "alert"
+    },
+    {
+      "name": "Sg. Masai di Kg. Sepakat",
+      "district": "Johor Bahru",
+      "status": "alert"
+    },
+    {
+      "name": "Sg. Tiram di Kg. Bukit Dagang",
+      "district": "Johor Bahru",
+      "status": "alert"
+    },
+    {
+      "name": "Sg. Linggiu di Linggiu",
+      "district": "Kota Tinggi",
+      "status": "alert"
+    },
+    {
+      "name": "Sg. Johor di Kota Tinggi",
+      "district": "Kota Tinggi",
+      "status": "alert"
+    },
+    {
+      "name": "Sg. Pungai di Punggai",
+      "district": "Kota Tinggi",
+      "status": "alert"
+    },
+    {
+      "name": "Sg. Ayer Hitam di Kg. Mawai",
+      "district": "Kota Tinggi",
+      "status": "alert"
+    },
+    {
+      "name": "Sg. Endau di Kg. Labong",
+      "district": "Mersing",
+      "status": "alert"
+    },
+    {
+      "name": "Sg. Paya Dato",
+      "district": "Mersing",
+      "status": "alert"
+    }
+  ],
+  "Johor|Batu Pahat": [
+    {
+      "name": "Sg. Lenik di Ladang Chaah",
+      "status": "alert"
+    },
+    {
+      "name": "Empangan Bekok",
+      "status": "alert"
+    },
+    {
+      "name": "Sg. Sembrong di Bt. 2 Sembrong",
+      "status": "alert"
+    },
+    {
+      "name": "Sg. Simpang Kanan di Parit Besar",
+      "status": "alert"
+    },
+    {
+      "name": "Sg. Simpang Kiri di Parit Sulong",
+      "status": "alert"
+    }
+  ],
+  "Johor|Johor Bahru": [
+    {
+      "name": "Sg. Tebrau di Taman Sri Pandan",
+      "status": "alert"
+    },
+    {
+      "name": "Sg. Masai di Kg. Sepakat",
+      "status": "alert"
+    },
+    {
+      "name": "Sg. Tiram di Kg. Bukit Dagang",
+      "status": "alert"
+    }
+  ],
+  "Johor|Kluang": [
+    {
+      "name": "Sg. Paloh di Pekan Paloh",
+      "status": "alert"
+    },
+    {
+      "name": "Sg. Kahang di Kg. Contoh",
+      "status": "alert"
+    }
+  ],
+  "Johor|Kota Tinggi": [
+    {
+      "name": "Sg. Linggiu di Linggiu",
+      "status": "alert"
+    },
+    {
+      "name": "Sg. Johor di Kota Tinggi",
+      "status": "alert"
+    },
+    {
+      "name": "Sg. Pungai di Punggai",
+      "status": "alert"
+    },
+    {
+      "name": "Sg. Ayer Hitam di Kg. Mawai",
+      "status": "alert"
+    }
+  ],
+  "Johor|Kulai": [
+    {
+      "name": "Sg. Siku di Kg. Murni Jaya",
+      "status": "alert"
+    },
+    {
+      "name": "Kolam Air di Bt. 21 Kulai",
+      "status": "alert"
+    },
+    {
+      "name": "Kolam Air di Taman Aman",
+      "status": "alert"
+    },
+    {
+      "name": "Sg. Pontian Besar di Kg. Sri Paya",
+      "status": "alert"
+    }
+  ],
+  "Johor|Tangkak": [
+    {
+      "name": "Sg. Belemang Besar di Simpang 5 Darat",
+      "status": "alert"
+    }
+  ],
+  "Johor|Mersing": [
+    {
+      "name": "Sg. Endau di Kg. Labong",
+      "status": "alert"
+    },
+    {
+      "name": "Sg. Paya Dato",
+      "status": "alert"
+    }
+  ],
+  "Johor|Muar": [
+    {
+      "name": "Sg. Terap di Kg. Parit Wahid",
+      "status": "alert"
+    },
+    {
+      "name": "Sg. Sarang Buaya di Kg. Parit Tengah",
+      "status": "alert"
+    }
+  ],
+  "Johor|Pontian": [
+    {
+      "name": "Pintu Air Parit Salleh",
+      "status": "alert"
+    },
+    {
+      "name": "Sg. Pulai di Kg. Ulu Pulai",
+      "status": "alert"
+    }
+  ],
+  "Johor|Segamat": [
+    {
+      "name": "Sg. Segamat di Segamat Kecil",
+      "status": "alert"
+    },
+    {
+      "name": "Sg. Labis di Kg. Gatom",
+      "status": "alert"
+    }
+  ],
+  "Kedah": [
+    {
+      "name": "Sg. Jarak di Kg. Permatang Durian (F2)",
+      "district": "Kulim",
+      "status": "alert"
+    },
+    {
+      "name": "Sg. Kob di Kg. Baru (F2)",
+      "district": "Kulim",
+      "status": "alert"
+    },
+    {
+      "name": "Sg. Wang Pinang (F2)",
+      "district": "Kulim",
+      "status": "alert"
+    },
+    {
+      "name": "Sg. Singkir di Kg. Singkir Genting (F2)",
+      "district": "Yan",
+      "status": "alert"
+    },
+    {
+      "name": "Sg. Gurun Diversion di Titi Teras (F2)",
+      "district": "Yan",
+      "status": "alert"
+    },
+    {
+      "name": "Sg. Melaka di Bukit Kemboja",
+      "district": "Langkawi",
+      "status": "alert"
+    },
+    {
+      "name": "Sg. Badak di Akademi Binaan Malaysia (ABM)",
+      "district": "Kubang Pasu",
+      "status": "alert"
+    },
+    {
+      "name": "Sg. Padang Terap di Kepala Batas",
+      "district": "Kubang Pasu",
+      "status": "alert"
+    },
+    {
+      "name": "Sg. Padang Terap di Kuala Nerang (F2)",
+      "district": "Padang Terap",
+      "status": "alert"
+    },
+    {
+      "name": "Sg. Gurun di Kg. Perupok",
+      "district": "Yan",
+      "status": "alert"
+    },
+    {
+      "name": "Sg. Pedu di Jambatan Bukit Buloh (F2)",
+      "district": "Padang Terap",
+      "status": "alert"
+    },
+    {
+      "name": "Sg. Chepir di Ulu Jerai Namek (F2)",
+      "district": "Sik",
+      "status": "alert"
+    },
+    {
+      "name": "Sg. Chapar di Sek. Keb. Sri Ampang (F2)",
+      "district": "Sik",
+      "status": "alert"
+    }
+  ],
+  "Kedah|Baling": [],
+  "Kedah|Bandar Baharu": [],
+  "Kedah|Alor Setar": [],
+  "Kedah|Kuala Muda": [],
+  "Kedah|Kubang Pasu": [
+    {
+      "name": "Sg. Badak di Akademi Binaan Malaysia (ABM)",
+      "status": "alert"
+    },
+    {
+      "name": "Sg. Padang Terap di Kepala Batas",
+      "status": "alert"
+    }
+  ],
+  "Kedah|Kulim": [
+    {
+      "name": "Sg. Jarak di Kg. Permatang Durian (F2)",
+      "status": "alert"
+    },
+    {
+      "name": "Sg. Kob di Kg. Baru (F2)",
+      "status": "alert"
+    },
+    {
+      "name": "Sg. Wang Pinang (F2)",
+      "status": "alert"
+    }
+  ],
+  "Kedah|Langkawi": [
+    {
+      "name": "Sg. Melaka di Bukit Kemboja",
+      "status": "alert"
+    }
+  ],
+  "Kedah|Padang Terap": [
+    {
+      "name": "Sg. Padang Terap di Kuala Nerang (F2)",
+      "status": "alert"
+    },
+    {
+      "name": "Sg. Pedu di Jambatan Bukit Buloh (F2)",
+      "status": "alert"
+    }
+  ],
+  "Kedah|Pendang": [],
+  "Kedah|Pokok Sena": [],
+  "Kedah|Sik": [
+    {
+      "name": "Sg. Chepir di Ulu Jerai Namek (F2)",
+      "status": "alert"
+    },
+    {
+      "name": "Sg. Chapar di Sek. Keb. Sri Ampang (F2)",
+      "status": "alert"
+    }
+  ],
+  "Kedah|Yan": [
+    {
+      "name": "Sg. Singkir di Kg. Singkir Genting (F2)",
+      "status": "alert"
+    },
+    {
+      "name": "Sg. Gurun Diversion di Titi Teras (F2)",
+      "status": "alert"
+    },
+    {
+      "name": "Sg. Gurun di Kg. Perupok",
+      "status": "alert"
+    }
+  ],
+  "Kelantan": [],
+  "Kelantan|Bachok": [],
+  "Kelantan|Gua Musang": [],
+  "Kelantan|Jeli": [],
+  "Kelantan|Kota Bharu": [],
+  "Kelantan|Kuala Kerai": [],
+  "Kelantan|Machang": [],
+  "Kelantan|Pasir Mas": [],
+  "Kelantan|Pasir Puteh": [],
+  "Kelantan|Tanah Merah": [],
+  "Kelantan|Tumpat": [],
+  "Kuala Lumpur": [],
+  "Kuala Lumpur|Kuala Lumpur": [],
+  "Labuan": [],
+  "Labuan|Labuan": [],
+  "Melaka": [
+    {
+      "name": "Sg. Siput di Jamb. Sg. Simpang Ampat (F2)",
+      "district": "Alor Gajah",
+      "status": "alert"
+    },
+    {
+      "name": "Sg. Siput di Kg. Sg. Siput (F2)",
+      "district": "Alor Gajah",
+      "status": "alert"
+    },
+    {
+      "name": "Sg. Batang Tampin di Tanjung Rimau (F2)",
+      "district": "Alor Gajah",
+      "status": "alert"
+    },
+    {
+      "name": "Sg. Batang Melaka di Jambatan Tebong (F2)",
+      "district": "Alor Gajah",
+      "status": "alert"
+    },
+    {
+      "name": "Sg. Batang Melaka di Gadek (F2)",
+      "district": "Alor Gajah",
+      "status": "alert"
+    },
+    {
+      "name": "Sg. Melaka di Melaka Pindah (F2)",
+      "district": "Alor Gajah",
+      "status": "alert"
+    },
+    {
+      "name": "Sg. Durian Tunggal di Bt. 11 Air Resam (F2)",
+      "district": "Alor Gajah",
+      "status": "alert"
+    },
+    {
+      "name": "Sg. Kesang di Selandar (F2)",
+      "district": "Jasin",
+      "status": "alert"
+    },
+    {
+      "name": "Sg. Kesang di Rumah Pam Telok Rimba (F2)",
+      "district": "Jasin",
+      "status": "alert"
+    },
+    {
+      "name": "Pintu Air Kuala Kesang (F2)",
+      "district": "Jasin",
+      "status": "alert"
+    },
+    {
+      "name": "Sg. Bemban di Bemban (F2)",
+      "district": "Jasin",
+      "status": "alert"
+    },
+    {
+      "name": "Sg. Putat di Kg. Sg. Putat (F2)",
+      "district": "Melaka Tengah",
+      "status": "alert"
+    }
+  ],
+  "Melaka|Alor Gajah": [
+    {
+      "name": "Sg. Siput di Jamb. Sg. Simpang Ampat (F2)",
+      "status": "alert"
+    },
+    {
+      "name": "Sg. Siput di Kg. Sg. Siput (F2)",
+      "status": "alert"
+    },
+    {
+      "name": "Sg. Batang Tampin di Tanjung Rimau (F2)",
+      "status": "alert"
+    },
+    {
+      "name": "Sg. Batang Melaka di Jambatan Tebong (F2)",
+      "status": "alert"
+    },
+    {
+      "name": "Sg. Batang Melaka di Gadek (F2)",
+      "status": "alert"
+    },
+    {
+      "name": "Sg. Melaka di Melaka Pindah (F2)",
+      "status": "alert"
+    },
+    {
+      "name": "Sg. Durian Tunggal di Bt. 11 Air Resam (F2)",
+      "status": "alert"
+    }
+  ],
+  "Melaka|Jasin": [
+    {
+      "name": "Sg. Kesang di Selandar (F2)",
+      "status": "alert"
+    },
+    {
+      "name": "Sg. Kesang di Rumah Pam Telok Rimba (F2)",
+      "status": "alert"
+    },
+    {
+      "name": "Pintu Air Kuala Kesang (F2)",
+      "status": "alert"
+    },
+    {
+      "name": "Sg. Bemban di Bemban (F2)",
+      "status": "alert"
+    }
+  ],
+  "Melaka|Melaka Tengah": [
+    {
+      "name": "Sg. Putat di Kg. Sg. Putat (F2)",
+      "status": "alert"
+    }
+  ],
+  "Negeri Sembilan": [
+    {
+      "name": "Sg. Serting di Kg. Datok Johan (F1)",
+      "district": "Jempol",
+      "status": "alert"
+    },
+    {
+      "name": "Sg. Batang Benar di Pekan Nilai (F2)",
+      "district": "Seremban",
+      "status": "alert"
+    },
+    {
+      "name": "Sg. Sunggala di Kg. Sawah Sunggala (F2)",
+      "district": "Port Dickson",
+      "status": "alert"
+    },
+    {
+      "name": "Sg. Palong di Kg. Jeram Panjang (F2)",
+      "district": "Jempol",
+      "status": "alert"
+    },
+    {
+      "name": "Sg. Gemas di Bukit Jalor (F2)",
+      "district": "Tampin",
+      "status": "alert"
+    }
+  ],
+  "Negeri Sembilan|Jelebu": [],
+  "Negeri Sembilan|Jempol": [
+    {
+      "name": "Sg. Serting di Kg. Datok Johan (F1)",
+      "status": "alert"
+    },
+    {
+      "name": "Sg. Palong di Kg. Jeram Panjang (F2)",
+      "status": "alert"
+    }
+  ],
+  "Negeri Sembilan|Kuala Pilah": [],
+  "Negeri Sembilan|Port Dickson": [
+    {
+      "name": "Sg. Sunggala di Kg. Sawah Sunggala (F2)",
+      "status": "alert"
+    }
+  ],
+  "Negeri Sembilan|Rembau": [],
+  "Negeri Sembilan|Seremban": [
+    {
+      "name": "Sg. Batang Benar di Pekan Nilai (F2)",
+      "status": "alert"
+    }
+  ],
+  "Negeri Sembilan|Tampin": [
+    {
+      "name": "Sg. Gemas di Bukit Jalor (F2)",
+      "status": "alert"
+    }
+  ],
+  "Pahang": [
+    {
+      "name": "Sg. Rompin di Kg. Kerpal (F2)",
+      "district": "Rompin",
+      "status": "alert"
+    },
+    {
+      "name": "Empangan Chereh (F2)",
+      "district": "Kuantan",
+      "status": "alert"
+    },
+    {
+      "name": "Sg. Kuantan di Kuantan By Pass (F2)",
+      "district": "Kuantan",
+      "status": "alert"
+    },
+    {
+      "name": "Sg. Kenau di Sg. Rimau (F2)",
+      "district": "Kuantan",
+      "status": "alert"
+    },
+    {
+      "name": "Sg. Anak Endau di Kg. Denai (F2)",
+      "district": "Rompin",
+      "status": "alert"
+    },
+    {
+      "name": "Sg. Dong di Jam. Sg. Dong (Laluan 8) (N)",
+      "district": "Raub",
+      "status": "alert"
+    },
+    {
+      "name": "Sg. Soi di Jln. Pekan-Kuantan (N)",
+      "district": "Kuantan",
+      "status": "alert"
+    },
+    {
+      "name": "Sg. Bertam di Pos Leryar (F1)",
+      "district": "Cameron Highlands",
+      "status": "alert"
+    },
+    {
+      "name": "Sg. Jelai di Kuala Medang (F1)",
+      "district": "Kuala Lipis",
+      "status": "alert"
+    },
+    {
+      "name": "Sg. Jelai di Bukit Betong (F1)",
+      "district": "Kuala Lipis",
+      "status": "alert"
+    },
+    {
+      "name": "Sg. Tembeling di Kg. Merting (F1)",
+      "district": "Jerantut",
+      "status": "alert"
+    },
+    {
+      "name": "Sg. Pahang di Jerantut Feri (F1)",
+      "district": "Jerantut",
+      "status": "alert"
+    },
+    {
+      "name": "Sg. Dong di Kg. Peruas (F1)",
+      "district": "Raub",
+      "status": "alert"
+    },
+    {
+      "name": "Sg. Semantan di Kg. Lengkong",
+      "district": "Bentong",
+      "status": "alert"
+    },
+    {
+      "name": "Sg. Triang di Jamb. Keretapi (F1)",
+      "district": "Bera",
+      "status": "alert"
+    },
+    {
+      "name": "Sg. Luit di Kg. Subuh (F1)",
+      "district": "Maran",
+      "status": "alert"
+    }
+  ],
+  "Pahang|Bentong": [
+    {
+      "name": "Sg. Semantan di Kg. Lengkong",
+      "status": "alert"
+    }
+  ],
+  "Pahang|Bera": [
+    {
+      "name": "Sg. Triang di Jamb. Keretapi (F1)",
+      "status": "alert"
+    }
+  ],
+  "Pahang|Cameron Highlands": [
+    {
+      "name": "Sg. Bertam di Pos Leryar (F1)",
+      "status": "alert"
+    }
+  ],
+  "Pahang|Jerantut": [
+    {
+      "name": "Sg. Tembeling di Kg. Merting (F1)",
+      "status": "alert"
+    },
+    {
+      "name": "Sg. Pahang di Jerantut Feri (F1)",
+      "status": "alert"
+    }
+  ],
+  "Pahang|Kuantan": [
+    {
+      "name": "Empangan Chereh (F2)",
+      "status": "alert"
+    },
+    {
+      "name": "Sg. Kuantan di Kuantan By Pass (F2)",
+      "status": "alert"
+    },
+    {
+      "name": "Sg. Kenau di Sg. Rimau (F2)",
+      "status": "alert"
+    },
+    {
+      "name": "Sg. Soi di Jln. Pekan-Kuantan (N)",
+      "status": "alert"
+    }
+  ],
+  "Pahang|Kuala Lipis": [
+    {
+      "name": "Sg. Jelai di Kuala Medang (F1)",
+      "status": "alert"
+    },
+    {
+      "name": "Sg. Jelai di Bukit Betong (F1)",
+      "status": "alert"
+    }
+  ],
+  "Pahang|Maran": [
+    {
+      "name": "Sg. Luit di Kg. Subuh (F1)",
+      "status": "alert"
+    }
+  ],
+  "Pahang|Pekan": [],
+  "Pahang|Raub": [
+    {
+      "name": "Sg. Dong di Jam. Sg. Dong (Laluan 8) (N)",
+      "status": "alert"
+    },
+    {
+      "name": "Sg. Dong di Kg. Peruas (F1)",
+      "status": "alert"
+    }
+  ],
+  "Pahang|Rompin": [
+    {
+      "name": "Sg. Rompin di Kg. Kerpal (F2)",
+      "status": "alert"
+    },
+    {
+      "name": "Sg. Anak Endau di Kg. Denai (F2)",
+      "status": "alert"
+    }
+  ],
+  "Pahang|Temerloh": [],
+  "Penang": [],
+  "Penang|Bayan Lepas": [],
+  "Penang|Nibong Tebal": [],
+  "Penang|Bukit Mertajam": [],
+  "Penang|Butterworth": [],
+  "Penang|George Town": [],
+  "Perak": [
+    {
+      "name": "Sg. Plus di Kg. Lintang",
+      "district": "Kuala Kangsar",
+      "status": "alert"
+    },
+    {
+      "name": "Sg. Slim di Slim River",
+      "district": "Muallim",
+      "status": "alert"
+    }
+  ],
+  "Perak|Tapah": [
+    {
+      "name": "Sg. Plus di Kg. Lintang",
+      "district": "Kuala Kangsar",
+      "status": "alert"
+    },
+    {
+      "name": "Sg. Slim di Slim River",
+      "district": "Muallim",
+      "status": "alert"
+    }
+  ],
+  "Perak|Teluk Intan": [],
+  "Perak|Gerik": [
+    {
+      "name": "Sg. Plus di Kg. Lintang",
+      "district": "Kuala Kangsar",
+      "status": "alert"
+    },
+    {
+      "name": "Sg. Slim di Slim River",
+      "district": "Muallim",
+      "status": "alert"
+    }
+  ],
+  "Perak|Kampar": [],
+  "Perak|Parit Buntar": [
+    {
+      "name": "Sg. Plus di Kg. Lintang",
+      "district": "Kuala Kangsar",
+      "status": "alert"
+    },
+    {
+      "name": "Sg. Slim di Slim River",
+      "district": "Muallim",
+      "status": "alert"
+    }
+  ],
+  "Perak|Ipoh": [],
+  "Perak|Kuala Kangsar": [
+    {
+      "name": "Sg. Plus di Kg. Lintang",
+      "status": "alert"
+    }
+  ],
+  "Perak|Taiping": [
+    {
+      "name": "Sg. Plus di Kg. Lintang",
+      "district": "Kuala Kangsar",
+      "status": "alert"
+    },
+    {
+      "name": "Sg. Slim di Slim River",
+      "district": "Muallim",
+      "status": "alert"
+    }
+  ],
+  "Perak|Manjung": [
+    {
+      "name": "Sg. Plus di Kg. Lintang",
+      "district": "Kuala Kangsar",
+      "status": "alert"
+    },
+    {
+      "name": "Sg. Slim di Slim River",
+      "district": "Muallim",
+      "status": "alert"
+    }
+  ],
+  "Perak|Seri Iskandar": [],
+  "Perlis": [
+    {
+      "name": "Sg.Pelarit di Wang Kelian (F2)",
+      "district": "Padang Besar",
+      "status": "alert"
+    },
+    {
+      "name": "Sg. Jarum di Kg. Masjid",
+      "district": "Padang Besar",
+      "status": "alert"
+    },
+    {
+      "name": "Sg. Arau di Kolam Sg. Jernih (F2)",
+      "district": "Arau",
+      "status": "alert"
+    },
+    {
+      "name": "Sg. Arau di Istana (F2)",
+      "district": "Arau",
+      "status": "alert"
+    },
+    {
+      "name": "Sg. Kg. Bakau di Kg. Bakau",
+      "district": "Kangar",
+      "status": "alert"
+    }
+  ],
+  "Perlis|Perlis": [
+    {
+      "name": "Sg.Pelarit di Wang Kelian (F2)",
+      "district": "Padang Besar",
+      "status": "alert"
+    },
+    {
+      "name": "Sg. Jarum di Kg. Masjid",
+      "district": "Padang Besar",
+      "status": "alert"
+    },
+    {
+      "name": "Sg. Arau di Kolam Sg. Jernih (F2)",
+      "district": "Arau",
+      "status": "alert"
+    },
+    {
+      "name": "Sg. Arau di Istana (F2)",
+      "district": "Arau",
+      "status": "alert"
+    },
+    {
+      "name": "Sg. Kg. Bakau di Kg. Bakau",
+      "district": "Kangar",
+      "status": "alert"
+    }
+  ],
+  "Putrajaya": [],
+  "Putrajaya|Putrajaya": [],
+  "Sabah": [],
+  "Sabah|Beaufort": [],
+  "Sabah|Beluran": [],
+  "Sabah|Keningau": [],
+  "Sabah|Kinabatangan": [],
+  "Sabah|Kota Belud": [],
+  "Sabah|Kota Kinabalu": [],
+  "Sabah|Kota Marudu": [],
+  "Sabah|Kuala Penyu": [],
+  "Sabah|Kudat": [],
+  "Sabah|Kunak": [],
+  "Sabah|Lahad Datu": [],
+  "Sabah|Nabawan": [],
+  "Sabah|Papar": [],
+  "Sabah|Penampang": [],
+  "Sabah|Pitas": [],
+  "Sabah|Putatan": [],
+  "Sabah|Ranau": [],
+  "Sabah|Sandakan": [],
+  "Sabah|Semporna": [],
+  "Sabah|Sipitang": [],
+  "Sabah|Tambunan": [],
+  "Sabah|Tawau": [],
+  "Sabah|Tenom": [],
+  "Sabah|Tongod": [],
+  "Sabah|Tuaran": [],
+  "Sarawak": [
+    {
+      "name": "2026 annual flood risk (no live station list for this state)",
+      "district": null,
+      "status": "alert"
+    }
+  ],
+  "Sarawak|Asajaya": [],
+  "Sarawak|Bau": [],
+  "Sarawak|Belaga": [],
+  "Sarawak|Betong": [
+    {
+      "name": "Betong — 2026 annual flood risk (no live station list)",
+      "district": "Betong",
+      "status": "alert"
+    }
+  ],
+  "Sarawak|Bintulu": [
+    {
+      "name": "Bintulu — 2026 annual flood risk (no live station list)",
+      "district": "Bintulu",
+      "status": "alert"
+    }
+  ],
+  "Sarawak|Dalat": [],
+  "Sarawak|Daro": [],
+  "Sarawak|Julau": [],
+  "Sarawak|Kanowit": [],
+  "Sarawak|Kapit": [
+    {
+      "name": "Kapit — 2026 annual flood risk (no live station list)",
+      "district": "Kapit",
+      "status": "alert"
+    }
+  ],
+  "Sarawak|Kuching": [
+    {
+      "name": "Kuching — 2026 annual flood risk (no live station list)",
+      "district": "Kuching",
+      "status": "alert"
+    }
+  ],
+  "Sarawak|Lawas": [],
+  "Sarawak|Limbang": [
+    {
+      "name": "Limbang — 2026 annual flood risk (no live station list)",
+      "district": "Limbang",
+      "status": "alert"
+    }
+  ],
+  "Sarawak|Lubok Antu": [],
+  "Sarawak|Lundu": [],
+  "Sarawak|Marudi": [],
+  "Sarawak|Matu": [],
+  "Sarawak|Maradong": [],
+  "Sarawak|Miri": [
+    {
+      "name": "Miri — 2026 annual flood risk (no live station list)",
+      "district": "Miri",
+      "status": "alert"
+    }
+  ],
+  "Sarawak|Mukah": [
+    {
+      "name": "Mukah — 2026 annual flood risk (no live station list)",
+      "district": "Mukah",
+      "status": "alert"
+    }
+  ],
+  "Sarawak|Pakan": [],
+  "Sarawak|Samarahan": [
+    {
+      "name": "Samarahan — 2026 annual flood risk (no live station list)",
+      "district": "Samarahan",
+      "status": "alert"
+    }
+  ],
+  "Sarawak|Saratok": [],
+  "Sarawak|Sarikei": [
+    {
+      "name": "Sarikei — 2026 annual flood risk (no live station list)",
+      "district": "Sarikei",
+      "status": "alert"
+    }
+  ],
+  "Sarawak|Selangau": [],
+  "Sarawak|Serian": [],
+  "Sarawak|Sibu": [
+    {
+      "name": "Sibu — 2026 annual flood risk (no live station list)",
+      "district": "Sibu",
+      "status": "alert"
+    }
+  ],
+  "Sarawak|Simunjan": [],
+  "Sarawak|Song": [],
+  "Sarawak|Sri Aman": [
+    {
+      "name": "Sri Aman — 2026 annual flood risk (no live station list)",
+      "district": "Sri Aman",
+      "status": "alert"
+    }
+  ],
+  "Sarawak|Tatau": [],
+  "Selangor": [],
+  "Selangor|Gombak": [],
+  "Selangor|Hulu Langat": [],
+  "Selangor|Hulu Selangor": [],
+  "Selangor|Klang": [],
+  "Selangor|Kuala Langat": [],
+  "Selangor|Kuala Selangor": [],
+  "Selangor|Petaling": [],
+  "Selangor|Sabak Bernam": [],
+  "Selangor|Sepang": [],
+  "Terengganu": [
+    {
+      "name": "Sg. Besut di Kg. La",
+      "district": "Besut",
+      "status": "alert"
+    },
+    {
+      "name": "Sg. Setiu di Kg. Besut",
+      "district": "Setiu",
+      "status": "alert"
+    },
+    {
+      "name": "Empangan Puah (F1)",
+      "district": "Hulu Terengganu",
+      "status": "alert"
+    },
+    {
+      "name": "Sg. Berang di Kg. Menerong",
+      "district": "Hulu Terengganu",
+      "status": "alert"
+    },
+    {
+      "name": "Sg. Peneh di Felda Mengkawang",
+      "district": "Hulu Terengganu",
+      "status": "alert"
+    },
+    {
+      "name": "Sg. Terengganu di Drawbridge (F1)",
+      "district": "Kuala Terengganu",
+      "status": "alert"
+    },
+    {
+      "name": "Sg. Dungun di Kg. Pasir Raja",
+      "district": "Dungun",
+      "status": "alert"
+    },
+    {
+      "name": "Sg. Cherul di Jambatan Ban Ho",
+      "district": "Kemaman",
+      "status": "alert"
+    },
+    {
+      "name": "Sg. Tumpat di Kg. Baru Kemasik",
+      "district": "Kemaman",
+      "status": "alert"
+    },
+    {
+      "name": "Sg. Besut di Jambatan Keruak (F2)",
+      "district": "Besut",
+      "status": "alert"
+    },
+    {
+      "name": "Sg. Besut di Kg. La (F2)",
+      "district": "Besut",
+      "status": "alert"
+    },
+    {
+      "name": "Sg. Chalok di Jambatan Chalok (F2)",
+      "district": "Setiu",
+      "status": "alert"
+    },
+    {
+      "name": "Sg. Guntung di Jambatan Guntung (F2)",
+      "district": "Setiu",
+      "status": "alert"
+    },
+    {
+      "name": "Sg. Dungun di Kuala Jengai (F2)",
+      "district": "Dungun",
+      "status": "alert"
+    },
+    {
+      "name": "Sg. Mas di Kg. Sg. Mas (F2)",
+      "district": "Kemaman",
+      "status": "alert"
+    },
+    {
+      "name": "Muara Sg. Kemaman di Kg. Geliga (F2)",
+      "district": "Kemaman",
+      "status": "alert"
+    }
+  ],
+  "Terengganu|Besut": [
+    {
+      "name": "Sg. Besut di Kg. La",
+      "status": "alert"
+    },
+    {
+      "name": "Sg. Besut di Jambatan Keruak (F2)",
+      "status": "alert"
+    },
+    {
+      "name": "Sg. Besut di Kg. La (F2)",
+      "status": "alert"
+    }
+  ],
+  "Terengganu|Dungun": [
+    {
+      "name": "Sg. Dungun di Kg. Pasir Raja",
+      "status": "alert"
+    },
+    {
+      "name": "Sg. Dungun di Kuala Jengai (F2)",
+      "status": "alert"
+    }
+  ],
+  "Terengganu|Hulu Terengganu": [
+    {
+      "name": "Empangan Puah (F1)",
+      "status": "alert"
+    },
+    {
+      "name": "Sg. Berang di Kg. Menerong",
+      "status": "alert"
+    },
+    {
+      "name": "Sg. Peneh di Felda Mengkawang",
+      "status": "alert"
+    }
+  ],
+  "Terengganu|Kemaman": [
+    {
+      "name": "Sg. Cherul di Jambatan Ban Ho",
+      "status": "alert"
+    },
+    {
+      "name": "Sg. Tumpat di Kg. Baru Kemasik",
+      "status": "alert"
+    },
+    {
+      "name": "Sg. Mas di Kg. Sg. Mas (F2)",
+      "status": "alert"
+    },
+    {
+      "name": "Muara Sg. Kemaman di Kg. Geliga (F2)",
+      "status": "alert"
+    }
+  ],
+  "Terengganu|Kuala Terengganu": [
+    {
+      "name": "Sg. Terengganu di Drawbridge (F1)",
+      "status": "alert"
+    }
+  ],
+  "Terengganu|Marang": [],
+  "Terengganu|Setiu": [
+    {
+      "name": "Sg. Setiu di Kg. Besut",
+      "status": "alert"
+    },
+    {
+      "name": "Sg. Chalok di Jambatan Chalok (F2)",
+      "status": "alert"
+    },
+    {
+      "name": "Sg. Guntung di Jambatan Guntung (F2)",
+      "status": "alert"
+    }
+  ]
+}

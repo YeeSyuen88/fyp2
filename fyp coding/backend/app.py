@@ -7,6 +7,7 @@ import os
 import json
 import urllib.request
 import urllib.error
+import urllib.parse
 import numpy as np
 from flask import Flask, jsonify, request, send_from_directory, session
 
@@ -65,7 +66,22 @@ _data = None
 _estimator_artifact = None
 _area_summary = None
 
-# Map GeoJSON/map state name -> our dataset state name (e.g. Trengganu on map = Terengganu in data)
+# Flood risk: static JSON (flood_risk.json from Public Infobanjir script). Optional FLOOD_API_URL for external API.
+FLOOD_RISK_JSON_PATH = os.path.join(BASE_DIR, "data", "flood_risk.json")
+FLOOD_STATIONS_JSON_PATH = os.path.join(BASE_DIR, "data", "flood_risk_stations.json")
+DATA_GOV_MY_BASE = "https://api.data.gov.my"
+USE_DATA_GOV_MY_FLOOD = os.environ.get("USE_DATA_GOV_MY_FLOOD", "false").strip().lower() == "true"
+DATA_GOV_MY_CACHE_MINUTES = int(os.environ.get("DATA_GOV_MY_CACHE_MINUTES", "15"))
+FLOOD_API_URL = os.environ.get("FLOOD_API_URL", "").strip()  # leave empty; Banjir API is no longer reliable
+FLOOD_API_CACHE_MINUTES = int(os.environ.get("FLOOD_API_CACHE_MINUTES", "60"))
+_flood_static = None
+_flood_static_mtime = None
+_flood_stations = None
+_flood_stations_mtime = None
+_flood_cache = {}  # key -> (value, expiry_time)
+_data_gov_my_cache = {}  # key -> (summary, stations_list, expiry)
+
+# Map GeoJSON/map names -> keys used in flood_risk.json and predictions (so district lookup matches)
 STATE_NAME_MAP = {
     "Trengganu": "Terengganu",
     "Pulau Pinang": "Penang",
@@ -73,7 +89,6 @@ STATE_NAME_MAP = {
     "W.P. Labuan": "Labuan",
     "W.P. Putrajaya": "Putrajaya",
 }
-# Map GeoJSON/map district name -> our dataset district name (e.g. Keluang on map = Kluang in data)
 DISTRICT_NAME_MAP = {
     "Keluang": "Kluang",
     "Kota Bahru": "Kota Bharu",
@@ -81,18 +96,13 @@ DISTRICT_NAME_MAP = {
     "Tanjong": "Tanjung",
     "Telok": "Teluk",
     "Pekan Nenas": "Pekan Nanas",
-    # Johor
     "Johor Baharu": "Johor Bahru",
     "Kulaijaya": "Kulai",
     "Ledang": "Tangkak",
-    # Kedah
     "Kota Setar": "Alor Setar",
-    # Kelantan
     "Pasir Putih": "Pasir Puteh",
     "Kuala Krai": "Kuala Kerai",
-    # Pahang
     "Lipis": "Kuala Lipis",
-    # Perak
     "Larut and Matang": "Taiping",
     "Hilir Perak": "Teluk Intan",
     "Hulu Perak": "Gerik",
@@ -100,15 +110,231 @@ DISTRICT_NAME_MAP = {
     "Kinta": "Ipoh",
     "Kerian": "Parit Buntar",
     "Batang Padang": "Tapah",
-    # Penang (Pulau Pinang)
     "Barat Daya": "Bayan Lepas",
     "Timur Laut": "George Town",
     "Seberang Perai Selatan": "Nibong Tebal",
     "Seberang Perai Tengah": "Bukit Mertajam",
     "Seberang Perai Utara": "Butterworth",
-    # Sarawak
     "Meradong": "Maradong",
 }
+
+# Area/town (estimator dropdown) -> actual district for flood_risk lookup. Built-in + data/estimator_area_to_district.json.
+AREA_TO_DISTRICT_MAP = {
+    "Johor": {"Ayer Hitam": "Kluang"},
+}
+ESTIMATOR_AREA_TO_DISTRICT_PATH = os.path.join(BASE_DIR, "data", "estimator_area_to_district.json")
+_estimator_area_to_district = None
+
+
+def _load_estimator_area_to_district():
+    """Load data/estimator_area_to_district.json (area -> district per state). Merged with AREA_TO_DISTRICT_MAP."""
+    global _estimator_area_to_district
+    if _estimator_area_to_district is not None:
+        return _estimator_area_to_district
+    out = {k: dict(v) for k, v in AREA_TO_DISTRICT_MAP.items()}
+    if os.path.isfile(ESTIMATOR_AREA_TO_DISTRICT_PATH):
+        try:
+            with open(ESTIMATOR_AREA_TO_DISTRICT_PATH, "r", encoding="utf-8") as f:
+                data = json.load(f)
+            for state, mapping in data.items():
+                if state.startswith("_") or not isinstance(mapping, dict):
+                    continue
+                if state not in out:
+                    out[state] = {}
+                for area, district in mapping.items():
+                    if area.startswith("_"):
+                        continue
+                    out[state][area] = district
+        except Exception:
+            pass
+    _estimator_area_to_district = out
+    return _estimator_area_to_district
+
+
+def _resolve_district_for_flood(state_name, district_selection):
+    """Resolve estimator selection (may be town/area) to district name for flood_risk lookup. E.g. Ayer Hitam -> Kluang."""
+    if not district_selection:
+        return None
+    state_key = STATE_NAME_MAP.get(state_name, state_name)
+    by_state = _load_estimator_area_to_district()
+    for key in (state_key, state_name):
+        if key in by_state and district_selection in by_state[key]:
+            return by_state[key][district_selection]
+    return district_selection
+
+
+def _load_flood_static(reload=False):
+    """Load flood_risk.json. Reload automatically if file was updated (e.g. after fetch_flood_risk.py)."""
+    global _flood_static, _flood_static_mtime
+    if reload:
+        _flood_static = None
+        _flood_static_mtime = None
+    try:
+        mtime = os.path.getmtime(FLOOD_RISK_JSON_PATH) if os.path.isfile(FLOOD_RISK_JSON_PATH) else 0
+    except OSError:
+        mtime = 0
+    if _flood_static is not None and (_flood_static_mtime is None or _flood_static_mtime == mtime):
+        return _flood_static
+    _flood_static = {}
+    _flood_static_mtime = mtime
+    if os.path.isfile(FLOOD_RISK_JSON_PATH):
+        try:
+            with open(FLOOD_RISK_JSON_PATH, "r", encoding="utf-8") as f:
+                _flood_static = json.load(f)
+        except Exception:
+            pass
+    return _flood_static
+
+
+def _load_flood_stations(reload=False):
+    """Load flood_risk_stations.json (list of alert stations per state/district). Reload when file changes."""
+    global _flood_stations, _flood_stations_mtime
+    if reload:
+        _flood_stations = None
+        _flood_stations_mtime = None
+    try:
+        mtime = os.path.getmtime(FLOOD_STATIONS_JSON_PATH) if os.path.isfile(FLOOD_STATIONS_JSON_PATH) else 0
+    except OSError:
+        mtime = 0
+    if _flood_stations is not None and (_flood_stations_mtime is None or _flood_stations_mtime == mtime):
+        return _flood_stations
+    _flood_stations = {}
+    _flood_stations_mtime = mtime
+    if os.path.isfile(FLOOD_STATIONS_JSON_PATH):
+        try:
+            with open(FLOOD_STATIONS_JSON_PATH, "r", encoding="utf-8") as f:
+                _flood_stations = json.load(f)
+        except Exception:
+            pass
+    return _flood_stations
+
+
+def _flood_api_param(name):
+    """Convert state/district name for API (lowercase, strip)."""
+    if not name:
+        return ""
+    return name.strip().lower().replace(" ", "%20")
+
+
+def _fetch_flood_from_data_gov_my(state_key, district_key=None):
+    """
+    Call Malaysia data.gov.my flood-warning API (same source as Weather MCP MY).
+    Returns (summary_string, stations_list) or (None, []) on failure.
+    """
+    import time
+    cache_key = f"{state_key}|{district_key or ''}"
+    now = time.time()
+    expiry = now + (DATA_GOV_MY_CACHE_MINUTES * 60)
+    if cache_key in _data_gov_my_cache:
+        summary, stations, exp = _data_gov_my_cache[cache_key]
+        if now < exp:
+            return summary, stations
+    icontains = f"{district_key}@district" if district_key else f"{state_key}@state"
+    params = {
+        "meta": "true",
+        "sort": "-water_level_update_datetime,-rainfall_update_datetime",
+        "icontains": icontains,
+        "filter": "ON@water_level_status",
+        "limit": "50",
+    }
+    try:
+        url = f"{DATA_GOV_MY_BASE}/flood-warning?{urllib.parse.urlencode(params)}"
+        req = urllib.request.Request(url, headers={"User-Agent": "EstateView/1.0 (Malaysia property)"})
+        with urllib.request.urlopen(req, timeout=12) as resp:
+            data = json.loads(resp.read().decode("utf-8"))
+    except Exception:
+        _data_gov_my_cache[cache_key] = (None, [], now + 60)
+        return None, []
+    items = data.get("data") or []
+    danger = warning = alert = normal = 0
+    stations = []
+    for w in items:
+        ind = (w.get("water_level_indicator") or "Normal").strip().lower()
+        if "danger" in ind or ind == "bahaya":
+            status = "danger"
+            danger += 1
+        elif "warning" in ind or ind == "amaran":
+            status = "warning"
+            warning += 1
+        elif "alert" in ind or ind == "waspada":
+            status = "alert"
+            alert += 1
+        else:
+            status = "normal"
+            normal += 1
+        name = w.get("station_name") or w.get("station_id") or "Station"
+        stations.append({
+            "name": name,
+            "status": status,
+            "district": w.get("district"),
+        })
+    if danger:
+        summary = f"High (Danger: {danger} station(s))"
+    elif warning:
+        summary = f"Medium (Warning: {warning} station(s))"
+    elif alert:
+        summary = f"Low (Alert: {alert} station(s))"
+    elif normal or items:
+        summary = "Normal"
+    else:
+        summary = "No active water level data for this area."
+    _data_gov_my_cache[cache_key] = (summary, stations, expiry)
+    return summary, stations
+
+
+def get_flood_risk(state_name, district_name=None):
+    """
+    Get flood risk for state (and optionally district).
+    Look up data/flood_risk.json by "State" or "State|District".
+    State/district are normalized (GeoJSON/map names -> dataset names) so district
+    matches the JPS district keys we store (alert stations per district).
+    """
+    if not state_name:
+        return None
+    static = _load_flood_static()
+    # Normalize so map/GeoJSON names (e.g. Ledang) match flood_risk keys (e.g. Tangkak)
+    state_key = STATE_NAME_MAP.get(state_name, state_name)
+    district_key = DISTRICT_NAME_MAP.get(district_name, district_name) if district_name else None
+    key_district = f"{state_key}|{district_key}" if district_key else None
+    key_state = state_key
+    if key_district and key_district in static:
+        return static[key_district]
+    if key_state in static:
+        return static[key_state]
+    if USE_DATA_GOV_MY_FLOOD:
+        summary, _ = _fetch_flood_from_data_gov_my(state_key, district_key)
+        if summary:
+            return summary
+    if not FLOOD_API_URL:
+        return None
+    cache_key = f"{state_name}|{district_name or ''}"
+    import time
+    now = time.time()
+    if cache_key in _flood_cache:
+        val, expiry = _flood_cache[cache_key]
+        if now < expiry:
+            return val
+    negeri = _flood_api_param(state_name)
+    daerah = _flood_api_param(district_name) if district_name else ""
+    try:
+        url = FLOOD_API_URL + ("&" if "?" in FLOOD_API_URL else "?")
+        url += f"negeri={negeri}"
+        if daerah:
+            url += f"&daerah={daerah}"
+        req = urllib.request.Request(url, headers={"User-Agent": "EstateView/1.0"})
+        with urllib.request.urlopen(req, timeout=8) as resp:
+            data = json.loads(resp.read().decode("utf-8"))
+    except Exception:
+        _flood_cache[cache_key] = (None, now + 60)
+        return None
+    count = 0
+    if isinstance(data, list):
+        count = len(data)
+    elif isinstance(data, dict):
+        count = len(data.get("reports", data.get("data", [])))
+    label = "No active reports" if count == 0 else f"{count} active report(s)"
+    _flood_cache[cache_key] = (label, now + (FLOOD_API_CACHE_MINUTES * 60))
+    return label
 
 
 def load_predictions():
@@ -124,11 +350,48 @@ def health():
     return jsonify({"status": "ok"})
 
 
+@app.route("/api/reload-flood")
+def reload_flood():
+    """Re-load flood_risk.json and flood_risk_stations.json from disk; clear data.gov.my cache."""
+    global _data_gov_my_cache
+    _load_flood_static(reload=True)
+    _load_flood_stations(reload=True)
+    _data_gov_my_cache = {}
+    return jsonify({"ok": True, "message": "Flood data re-read; data.gov.my cache cleared."})
+
+
+@app.route("/api/flood-stations")
+def flood_stations():
+    """List alert/warning/danger stations for an area. Query: state (required), district (optional).
+    Uses static flood_risk_stations.json (from Public Infobanjir fetch script)."""
+    state_name = request.args.get("state", "").strip()
+    district_name = request.args.get("district", "").strip()
+    if not state_name:
+        return jsonify({"error": "Missing state"}), 400
+    state_key = STATE_NAME_MAP.get(state_name, state_name)
+    district_key = DISTRICT_NAME_MAP.get(district_name, district_name) if district_name else None
+    key = f"{state_key}|{district_key}" if district_key else state_key
+    if USE_DATA_GOV_MY_FLOOD:
+        _, stations = _fetch_flood_from_data_gov_my(state_key, district_key)
+        return jsonify({"stations": stations})
+    data = _load_flood_stations()
+    stations = data.get(key, [])
+    return jsonify({"stations": stations})
+
+
 @app.route("/api/predictions")
 def predictions():
-    """Return full predictions (state + district)."""
+    """Return full predictions (state + district) with flood_risk from data/flood_risk.json."""
     data = load_predictions()
-    return jsonify(data)
+    # Enrich with flood risk so the map (which uses this payload) shows it
+    out = {"state": {}, "district": {}, "metrics": data.get("metrics", {})}
+    for key, obj in data.get("state", {}).items():
+        out["state"][key] = {**obj, "flood_risk": get_flood_risk(key) or obj.get("flood_risk")}
+    for key, obj in data.get("district", {}).items():
+        parts = key.split("|", 1)
+        s, d = (parts[0], parts[1]) if len(parts) == 2 else (key, None)
+        out["district"][key] = {**obj, "flood_risk": get_flood_risk(s, d) or obj.get("flood_risk")}
+    return jsonify(out)
 
 
 @app.route("/api/state/<name>")
@@ -142,7 +405,7 @@ def state(name):
         return jsonify({"error": "State not found"}), 404
     out = states[key].copy()
     out["name"] = key
-    out["flood_risk"] = out.get("flood_risk") or "Data pending"
+    out["flood_risk"] = out.get("flood_risk") or get_flood_risk(key) or "Data pending"
     return jsonify(out)
 
 
@@ -173,13 +436,13 @@ def district():
                 out = states[state_for_data].copy()
                 out["state"] = state_name
                 out["district"] = district_name
-                out["flood_risk"] = out.get("flood_risk") or "Data pending"
+                out["flood_risk"] = out.get("flood_risk") or get_flood_risk(state_name, district_name) or "Data pending"
                 return jsonify(out)
         return jsonify({"error": "District not found"}), 404
     out = districts[key].copy()
     out["state"] = state_name
     out["district"] = district_name
-    out["flood_risk"] = out.get("flood_risk") or "Data pending"
+    out["flood_risk"] = out.get("flood_risk") or get_flood_risk(state_name, district_name) or "Data pending"
     return jsonify(out)
 
 
@@ -292,12 +555,15 @@ def estimate():
             "max": range_entry.get("bedrooms_max"),
         }
 
+    # Flood risk: state when no area selected; when area selected, use district-level (resolve town to district e.g. Ayer Hitam -> Kluang).
+    district_for_flood = _resolve_district_for_flood(state, district) if district else None
+    flood_risk = get_flood_risk(state, district_for_flood) if state else None
     return jsonify({
         "predicted_price_1month": round(float(predicted_price_1month), 2),
         "confidence_score": confidence_score,
         "floor_area_range_sqft": floor_area_range_sqft,
         "rooms_range": rooms_range,
-        "flood_risk": None,
+        "flood_risk": flood_risk,
     })
 
 
